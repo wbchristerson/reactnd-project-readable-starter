@@ -7,6 +7,7 @@ class Main extends Component {
   state = {
     postModalOpen: false,
     currentPost: null,
+    postCount: 0
   }
 
   componentWillMount() {
@@ -25,6 +26,28 @@ class Main extends Component {
       postModalOpen: false,
       currentPost: null,
     }))
+  }
+
+  getPosts = () => {
+    fetch(
+      '/posts',
+      {
+        headers: { 'Authorization': '314' }
+      }
+    ).then((posts) => {
+      console.log(posts);
+      let postsArr = Object.keys(posts).map(function(key) {
+        return posts[key];
+      });
+      console.log(postsArr);
+    })
+  }
+
+  submitPost = () => {
+    let id = this.state.postCount;
+    let date = Date.now();
+    console.log("ID: ", this.state.postCount);
+    console.log("Date: ", date);
   }
 
   orderByFunc = () => {
@@ -116,8 +139,8 @@ class Main extends Component {
               </label>
               <textarea className="content-input" rows="12" cols="50" placeholder="Content"/>
               <div className="modal-buttons-set">
-                <button className="modal-button">Submit</button>
-                <button className="modal-button">Cancel</button>
+                <button className="modal-button" onClick={this.submitPost}>Submit</button>
+                <button className="modal-button" onClick={this.getPosts}>Cancel</button>
               </div>
             </div>
           </div>
