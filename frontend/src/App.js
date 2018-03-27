@@ -73,6 +73,14 @@ class App extends Component {
       </div>
     );
   }
+
 }
 
-export default App;
+function mapStateToProps (ourState) {
+  return {
+    name: 'Tyler'
+  }
+}
+
+// export default connect(mapStateToProps)(App)
+export default App

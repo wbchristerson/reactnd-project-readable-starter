@@ -1,8 +1,32 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Comment from './Comment'
+import Modal from 'react-modal'
 
 class Main extends Component {
+  state = {
+    postModalOpen: false,
+    currentPost: null,
+  }
+
+  componentWillMount() {
+    Modal.setAppElement('body');
+  }
+
+  postModalOpen = ({ post }) => {
+    this.setState(() => ({
+      postModalOpen: true,
+      currentPost: post,
+    }))
+  }
+
+  postModalClose = () => {
+    this.setState(() => ({
+      postModalOpen: false,
+      currentPost: null,
+    }))
+  }
+
   orderByFunc = () => {
     document.getElementById("orderDropdown").classList.toggle("show");
   }
@@ -25,13 +49,14 @@ class Main extends Component {
   // </div>
 
   render() {
+    const { postModalOpen } = this.state
     return (
       <div>
         <div className="wrapper horizontal-direction">
           <div className="sort-by">
             <p>Order By: </p>
             <div className="dropdown">
-              <button className="dropbtn" onClick={this.orderByFunc}>Number Of Votes   <i className="fa fa-arrow-down"></i></button>
+              <button className="dropbtn order-button" onClick={this.orderByFunc}>Number Of Votes   <i className="fa fa-arrow-down"></i></button>
               <div id="orderDropdown" className="dropdown-content">
                 <a>Number Of Votes</a>
                 <a>Original Post Date</a>
@@ -40,7 +65,7 @@ class Main extends Component {
           </div>
 
           <div className="add-comment">
-            <button className="dropbtn"><i className="fa fa-plus"></i> Add A Post</button>
+            <button onClick={() => this.postModalOpen({})} className="dropbtn"><i className="fa fa-plus"></i> Add A Post</button>
           </div>
         </div>
 
@@ -59,6 +84,44 @@ class Main extends Component {
             <Comment />
           </Link>
         </div>
+
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={postModalOpen}
+          onRequestClose={this.postModalClose}
+          contentLabel='Modal'
+        >
+          <div className='post-creation-container'>
+            <h3 className='subheader'>
+              Compose A Readable Post!
+            </h3>
+            <div className="post-content-container">
+              <input className="post-input-short" type="text" name="title" placeholder="Title"/>
+              <input className="post-input-short" type="text" name="author" placeholder="Author"/>
+              <label className="category-radio-list">
+                Category:
+                <div className="radio-element">
+                  <input type="radio" name="category" value="react"/>
+                  <label>React</label>
+                </div>
+                <div className="radio-element">
+                  <input type="radio" name="category" value="redux"/>
+                  <label>Redux</label>
+                </div>
+                <div className="radio-element">
+                  <input type="radio" name="category" value="udacity"/>
+                  <label>Udacity</label>
+                </div>
+              </label>
+              <textarea className="content-input" rows="12" cols="50" placeholder="Content"/>
+              <div className="modal-buttons-set">
+                <button className="modal-button">Submit</button>
+                <button className="modal-button">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </Modal>
       </div>
     )
   }
