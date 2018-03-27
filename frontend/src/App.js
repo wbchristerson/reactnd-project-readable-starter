@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 import './App.css'
 import Main from './Main'
 import Post from './Post'
+import { connect } from 'react-redux'
 // import Comment from './Comment'
 // import { Link } from 'react-router-dom';
 
@@ -23,9 +24,27 @@ import Post from './Post'
  *
  * The clickable dropdown structure here and in index.css is based on the tutorial found here:
  * https://www.w3schools.com/howto/howto_js_dropdown.asp
+ *
+ * Use of redux throughout this class was based on the Udacity lectures and videos
+ * for React & Redux
  */
 
 class App extends Component {
+  // store = {
+  //   posts: [],
+  //   comments: []
+  // }
+  // componentDidMount() {
+  //   const { store } = this.props
+  //
+  //   store.subscribre(() => {
+  //     this.setState(() => ({
+  //       posts: store.getState().posts,
+  //       comments: store.getState().comments
+  //     }))
+  //   })
+  // }
+
   render() {
     return (
       <div>

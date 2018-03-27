@@ -25,3 +25,5 @@ function updatePost (state = initialDataState, action) {
       return state
   }
 }
+
+export default updatePost
