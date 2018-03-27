@@ -127,6 +127,7 @@ a {
   border: none;
   cursor: pointer;
   margin-bottom: 0;
+  height: 50px;
 }
 
 .dropbtn:hover, .dropbtn:focus {
@@ -168,6 +169,7 @@ a {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
+  justify-content: space-between;
   /* min-width: 40%; */
 }
 
@@ -325,4 +327,17 @@ a {
 
 button {
   cursor: pointer;
+}
+
+.sort-by {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+.add-comment {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

@@ -28,22 +28,22 @@ class Main extends Component {
     return (
       <div>
         <div className="wrapper horizontal-direction">
-          <p>Order By: </p>
-          <div className="dropdown">
-            <button className="dropbtn" onClick={this.orderByFunc}>Number Of Votes   <i className="fa fa-arrow-down"></i></button>
-            <div id="orderDropdown" className="dropdown-content">
-              <a>Number Of Votes</a>
-              <a>Original Post Date</a>
+          <div className="sort-by">
+            <p>Order By: </p>
+            <div className="dropdown">
+              <button className="dropbtn" onClick={this.orderByFunc}>Number Of Votes   <i className="fa fa-arrow-down"></i></button>
+              <div id="orderDropdown" className="dropdown-content">
+                <a>Number Of Votes</a>
+                <a>Original Post Date</a>
+              </div>
             </div>
+          </div>
+
+          <div className="add-comment">
+            <button className="dropbtn"><i className="fa fa-plus"></i> Add A Post</button>
           </div>
         </div>
 
-        <div className="wrapper horizontal-direction">
-          <p>Add A Post: </p>
-          <button className="add-post">
-            <i className="fa fa-plus"></i>
-          </button>
-        </div>
 
         <div className="wrapper all-posts">
           <Link to="/post">
