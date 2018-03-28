@@ -1,22 +1,9 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
-// import logo from './logo.svg';
 import './App.css'
 import Main from './Main'
 import Post from './Post'
 import { connect } from 'react-redux'
-// import Comment from './Comment'
-// import { Link } from 'react-router-dom';
-
-// <div className="App">
-// <header className="App-header">
-// <img src={logo} className="App-logo" alt="logo" />
-// <h1 className="App-title">Welcome to React</h1>
-// </header>
-// <p className="App-intro">
-// To get started, edit <code>src/App.js</code> and save to reload.
-// </p>
-// </div>
 
 /*
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this
@@ -30,21 +17,6 @@ import { connect } from 'react-redux'
  */
 
 class App extends Component {
-  // store = {
-  //   posts: [],
-  //   comments: []
-  // }
-  // componentDidMount() {
-  //   const { store } = this.props
-  //
-  //   store.subscribre(() => {
-  //     this.setState(() => ({
-  //       posts: store.getState().posts,
-  //       comments: store.getState().comments
-  //     }))
-  //   })
-  // }
-
   render() {
     return (
       <div>

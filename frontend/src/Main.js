@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Comment from './Comment'
 import Modal from 'react-modal'
+const uuidv1 = require('uuid/v1');
 
 class Main extends Component {
   state = {
     postModalOpen: false,
     currentPost: null,
-    postCount: 0
   }
 
   componentWillMount() {
@@ -30,24 +30,52 @@ class Main extends Component {
 
   getPosts = () => {
     fetch(
-      '/posts',
+      'http://localhost:3001/posts',
       {
         headers: { 'Authorization': '314' }
       }
-    ).then((posts) => {
-      console.log(posts);
-      let postsArr = Object.keys(posts).map(function(key) {
-        return posts[key];
-      });
-      console.log(postsArr);
-    })
+    )
+    .then(data => data.json())
+    .then(data => console.log(data))
+      // console.log("Returned Object: ", posts);
+      // console.log("HTML: ", posts.responseText);
+      // posts.json().then((res) => {console.log(res);})
+      // let postsArr = Object.keys(posts).map(function(key) {
+        // return posts[key];
+      // });
+      // console.log(postsArr);
+    // })
   }
 
   submitPost = () => {
-    let id = this.state.postCount;
+    let id = uuidv1();
     let date = Date.now();
-    console.log("ID: ", this.state.postCount);
-    console.log("Date: ", date);
+    let title = "Test Post";
+    let body = "This is a test.";
+    let author = "Me";
+    let category = "react";
+    let voteScore = 1;
+    let deleted = false;
+    let obj = {
+      id: id,
+      timestamp: date,
+      title: title,
+      body: body,
+      author: author,
+      category: category,
+      voteScore: voteScore,
+      deleted: deleted
+    };
+    fetch('http://localhost:3001/posts',
+      {
+        method: 'POST',
+        headers: { 'Authorization': '314', 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+      }
+    )
+    .then(data => data.json())
+    .then(console.log("The request succeeded."))
+    // .then(res => res.json())
   }
 
   orderByFunc = () => {
