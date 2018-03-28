@@ -8,7 +8,11 @@ class Main extends Component {
   state = {
     postModalOpen: false,
     currentPost: null,
-    postList: []
+    postList: [],
+    currentTitle: '',
+    currentAuthor: '',
+    currentContent: '',
+    currentCategory: 'react'
   }
 
   componentWillMount() {
@@ -42,18 +46,22 @@ class Main extends Component {
     this.setState(() => ({
       postModalOpen: false,
       currentPost: null,
+      currentTitle: '',
+      currentAuthor: '',
+      currentContent: '',
+      currentCategory: 'react'
     }))
   }
 
   submitPost = () => {
     let obj = {
-      author: "Me",
-      body: "This is a test.",
-      category: "react",
+      author: this.state.currentAuthor,
+      body: this.state.currentContent,
+      category: this.state.currentCategory,
       deleted: false,
       id: uuidv1(),
       timestamp: Date.now(),
-      title: "Test Post",
+      title: this.state.currentTitle,
       voteScore: 1
     };
     fetch('http://localhost:3001/posts',
@@ -64,29 +72,28 @@ class Main extends Component {
       }
     )
     .then(data => data.json())
-    .then(console.log("The request succeeded."))
+    .then(() => this.postModalClose())
   }
 
   orderByFunc = () => {
     document.getElementById("orderDropdown").classList.toggle("show");
   }
 
-  // filterByFunc = () => {
-  //   document.getElementById("filterDropdown").classList.toggle("show");
-  // }
+  handleTitleChange = (event) => {
+    this.setState({ currentTitle: event.target.value })
+  }
 
-  // <div className="horizontal-direction">
-  //   <p>Filter By Categories: </p>
-  //   <div className="dropdown">
-  //     <button className="dropbtn" onClick={this.filterByFunc}>All Categories   <i className="fa fa-arrow-down"></i></button>
-  //     <div id="filterDropdown" className="dropdown-content">
-  //       <a>All Categories</a>
-  //       <a>React</a>
-  //       <a>Redux</a>
-  //       <a>Udacity</a>
-  //     </div>
-  //   </div>
-  // </div>
+  handleAuthorChange = (event) => {
+    this.setState({ currentAuthor: event.target.value })
+  }
+
+  handleContentChange = (event) => {
+    this.setState({ currentContent: event.target.value })
+  }
+
+  handleCategoryChange = (event) => {
+    this.setState({ currentCategory: event.target.value })
+  }
 
   render() {
     const { postModalOpen } = this.state
@@ -134,24 +141,33 @@ class Main extends Component {
               Compose A Readable Post!
             </h3>
             <div className="post-content-container">
-              <input className="post-input-short" type="text" name="title" placeholder="Title"/>
-              <input className="post-input-short" type="text" name="author" placeholder="Author"/>
+              <input className="post-input-short" type="text" value={this.state.currentTitle}
+                     onChange={this.handleTitleChange} name="title" placeholder="Title"/>
+              <input className="post-input-short" type="text" value={this.state.currentAuthor}
+                     onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
               <label className="category-radio-list">
                 Category:
                 <div className="radio-element">
-                  <input type="radio" name="category" value="react"/>
+                  <input type="radio" name="category" value="react"
+                         checked={this.state.currentCategory === 'react'}
+                         onChange={this.handleCategoryChange}/>
                   <label>React</label>
                 </div>
                 <div className="radio-element">
-                  <input type="radio" name="category" value="redux"/>
+                  <input type="radio" name="category" value="redux"
+                         checked={this.state.currentCategory === 'redux'}
+                         onChange={this.handleCategoryChange}/>
                   <label>Redux</label>
                 </div>
                 <div className="radio-element">
-                  <input type="radio" name="category" value="udacity"/>
+                  <input type="radio" name="category" value="udacity"
+                         checked={this.state.currentCategory === 'udacity'}
+                         onChange={this.handleCategoryChange}/>
                   <label>Udacity</label>
                 </div>
               </label>
-              <textarea className="content-input" rows="12" cols="50" placeholder="Content"/>
+              <textarea className="content-input" rows="12" cols="50" value={this.state.currentContent}
+                        onChange={this.handleContentChange} placeholder="Content"/>
               <div className="modal-buttons-set">
                 <button className="modal-button" onClick={this.submitPost}>Submit</button>
                 <button className="modal-button" onClick={this.postModalClose}>Cancel</button>

@@ -202,6 +202,7 @@ a {
 
 .all-posts {
   margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .post {
@@ -447,6 +448,8 @@ button {
 .post-info-horizontal {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 5px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
