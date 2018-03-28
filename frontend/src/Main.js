@@ -8,10 +8,27 @@ class Main extends Component {
   state = {
     postModalOpen: false,
     currentPost: null,
+    postList: []
   }
 
   componentWillMount() {
     Modal.setAppElement('body');
+  }
+
+  componentDidMount() {
+    fetch(
+      'http://localhost:3001/posts',
+      {
+        headers: { 'Authorization': '314' }
+      }
+    )
+    .then(data => data.json())
+    .then(data => {
+      console.log("Data: ", data)
+      this.setState({
+        postList: data.filter(post => post.hasOwnProperty('id'))
+      })
+    })
   }
 
   postModalOpen = ({ post }) => {
@@ -28,43 +45,16 @@ class Main extends Component {
     }))
   }
 
-  getPosts = () => {
-    fetch(
-      'http://localhost:3001/posts',
-      {
-        headers: { 'Authorization': '314' }
-      }
-    )
-    .then(data => data.json())
-    .then(data => console.log(data))
-      // console.log("Returned Object: ", posts);
-      // console.log("HTML: ", posts.responseText);
-      // posts.json().then((res) => {console.log(res);})
-      // let postsArr = Object.keys(posts).map(function(key) {
-        // return posts[key];
-      // });
-      // console.log(postsArr);
-    // })
-  }
-
   submitPost = () => {
-    let id = uuidv1();
-    let date = Date.now();
-    let title = "Test Post";
-    let body = "This is a test.";
-    let author = "Me";
-    let category = "react";
-    let voteScore = 1;
-    let deleted = false;
     let obj = {
-      id: id,
-      timestamp: date,
-      title: title,
-      body: body,
-      author: author,
-      category: category,
-      voteScore: voteScore,
-      deleted: deleted
+      author: "Me",
+      body: "This is a test.",
+      category: "react",
+      deleted: false,
+      id: uuidv1(),
+      timestamp: Date.now(),
+      title: "Test Post",
+      voteScore: 1
     };
     fetch('http://localhost:3001/posts',
       {
@@ -75,7 +65,6 @@ class Main extends Component {
     )
     .then(data => data.json())
     .then(console.log("The request succeeded."))
-    // .then(res => res.json())
   }
 
   orderByFunc = () => {
@@ -122,18 +111,15 @@ class Main extends Component {
 
 
         <div className="wrapper all-posts">
-          <Link to="/post">
-            <Comment />
-          </Link>
-          <Link to="/post">
-            <Comment />
-          </Link>
-          <Link to="/post">
-            <Comment />
-          </Link>
-          <Link to="/post">
-            <Comment />
-          </Link>
+          {this.state.postList.map((post) => {
+            return (
+              <Link key={post.id} to="/post">
+                <Comment title={post.title} voteScore={post.voteScore}
+                         author={post.author} commentCount={post.commentCount}
+                         category={post.category}/>
+              </Link>
+            )
+          })}
         </div>
 
         <Modal
@@ -168,7 +154,7 @@ class Main extends Component {
               <textarea className="content-input" rows="12" cols="50" placeholder="Content"/>
               <div className="modal-buttons-set">
                 <button className="modal-button" onClick={this.submitPost}>Submit</button>
-                <button className="modal-button" onClick={this.getPosts}>Cancel</button>
+                <button className="modal-button" onClick={this.postModalClose}>Cancel</button>
               </div>
             </div>
           </div>

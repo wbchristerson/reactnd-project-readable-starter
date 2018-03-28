@@ -221,8 +221,17 @@ a {
   font-weight: 400;
   /* font-size: 26px; */
   /* font-weight: 300; */
-  line-height: 46px;
+  line-height: 42px;
   /* letter-spacing: -1px; */
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.post-category {
+  font: 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  line-height: 36px;
+  margin-top: 1px;
   margin-bottom: 0;
   text-align: center;
 }
@@ -433,4 +442,11 @@ button {
 
 .modal-button:hover {
   background-color: #2980B9;
+}
+
+.post-info-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 5px;
 }
