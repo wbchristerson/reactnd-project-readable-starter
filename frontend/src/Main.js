@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import Comment from './Comment'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1');
@@ -64,6 +63,9 @@ class Main extends Component {
       title: this.state.currentTitle,
       voteScore: 1
     };
+    this.setState((prevState) => ({
+      postList: prevState.postList.concat([obj])
+    }));
     fetch('http://localhost:3001/posts',
       {
         method: 'POST',
@@ -72,7 +74,9 @@ class Main extends Component {
       }
     )
     .then(data => data.json())
-    .then(() => this.postModalClose())
+    .then(() => {
+      this.postModalClose()
+    });
   }
 
   orderByFunc = () => {
@@ -120,11 +124,9 @@ class Main extends Component {
         <div className="wrapper all-posts">
           {this.state.postList.map((post) => {
             return (
-              <Link key={post.id} to="/post">
-                <Comment title={post.title} voteScore={post.voteScore}
-                         author={post.author} commentCount={post.commentCount}
-                         category={post.category}/>
-              </Link>
+              <Comment title={post.title} voteScore={post.voteScore}
+                       author={post.author} commentCount={post.commentCount}
+                       category={post.category} key={post.id}/>
             )
           })}
         </div>
