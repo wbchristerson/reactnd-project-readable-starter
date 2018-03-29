@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
-const uuidv1 = require('uuid/v1');
+import { addPost } from '../actions'
+import { connect } from 'react-redux'
+const uuidv1 = require('uuid/v1')
 
 class Main extends Component {
   state = {
@@ -46,13 +48,15 @@ class Main extends Component {
       title: this.state.currentTitle,
       voteScore: 1
     };
-    let newObj = {
+    this.props.dispatch(addPost({
       ...obj,
       commentCount: 0
-    }
+    }))
+    // let newObj = {
+    //   ...obj,
+    //   commentCount: 0
+    // }
     this.postModalClose()
-    this.props.updatePosts(newObj, this.props.refObj)
-    this.props.updateServer(obj)
   }
 
   orderByFunc = () => {
@@ -75,29 +79,38 @@ class Main extends Component {
     this.setState({ currentCategory: event.target.value })
   }
 
-  upVote = (postId) => {
-    let postData = this.props.postList
-    let newPostData = postData.map((post) => {
-      if (post.id === postId) {
-        post.voteScore += 1
-        return post
-      }
-      return post
-    })
-    this.props.updateState(newPostData, this.props.refObj)
-  }
+  // upVote = (postId) => {
+  //   let postData = this.props.postList
+  //   let newPostData = postData.map((post) => {
+  //     if (post.id === postId) {
+  //       post.voteScore += 1
+  //       return post
+  //     }
+  //     return post
+  //   })
+  //   this.props.updateState(newPostData, this.props.refObj)
+  // }
 
-  downVote = (postId) => {
-    let postData = this.props.postList
-    let newPostData = postData.map((post) => {
-      if (post.id === postId) {
-        post.voteScore -= 1
-        return post
-      }
-      return post
-    })
-    this.props.updateState(newPostData, this.props.refObj)
-  }
+  // downVote = (postId) => {
+  //   let postData = this.props.postList
+  //   let newPostData = postData.map((post) => {
+  //     if (post.id === postId) {
+  //       post.voteScore -= 1
+  //       return post
+  //     }
+  //     return post
+  //   })
+  //   this.props.updateState(newPostData, this.props.refObj)
+  // }
+
+  // {this.props.postList.map((post) => {
+  //   return (
+  //     <Item title={post.title} voteScore={post.voteScore}
+  //           author={post.author} commentCount={post.commentCount}
+  //           category={post.category} key={post.id} upVote={this.upVote}
+  //           downVote={this.downVote} id={post.id}/>
+  //   )
+  // })}
 
   render() {
     const { postModalOpen } = this.state
@@ -122,14 +135,9 @@ class Main extends Component {
 
 
         <div className="wrapper all-posts">
-          {this.props.postList.map((post) => {
-            return (
-              <Item title={post.title} voteScore={post.voteScore}
-                    author={post.author} commentCount={post.commentCount}
-                    category={post.category} key={post.id} upVote={this.upVote}
-                    downVote={this.downVote} id={post.id}/>
-            )
-          })}
+          {this.props.posts.map((post) => (
+            <Item key={post.id} title={post.title}/>
+          ))}
         </div>
 
         <Modal
@@ -183,4 +191,11 @@ class Main extends Component {
   }
 }
 
-export default Main
+
+function mapStateToProps (fullState) {
+  return {
+    posts: fullState.posts
+  }
+}
+
+export default connect(mapStateToProps)(Main)

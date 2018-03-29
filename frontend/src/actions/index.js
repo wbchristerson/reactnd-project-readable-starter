@@ -4,11 +4,16 @@ export const VOTE_UP = 'VOTE_UP'
 export const VOTE_DOWN = 'VOTE_DOWN'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
+export const GET_DATA = 'GET_DATA'
+export const SEND_POST = 'SEND_POST'
 
-export function addPost ({ category, post }) {
+// export const serveData = () => {
+//
+// }
+
+export function addPost (post) {
   return {
     type: ADD_POST,
-    category,
     post,
   }
 }
@@ -49,3 +54,20 @@ export function editPost ({ comment, editObject }) {
     editObject,
   }
 }
+
+export function getData({ data }) {
+  return {
+    type: GET_DATA,
+    data,
+  }
+}
+
+export const fetchData = () => dispatch => (
+  fetch('http://localhost:3001/posts', {
+    headers: { Authorization: '314' }
+  })
+  .then(data => data.json())
+  .then(data => {
+    console.log("Piggy: ", data)
+    dispatch(getData({ data }))
+  }));
