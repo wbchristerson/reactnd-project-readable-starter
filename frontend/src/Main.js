@@ -117,6 +117,20 @@ class Main extends Component {
     })
   }
 
+  downVote = (postId) => {
+    let postData = this.state.postList
+    let newPostData = postData.map((post) => {
+      if (post.id === postId) {
+        post.voteScore -= 1
+        return post
+      }
+      return post
+    })
+    this.setState({
+      postList: newPostData
+    })
+  }
+
   render() {
     const { postModalOpen } = this.state
     return (
@@ -125,10 +139,10 @@ class Main extends Component {
           <div className="sort-by">
             <p>Order By: </p>
             <div className="dropdown">
-              <button className="dropbtn order-button" onClick={this.orderByFunc}>Number Of Votes   <i className="fa fa-arrow-down"></i></button>
+              <button className="dropbtn order-button" onClick={this.orderByFunc}>Post Date   <i className="fa fa-arrow-down"></i></button>
               <div id="orderDropdown" className="dropdown-content">
+                <a>Post Date</a>
                 <a>Number Of Votes</a>
-                <a>Original Post Date</a>
               </div>
             </div>
           </div>
@@ -145,7 +159,7 @@ class Main extends Component {
               <Item title={post.title} voteScore={post.voteScore}
                     author={post.author} commentCount={post.commentCount}
                     category={post.category} key={post.id} upVote={this.upVote}
-                    id={post.id}/>
+                    downVote={this.downVote} id={post.id}/>
             )
           })}
         </div>

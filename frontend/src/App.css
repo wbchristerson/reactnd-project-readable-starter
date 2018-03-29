@@ -128,6 +128,7 @@ a {
   cursor: pointer;
   margin-bottom: 0;
   height: 50px;
+  width: 160px;
 }
 
 .dropbtn:hover, .order-button:focus {
