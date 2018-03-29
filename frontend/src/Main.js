@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Comment from './Comment'
+import Item from './Item'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1');
 
@@ -63,8 +63,12 @@ class Main extends Component {
       title: this.state.currentTitle,
       voteScore: 1
     };
+    let newObj = {
+      ...obj,
+      commentCount: 0
+    }
     this.setState((prevState) => ({
-      postList: prevState.postList.concat([obj])
+      postList: prevState.postList.concat([newObj])
     }));
     fetch('http://localhost:3001/posts',
       {
@@ -99,6 +103,20 @@ class Main extends Component {
     this.setState({ currentCategory: event.target.value })
   }
 
+  upVote = (postId) => {
+    let postData = this.state.postList
+    let newPostData = postData.map((post) => {
+      if (post.id === postId) {
+        post.voteScore += 1
+        return post
+      }
+      return post
+    })
+    this.setState({
+      postList: newPostData
+    })
+  }
+
   render() {
     const { postModalOpen } = this.state
     return (
@@ -124,9 +142,10 @@ class Main extends Component {
         <div className="wrapper all-posts">
           {this.state.postList.map((post) => {
             return (
-              <Comment title={post.title} voteScore={post.voteScore}
-                       author={post.author} commentCount={post.commentCount}
-                       category={post.category} key={post.id}/>
+              <Item title={post.title} voteScore={post.voteScore}
+                    author={post.author} commentCount={post.commentCount}
+                    category={post.category} key={post.id} upVote={this.upVote}
+                    id={post.id}/>
             )
           })}
         </div>

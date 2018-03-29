@@ -275,6 +275,12 @@ a {
   justify-content: space-between;
 }
 
+.comment-width {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 .edit-details {
   /* border: 1px solid black; */
   background: #42f48f;

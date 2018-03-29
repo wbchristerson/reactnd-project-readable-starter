@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import './App.css'
 import Main from './Main'
-import Post from './Post'
+import Page from './Page'
 import { connect } from 'react-redux'
 
 /*
@@ -39,7 +39,7 @@ class App extends Component {
         )}/>
 
         <Route path="/post" render={() => (
-          <Post />
+          <Page />
         )}/>
 
       </div>
