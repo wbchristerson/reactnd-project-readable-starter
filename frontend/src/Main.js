@@ -7,7 +7,6 @@ class Main extends Component {
   state = {
     postModalOpen: false,
     currentPost: null,
-    postList: [],
     currentTitle: '',
     currentAuthor: '',
     currentContent: '',
@@ -18,38 +17,22 @@ class Main extends Component {
     Modal.setAppElement('body');
   }
 
-  componentDidMount() {
-    fetch(
-      'http://localhost:3001/posts',
-      {
-        headers: { 'Authorization': '314' }
-      }
-    )
-    .then(data => data.json())
-    .then(data => {
-      console.log("Data: ", data)
-      this.setState({
-        postList: data.filter(post => post.hasOwnProperty('id'))
-      })
+  postModalOpen = ({ post }) => {
+    this.setState({
+      postModalOpen: true,
+      currentPost: post,
     })
   }
 
-  postModalOpen = ({ post }) => {
-    this.setState(() => ({
-      postModalOpen: true,
-      currentPost: post,
-    }))
-  }
-
   postModalClose = () => {
-    this.setState(() => ({
+    this.setState({
       postModalOpen: false,
       currentPost: null,
       currentTitle: '',
       currentAuthor: '',
       currentContent: '',
       currentCategory: 'react'
-    }))
+    })
   }
 
   submitPost = () => {
@@ -67,20 +50,9 @@ class Main extends Component {
       ...obj,
       commentCount: 0
     }
-    this.setState((prevState) => ({
-      postList: prevState.postList.concat([newObj])
-    }));
-    fetch('http://localhost:3001/posts',
-      {
-        method: 'POST',
-        headers: { 'Authorization': '314', 'Content-Type': 'application/json' },
-        body: JSON.stringify(obj)
-      }
-    )
-    .then(data => data.json())
-    .then(() => {
-      this.postModalClose()
-    });
+    this.postModalClose()
+    this.props.updatePosts(newObj, this.props.refObj)
+    this.props.updateServer(obj)
   }
 
   orderByFunc = () => {
@@ -104,7 +76,7 @@ class Main extends Component {
   }
 
   upVote = (postId) => {
-    let postData = this.state.postList
+    let postData = this.props.postList
     let newPostData = postData.map((post) => {
       if (post.id === postId) {
         post.voteScore += 1
@@ -112,13 +84,11 @@ class Main extends Component {
       }
       return post
     })
-    this.setState({
-      postList: newPostData
-    })
+    this.props.updateState(newPostData, this.props.refObj)
   }
 
   downVote = (postId) => {
-    let postData = this.state.postList
+    let postData = this.props.postList
     let newPostData = postData.map((post) => {
       if (post.id === postId) {
         post.voteScore -= 1
@@ -126,9 +96,7 @@ class Main extends Component {
       }
       return post
     })
-    this.setState({
-      postList: newPostData
-    })
+    this.props.updateState(newPostData, this.props.refObj)
   }
 
   render() {
@@ -154,7 +122,7 @@ class Main extends Component {
 
 
         <div className="wrapper all-posts">
-          {this.state.postList.map((post) => {
+          {this.props.postList.map((post) => {
             return (
               <Item title={post.title} voteScore={post.voteScore}
                     author={post.author} commentCount={post.commentCount}

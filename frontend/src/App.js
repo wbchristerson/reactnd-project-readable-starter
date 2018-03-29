@@ -4,6 +4,7 @@ import './App.css'
 import Main from './Main'
 import Page from './Page'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 /*
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this
@@ -17,6 +18,50 @@ import { connect } from 'react-redux'
  */
 
 class App extends Component {
+  state = {
+    postList: []
+  }
+
+  componentDidMount() {
+    fetch(
+      'http://localhost:3001/posts',
+      {
+        headers: { 'Authorization': '314' }
+      }
+    )
+    .then(data => data.json())
+    .then(data => {
+      console.log("Data: ", data)
+      this.setState({
+        postList: data.filter(post => post.hasOwnProperty('id'))
+      })
+    })
+  }
+
+  updatePosts(newObj, refObj) {
+    refObj.setState((prevState) => ({
+      postList: prevState.postList.concat([newObj])
+    }));
+  }
+
+  updateServer(obj) {
+    fetch(
+      'http://localhost:3001/posts',
+      {
+        method: 'POST',
+        headers: { 'Authorization': '314', 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+      }
+    )
+    .then(data => data.json());
+  }
+
+  updateState(newPostList, refObj) {
+    refObj.setState({
+      postList: newPostList
+    })
+  }
+
   render() {
     return (
       <div>
@@ -25,17 +70,37 @@ class App extends Component {
             <p className="site-title">Readables</p>
             <nav className="site-nav">
               <div className="trigger">
-                <a className="page-link select-border" href="https://wbchristerson.github.io/">Home</a>
-                <a className="page-link" href="https://wbchristerson.github.io/">React</a>
-                <a className="page-link" href="https://wbchristerson.github.io/">Redux</a>
-                <a className="page-link" href="https://wbchristerson.github.io/">Udacity</a>
+                <Link className="page-link select-border" to="/">Home</Link>
+                <Link className="page-link" to="/react">React</Link>
+                <Link className="page-link" to="/redux">Redux</Link>
+                <Link className="page-link" to="/udacity">Udacity</Link>
               </div>
             </nav>
           </div>
         </header>
 
         <Route exact path="/" render={() => (
-          <Main />
+          <Main postList={this.state.postList} updatePosts={this.updatePosts}
+                updateServer={this.updateServer} updateState={this.updateState}
+                refObj={this}/>
+        )}/>
+
+        <Route exact path="/react" render={() => (
+          <Main postList={this.state.postList.filter((post) => post.category === 'react')}
+                updatePosts={this.updatePosts} updateServer={this.updateServer}
+                updateState={this.updateState} refObj={this}/>
+        )}/>
+
+        <Route exact path="/redux" render={() => (
+          <Main postList={this.state.postList.filter((post) => post.category === 'redux')}
+                updatePosts={this.updatePosts} updateServer={this.updateServer}
+                updateState={this.updateState} refObj={this}/>
+        )}/>
+
+        <Route exact path="/udacity" render={() => (
+          <Main postList={this.state.postList.filter((post) => post.category === 'udacity')}
+                updatePosts={this.updatePosts} updateServer={this.updateServer}
+                updateState={this.updateState} refObj={this}/>
         )}/>
 
         <Route path="/post" render={() => (
