@@ -70,4 +70,28 @@ export const fetchData = () => dispatch => (
   .then(data => {
     console.log("Piggy: ", data)
     dispatch(getData({ data }))
-  }));
+  })
+);
+
+export function setPost({ post }) {
+  return {
+    type: SEND_POST,
+    post,
+  }
+}
+
+export const sendData = (post) => dispatch => (
+  fetch('http://localhost:3001/posts', {
+    method: 'POST',
+    headers: {
+      Authorization: '314',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(post)
+  })
+  .then(data => data.json())
+  .then(data => {
+    console.log("Goblet Data: ", data)
+    dispatch(setPost({ data }))
+  })
+);

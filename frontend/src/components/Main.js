@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
-import { addPost } from '../actions'
+import { addPost, sendData } from '../actions'
 import { connect } from 'react-redux'
 const uuidv1 = require('uuid/v1')
 
@@ -52,10 +52,14 @@ class Main extends Component {
       ...obj,
       commentCount: 0
     }))
+    this.props.dispatch(sendData(obj))
+    console.log("Test A")
+
     // let newObj = {
     //   ...obj,
     //   commentCount: 0
     // }
+
     this.postModalClose()
   }
 

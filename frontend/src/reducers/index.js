@@ -5,7 +5,8 @@ import {
   VOTE_DOWN,
   DELETE_POST,
   EDIT_POST,
-  GET_DATA
+  GET_DATA,
+  SEND_POST
 } from '../actions'
 
 const initialDataState = {
@@ -26,6 +27,9 @@ function updatePost (state = initialDataState, action) {
         ...state,
         posts: state.posts.concat(action.data)
       }
+    case SEND_POST:
+      console.log("Test B: ", action.post)
+      return state
     case ADD_COMMENT:
       return {}
     default:
