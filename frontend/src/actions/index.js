@@ -6,10 +6,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const GET_DATA = 'GET_DATA'
 export const SEND_POST = 'SEND_POST'
-
-// export const serveData = () => {
-//
-// }
+export const SET_SORT = 'SET_SORT'
 
 export function addPost (post) {
   return {
@@ -93,8 +90,8 @@ export const sendData = (post) => dispatch => (
 export function setVote(id, decision) {
   return {
     type: SET_VOTE,
-    id: id,
-    decision: decision,
+    id,
+    decision,
   }
 }
 
@@ -110,3 +107,13 @@ export const sendVote = (id, decision) => dispatch => (
   .then(data => data.json())
   .then(() => dispatch(setVote(id, decision)))
 )
+
+/** sort visible posts by the order given; 'order' should be an element in
+ *  { 'date-early', 'date-late', 'vote-most', 'vote-least' }
+ */
+export function setSort(order) {
+  return {
+    type: SET_SORT,
+    order,
+  }
+}

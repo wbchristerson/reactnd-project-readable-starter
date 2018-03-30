@@ -6,12 +6,14 @@ import {
   EDIT_POST,
   GET_DATA,
   SEND_POST,
-  SET_VOTE
+  SET_VOTE,
+  SET_SORT
 } from '../actions'
 
 const initialDataState = {
   posts: [],
-  comments: []
+  comments: [],
+  sortPosts: 'date-early'
 }
 
 function updatePost (state = initialDataState, action) {
@@ -48,6 +50,11 @@ function updatePost (state = initialDataState, action) {
       }
     case SET_VOTE:
       return state
+    case SET_SORT:
+      return {
+        ...state,
+        sortPosts: action.order,
+      }
     case ADD_COMMENT:
       return {}
     default:

@@ -128,7 +128,7 @@ a {
   cursor: pointer;
   margin-bottom: 0;
   height: 50px;
-  width: 160px;
+  width: 220px;
 }
 
 .dropbtn:hover, .order-button:focus {
@@ -461,4 +461,8 @@ button {
   margin-bottom: 5px;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.sort-option {
+  cursor: pointer;
 }

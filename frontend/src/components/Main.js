@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
-import { addPost, sendData } from '../actions'
+import { addPost, sendData, setSort } from '../actions'
 import { connect } from 'react-redux'
+import sortBy from 'sort-by'
 const uuidv1 = require('uuid/v1')
 
 class Main extends Component {
@@ -17,6 +18,28 @@ class Main extends Component {
 
   componentWillMount() {
     Modal.setAppElement('body');
+  }
+
+  /*
+   * The clickable dropdown structure here and in index.css is based on the tutorial found here:
+   * https://www.w3schools.com/howto/howto_js_dropdown.asp
+   *
+   * The following function for handling clicking outside of the dropdown button
+   * is taken from the tutorial page above.
+   */
+  componentDidMount() {
+    window.addEventListener("click", function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    })
   }
 
   postModalOpen = ({ post }) => {
@@ -56,10 +79,6 @@ class Main extends Component {
     this.postModalClose()
   }
 
-  orderByFunc = () => {
-    document.getElementById("orderDropdown").classList.toggle("show");
-  }
-
   handleTitleChange = (event) => {
     this.setState({ currentTitle: event.target.value })
   }
@@ -76,41 +95,26 @@ class Main extends Component {
     this.setState({ currentCategory: event.target.value })
   }
 
-  // upVote = (postId) => {
-  //   let postData = this.props.postList
-  //   let newPostData = postData.map((post) => {
-  //     if (post.id === postId) {
-  //       post.voteScore += 1
-  //       return post
-  //     }
-  //     return post
-  //   })
-  //   this.props.updateState(newPostData, this.props.refObj)
-  // }
+  sortButton = (order) => {
+    this.props.dispatch(setSort(order))
+  }
 
-  // downVote = (postId) => {
-  //   let postData = this.props.postList
-  //   let newPostData = postData.map((post) => {
-  //     if (post.id === postId) {
-  //       post.voteScore -= 1
-  //       return post
-  //     }
-  //     return post
-  //   })
-  //   this.props.updateState(newPostData, this.props.refObj)
-  // }
+  /*
+   * The clickable dropdown structure here and in index.css is based on the tutorial found here:
+   * https://www.w3schools.com/howto/howto_js_dropdown.asp
+   *
+   * The following function for handling clicking the dropdown button and
+   * clicking outside of it are taken from the page above.
+   */
+  orderByFunc = () => {
+    document.getElementById("orderDropdown").classList.toggle("show");
+  }
 
-  // {this.props.postList.map((post) => {
-  //   return (
-  //     <Item title={post.title} voteScore={post.voteScore}
-  //           author={post.author} commentCount={post.commentCount}
-  //           category={post.category} key={post.id} upVote={this.upVote}
-  //           downVote={this.downVote} id={post.id}/>
-  //   )
-  // })}
+  // Close the dropdown menu if the user clicks outside of it
 
   render() {
     const { postModalOpen } = this.state
+    let sortedPosts = this.props.posts.sort(sortBy(this.props.sortPosts))
     return (
       <div>
         <div className="wrapper horizontal-direction">
@@ -119,8 +123,10 @@ class Main extends Component {
             <div className="dropdown">
               <button className="dropbtn order-button" onClick={this.orderByFunc}>Post Date   <i className="fa fa-arrow-down"></i></button>
               <div id="orderDropdown" className="dropdown-content">
-                <a>Post Date</a>
-                <a>Number Of Votes</a>
+                <a onClick={() => this.sortButton('timestamp')} className="sort-option">Post Date (Latest First)</a>
+                <a onClick={() => this.sortButton('-timestamp')} className="sort-option">Post Date (Earliest First)</a>
+                <a className="sort-option">Vote Count (Most First)</a>
+                <a className="sort-option">Vote Count (Least First)</a>
               </div>
             </div>
           </div>
@@ -132,7 +138,7 @@ class Main extends Component {
 
 
         <div className="wrapper all-posts">
-          {this.props.posts.map((post) => (
+          {sortedPosts.map((post) => (
             <Item key={post.id} title={post.title} category={post.category}
                   author={post.author} commentCount={post.commentCount}
                   voteScore={post.voteScore} id={post.id}/>
@@ -193,7 +199,8 @@ class Main extends Component {
 
 function mapStateToProps (fullState) {
   return {
-    posts: fullState.posts
+    posts: fullState.posts,
+    sortPosts: fullState.sortPosts
   }
 }
 

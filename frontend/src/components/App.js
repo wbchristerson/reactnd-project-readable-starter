@@ -11,8 +11,7 @@ import { fetchData } from '../actions'
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this
  * GitHub page: https://github.com/wbchristerson/job-site
  *
- * The clickable dropdown structure here and in index.css is based on the tutorial found here:
- * https://www.w3schools.com/howto/howto_js_dropdown.asp
+
  *
  * Use of redux throughout this class was based on the Udacity lectures and videos
  * for React & Redux
@@ -26,36 +25,6 @@ class App extends Component {
   componentDidMount() {
     this.props.dispatch(fetchData());
   }
-
-  // submitPost = () => {
-  //   this.props.store.dispatch(addPost(   ????????????????  ) )
-  // }
-
-
-
-  // updatePosts(newObj, refObj) {
-  //   refObj.setState((prevState) => ({
-  //     postList: prevState.postList.concat([newObj])
-  //   }));
-  // }
-
-  // updateServer(obj) {
-  //   fetch(
-  //     'http://localhost:3001/posts',
-  //     {
-  //       method: 'POST',
-  //       headers: { 'Authorization': '314', 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(obj)
-  //     }
-  //   )
-  //   .then(data => data.json());
-  // }
-
-  // updateState(newPostList, refObj) {
-  //   refObj.setState({
-  //     postList: newPostList
-  //   })
-  // }
 
   render() {
     return (
