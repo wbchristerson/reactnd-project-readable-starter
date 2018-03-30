@@ -13,7 +13,7 @@ import {
 const initialDataState = {
   posts: [],
   comments: [],
-  sortPosts: 'date-early'
+  sortPosts: 'timestamp'
 }
 
 function updatePost (state = initialDataState, action) {

@@ -110,23 +110,45 @@ class Main extends Component {
     document.getElementById("orderDropdown").classList.toggle("show");
   }
 
+  getOrder = () => {
+    switch(this.props.sortPosts) {
+      case '-timestamp':
+        return "Post Date (Latest First)"
+      case 'timestamp':
+        return "Post Date (Earliest First)"
+      case 'voteScore':
+        return "Vote Count (Least First)"
+      default:
+        return "Vote Count (Most First)"
+    }
+  }
+
   // Close the dropdown menu if the user clicks outside of it
 
   render() {
     const { postModalOpen } = this.state
     let sortedPosts = this.props.posts.sort(sortBy(this.props.sortPosts))
+    let order = this.getOrder()
     return (
       <div>
         <div className="wrapper horizontal-direction">
           <div className="sort-by">
             <p>Order By: </p>
             <div className="dropdown">
-              <button className="dropbtn order-button" onClick={this.orderByFunc}>Post Date   <i className="fa fa-arrow-down"></i></button>
+              <button className="dropbtn order-button" onClick={this.orderByFunc}>{order} <i className="fa fa-arrow-down"></i></button>
               <div id="orderDropdown" className="dropdown-content">
-                <a onClick={() => this.sortButton('timestamp')} className="sort-option">Post Date (Latest First)</a>
-                <a onClick={() => this.sortButton('-timestamp')} className="sort-option">Post Date (Earliest First)</a>
-                <a className="sort-option">Vote Count (Most First)</a>
-                <a className="sort-option">Vote Count (Least First)</a>
+                <a onClick={() => this.sortButton('timestamp')} className="sort-option">
+                  Post Date (Earliest First) {this.props.sortPosts === 'timestamp' && <i className="fa fa-check"></i>}
+                </a>
+                <a onClick={() => this.sortButton('-timestamp')} className="sort-option">
+                  Post Date (Latest First) {this.props.sortPosts === '-timestamp' && <i className="fa fa-check"></i>}
+                </a>
+                <a onClick={() => this.sortButton('-voteScore')} className="sort-option">
+                  Vote Count (Most First) {this.props.sortPosts === '-voteScore' && <i className="fa fa-check"></i>}
+                </a>
+                <a onClick={() => this.sortButton('voteScore')} className="sort-option">
+                  Vote Count (Least First) {this.props.sortPosts === 'voteScore' && <i className="fa fa-check"></i>}
+                </a>
               </div>
             </div>
           </div>
