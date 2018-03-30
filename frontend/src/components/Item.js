@@ -4,30 +4,6 @@ import { votePost } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {
-  // upVote = () => {
-  //   this.props.upVote(this.props.id)
-  //   fetch(`http://localhost:3001/posts/${this.props.id}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       Authorization: '314',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ option: 'upVote' })
-  //   }).then(data => data.json())
-  // }
-
-  // downVote = () => {
-  //   this.props.downVote(this.props.id)
-  //   fetch(`http://localhost:3001/posts/${this.props.id}`, {
-  //     method: 'POST',
-  //     headers: {
-  //       Authorization: '314',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ option: 'downVote' })
-  //   }).then(data => data.json())
-  // }
-
   vote = (id, decision) => {
     this.props.dispatch(votePost(id, decision))
   }
@@ -40,7 +16,9 @@ class Item extends Component {
             <i className="fa fa-angle-up"></i>
           </button>
           <p className="like-element">{this.props.voteScore}</p>
-          <button className="like-element red-button"><i className="fa fa-angle-down"></i></button>
+          <button onClick={() => this.vote(this.props.id, 'downVote')} className="like-element red-button">
+            <i className="fa fa-angle-down"></i>
+          </button>
         </div>
         <Link className="post" to="/post">
           <div className="post-title">{this.props.title}</div>
