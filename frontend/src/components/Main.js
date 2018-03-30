@@ -135,7 +135,7 @@ class Main extends Component {
           {this.props.posts.map((post) => (
             <Item key={post.id} title={post.title} category={post.category}
                   author={post.author} commentCount={post.commentCount}
-                  voteScore={post.voteScore}/>
+                  voteScore={post.voteScore} id={post.id}/>
           ))}
         </div>
 

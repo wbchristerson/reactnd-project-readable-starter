@@ -1,7 +1,6 @@
 export const ADD_POST = 'ADD_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
-export const VOTE_UP = 'VOTE_UP'
-export const VOTE_DOWN = 'VOTE_DOWN'
+export const VOTE_POST = 'VOTE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const GET_DATA = 'GET_DATA'
@@ -18,7 +17,7 @@ export function addPost (post) {
   }
 }
 
-export function addComment ({ postId, comment }) {
+export function addComment ({postId, comment}) {
   return {
     type: ADD_COMMENT,
     postId,
@@ -26,19 +25,20 @@ export function addComment ({ postId, comment }) {
   }
 }
 
-export function voteUp ({ comment }) {
+export function votePost (postId, decision) {
   return {
-    type: VOTE_UP,
-    comment,
+    type: VOTE_POST,
+    postId,
+    decision,
   }
 }
 
-export function voteDown ({ comment }) {
-  return {
-    type: VOTE_DOWN,
-    comment,
-  }
-}
+// export function voteDown ({ comment }) {
+//   return {
+//     type: VOTE_DOWN,
+//     comment,
+//   }
+// }
 
 export function deletePost ({ comment }) {
   return {

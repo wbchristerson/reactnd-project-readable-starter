@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { votePost } from '../actions'
+import { connect } from 'react-redux'
 
 class Item extends Component {
   // upVote = () => {
@@ -26,11 +28,17 @@ class Item extends Component {
   //   }).then(data => data.json())
   // }
 
+  vote = (id, decision) => {
+    this.props.dispatch(votePost(id, decision))
+  }
+
   render() {
     return (
       <div className="post-body">
         <div className="vote-display">
-          <button className="like-element blue-button"><i className="fa fa-angle-up"></i></button>
+          <button onClick={() => this.vote(this.props.id, 'upVote')} className="like-element blue-button">
+            <i className="fa fa-angle-up"></i>
+          </button>
           <p className="like-element">{this.props.voteScore}</p>
           <button className="like-element red-button"><i className="fa fa-angle-down"></i></button>
         </div>
@@ -51,4 +59,12 @@ class Item extends Component {
   }
 }
 
-export default Item
+
+function mapStateToProps (fullState) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps)(Item)
+
+// export default Item

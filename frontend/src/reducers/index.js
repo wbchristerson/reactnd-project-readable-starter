@@ -1,8 +1,7 @@
 import {
   ADD_POST,
   ADD_COMMENT,
-  VOTE_UP,
-  VOTE_DOWN,
+  VOTE_POST,
   DELETE_POST,
   EDIT_POST,
   GET_DATA,
@@ -29,6 +28,23 @@ function updatePost (state = initialDataState, action) {
       }
     case SEND_POST:
       return state
+    case VOTE_POST:
+      let decision = 1
+      if (action.decision === 'downVote') {
+        decision = -1
+      }
+      let data = state.posts.map((post) => {
+        if (post.id === action.postId) {
+          post.voteScore += decision
+          return post
+        } else {
+          return post
+        }
+      })
+      return {
+        ...state,
+        posts: data
+      }
     case ADD_COMMENT:
       return {}
     default:
