@@ -1,13 +1,12 @@
 import {
   ADD_POST,
-  ADD_COMMENT,
   VOTE_POST,
   DELETE_POST,
-  EDIT_POST,
   GET_DATA,
   SEND_POST,
   SET_VOTE,
-  SET_SORT
+  SET_SORT,
+  SEND_DELETE
 } from '../actions'
 
 const initialDataState = {
@@ -55,8 +54,21 @@ function updatePost (state = initialDataState, action) {
         ...state,
         sortPosts: action.order,
       }
-    case ADD_COMMENT:
-      return {}
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post.id !== action.postId) {
+            return post
+          } else {
+            let newPost = post
+            newPost.deleted = true
+            return newPost
+          }
+        })
+      }
+    case SEND_DELETE:
+      return state
     default:
       return state
   }

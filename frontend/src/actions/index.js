@@ -1,5 +1,4 @@
 export const ADD_POST = 'ADD_POST'
-export const ADD_COMMENT = 'ADD_COMMENT'
 export const VOTE_POST = 'VOTE_POST'
 export const SET_VOTE = 'SET_VOTE'
 export const DELETE_POST = 'DELETE_POST'
@@ -7,19 +6,12 @@ export const EDIT_POST = 'EDIT_POST'
 export const GET_DATA = 'GET_DATA'
 export const SEND_POST = 'SEND_POST'
 export const SET_SORT = 'SET_SORT'
+export const SEND_DELETE = 'SEND_DELETE'
 
 export function addPost (post) {
   return {
     type: ADD_POST,
     post,
-  }
-}
-
-export function addComment ({postId, comment}) {
-  return {
-    type: ADD_COMMENT,
-    postId,
-    comment,
   }
 }
 
@@ -31,20 +23,30 @@ export function votePost (postId, decision) {
   }
 }
 
-export function deletePost ({ comment }) {
+export function deletePost (postId) {
   return {
     type: DELETE_POST,
-    comment,
+    postId,
   }
 }
 
-export function editPost ({ comment, editObject }) {
+export function getDelete (postId) {
   return {
-    type: EDIT_POST,
-    comment,
-    editObject,
+    type: SEND_DELETE,
+    postId
   }
 }
+
+export const sendDelete = (id) => dispatch => (
+  fetch(`http://localhost:3001/posts/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: '314'
+    }
+  })
+  .then(data => data.json())
+  .then(() => dispatch(getDelete(id)))
+)
 
 export function getData({ data }) {
   return {
@@ -109,7 +111,7 @@ export const sendVote = (id, decision) => dispatch => (
 )
 
 /** sort visible posts by the order given; 'order' should be an element in
- *  { 'date-early', 'date-late', 'vote-most', 'vote-least' }
+ *  { 'timestamp', '-timestamp', 'voteCount', '-voteCount' }
  */
 export function setSort(order) {
   return {

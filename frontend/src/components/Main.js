@@ -127,7 +127,7 @@ class Main extends Component {
 
   render() {
     const { postModalOpen } = this.state
-    let sortedPosts = this.props.posts.sort(sortBy(this.props.sortPosts))
+    let sortedPosts = this.props.posts.filter(post => !post.deleted).sort(sortBy(this.props.sortPosts))
     let order = this.getOrder()
     return (
       <div>

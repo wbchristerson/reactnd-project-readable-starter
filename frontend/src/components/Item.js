@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { votePost, sendVote } from '../actions'
+import { votePost, sendVote, deletePost, sendDelete } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {
   vote = (id, decision) => {
     this.props.dispatch(votePost(id, decision))
     this.props.dispatch(sendVote(id, decision))
+  }
+
+  delete = (id) => {
+    this.props.dispatch(deletePost(id))
+    this.props.dispatch(sendDelete(id))
   }
 
   render() {
@@ -31,7 +36,7 @@ class Item extends Component {
         </Link>
         <div className="edit-details">
           <button className="edit-action blue-button">Edit</button>
-          <button className="edit-action red-button">Delete</button>
+          <button onClick={() => this.delete(this.props.id)} className="edit-action red-button">Delete</button>
         </div>
       </div>
     );
