@@ -7,6 +7,13 @@ export const GET_DATA = 'GET_DATA'
 export const SEND_POST = 'SEND_POST'
 export const SET_SORT = 'SET_SORT'
 export const SEND_DELETE = 'SEND_DELETE'
+export const SET_MODAL = "SET_MODAL"
+export const SET_EDIT = "POST_EDIT"
+export const SET_TITLE = "SET_TITLE"
+export const SET_AUTHOR = "SET_AUTHOR"
+export const SET_CONTENT = "SET_CONTENT"
+export const SET_CATEGORY = "SET_CATEGORY"
+export const SET_ID = "SET_ID"
 
 export function addPost (post) {
   return {
@@ -15,11 +22,69 @@ export function addPost (post) {
   }
 }
 
+export function editPost (postId, newTitle, newContent) {
+  return {
+    type: EDIT_POST,
+    postId,
+    newTitle,
+    newContent,
+  }
+}
+
 export function votePost (postId, decision) {
   return {
     type: VOTE_POST,
     postId,
     decision,
+  }
+}
+
+export function setModal (status) {
+  return {
+    type: SET_MODAL,
+    status,
+  }
+}
+
+export function setEdit (status) {
+  return {
+    type: SET_EDIT,
+    status,
+  }
+}
+
+export function setId (id) {
+  return {
+    type: SET_ID,
+    id,
+  }
+}
+
+export function setTitle (title) {
+  return {
+    type: SET_TITLE,
+    title,
+  }
+}
+
+export function setAuthor (author) {
+  return {
+    type: SET_AUTHOR,
+    author,
+  }
+}
+
+export function setContent (content) {
+  return {
+    type: SET_CONTENT,
+    content,
+  }
+}
+
+export function setCategory (category) {
+  return {
+    type: SET_CATEGORY,
+    category,
   }
 }
 

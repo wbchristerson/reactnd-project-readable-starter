@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { votePost, sendVote, deletePost, sendDelete } from '../actions'
+import { votePost, sendVote, deletePost, sendDelete, setModal, setEdit, setTitle, setAuthor, setContent, setCategory, setId } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {
@@ -12,6 +12,16 @@ class Item extends Component {
   delete = (id) => {
     this.props.dispatch(deletePost(id))
     this.props.dispatch(sendDelete(id))
+  }
+
+  edit = () => {
+    this.props.dispatch(setModal(true))
+    this.props.dispatch(setEdit(true))
+    this.props.dispatch(setTitle(this.props.title))
+    this.props.dispatch(setAuthor(this.props.author))
+    this.props.dispatch(setContent(this.props.content))
+    this.props.dispatch(setCategory(this.props.category))
+    this.props.dispatch(setId(this.props.id))
   }
 
   render() {
@@ -35,7 +45,7 @@ class Item extends Component {
           </div>
         </Link>
         <div className="edit-details">
-          <button className="edit-action blue-button">Edit</button>
+          <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
           <button onClick={() => this.delete(this.props.id)} className="edit-action red-button">Delete</button>
         </div>
       </div>

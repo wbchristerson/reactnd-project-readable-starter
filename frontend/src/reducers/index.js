@@ -6,13 +6,28 @@ import {
   SEND_POST,
   SET_VOTE,
   SET_SORT,
-  SEND_DELETE
+  SEND_DELETE,
+  SET_MODAL,
+  SET_EDIT,
+  SET_TITLE,
+  SET_AUTHOR,
+  SET_CONTENT,
+  SET_CATEGORY,
+  SET_ID,
+  EDIT_POST
 } from '../actions'
 
 const initialDataState = {
   posts: [],
   comments: [],
-  sortPosts: 'timestamp'
+  sortPosts: 'timestamp',
+  postModalOpen: false,
+  postEdit: false,
+  currentId: -1,
+  currentTitle: '',
+  currentAuthor: '',
+  currentContent: '',
+  currentCategory: 'react'
 }
 
 function updatePost (state = initialDataState, action) {
@@ -69,6 +84,55 @@ function updatePost (state = initialDataState, action) {
       }
     case SEND_DELETE:
       return state
+    case SET_MODAL:
+      return {
+        ...state,
+        postModalOpen: action.status,
+      }
+    case SET_EDIT:
+      return {
+        ...state,
+        postEdit: action.status,
+      }
+    case SET_TITLE:
+      return {
+        ...state,
+        currentTitle: action.title,
+      }
+    case SET_AUTHOR:
+      return {
+        ...state,
+        currentAuthor: action.author,
+      }
+    case SET_CONTENT:
+      return {
+        ...state,
+        currentContent: action.content,
+      }
+    case SET_CATEGORY:
+      return {
+        ...state,
+        currentCategory: action.category,
+      }
+    case SET_ID:
+      return {
+        ...state,
+        currentId: action.id
+      }
+    case EDIT_POST:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post.id === action.postId) {
+            let newPost = post
+            newPost.body = action.newContent
+            newPost.title = action.newTitle
+            return newPost
+          } else {
+            return post
+          }
+        })
+      }
     default:
       return state
   }

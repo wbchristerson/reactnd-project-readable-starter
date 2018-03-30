@@ -11,8 +11,6 @@ import { fetchData } from '../actions'
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this
  * GitHub page: https://github.com/wbchristerson/job-site
  *
-
- *
  * Use of redux throughout this class was based on the Udacity lectures and videos
  * for React & Redux
  */

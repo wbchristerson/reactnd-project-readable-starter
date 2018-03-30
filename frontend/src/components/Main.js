@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
-import { addPost, sendData, setSort } from '../actions'
+import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor, setContent, setCategory, setId, editPost } from '../actions'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
 const uuidv1 = require('uuid/v1')
 
 class Main extends Component {
-  state = {
-    postModalOpen: false,
-    currentPost: null,
-    currentTitle: '',
-    currentAuthor: '',
-    currentContent: '',
-    currentCategory: 'react'
-  }
+  // state = {
+  //
+  // }
 
   componentWillMount() {
     Modal.setAppElement('body');
@@ -42,57 +37,63 @@ class Main extends Component {
     })
   }
 
-  postModalOpen = ({ post }) => {
-    this.setState({
-      postModalOpen: true,
-      currentPost: post,
-    })
+  postModalOpen = () => {
+    console.log("Phoenix: ", this.props.postEdit)
+    this.props.dispatch(setModal(true))
+    this.props.dispatch(setCategory('react'))
   }
 
   postModalClose = () => {
-    this.setState({
-      postModalOpen: false,
-      currentPost: null,
-      currentTitle: '',
-      currentAuthor: '',
-      currentContent: '',
-      currentCategory: 'react'
-    })
+    this.props.dispatch(setModal(false))
+    this.props.dispatch(setEdit(false)) // set false the flag for whether a post is being edited (rather than creating a new post)
+    this.props.dispatch(setTitle(''))
+    this.props.dispatch(setAuthor(''))
+    this.props.dispatch(setContent(''))
+    this.props.dispatch(setCategory(''))
+    this.props.dispatch(setId(-1))
   }
 
   submitPost = () => {
-    let obj = {
-      author: this.state.currentAuthor,
-      body: this.state.currentContent,
-      category: this.state.currentCategory,
-      deleted: false,
-      id: uuidv1(),
-      timestamp: Date.now(),
-      title: this.state.currentTitle,
-      voteScore: 1
-    };
-    this.props.dispatch(addPost({
-      ...obj,
-      commentCount: 0
-    }))
-    this.props.dispatch(sendData(obj))
+    if (!this.props.postEdit) {
+      let obj = {
+        author: this.props.currentAuthor,
+        body: this.props.currentContent,
+        category: this.props.currentCategory,
+        deleted: false,
+        id: uuidv1(),
+        timestamp: Date.now(),
+        title: this.props.currentTitle,
+        voteScore: 1
+      };
+      this.props.dispatch(addPost({
+        ...obj,
+        commentCount: 0
+      }))
+      this.props.dispatch(sendData(obj))
+    } else {
+      this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent))
+    }
     this.postModalClose()
   }
 
   handleTitleChange = (event) => {
-    this.setState({ currentTitle: event.target.value })
+    this.props.dispatch(setTitle(event.target.value))
   }
 
   handleAuthorChange = (event) => {
-    this.setState({ currentAuthor: event.target.value })
+    if (!this.props.postEdit) {
+      this.props.dispatch(setAuthor(event.target.value))
+    }
   }
 
   handleContentChange = (event) => {
-    this.setState({ currentContent: event.target.value })
+    this.props.dispatch(setContent(event.target.value))
   }
 
   handleCategoryChange = (event) => {
-    this.setState({ currentCategory: event.target.value })
+    if (!this.props.postEdit) {
+      this.props.dispatch(setCategory(event.target.value))
+    }
   }
 
   sortButton = (order) => {
@@ -123,10 +124,8 @@ class Main extends Component {
     }
   }
 
-  // Close the dropdown menu if the user clicks outside of it
-
   render() {
-    const { postModalOpen } = this.state
+    const postModalOpen = this.props.postModalOpen
     let sortedPosts = this.props.posts.filter(post => !post.deleted).sort(sortBy(this.props.sortPosts))
     let order = this.getOrder()
     return (
@@ -154,7 +153,7 @@ class Main extends Component {
           </div>
 
           <div className="add-comment">
-            <button onClick={() => this.postModalOpen({})} className="dropbtn"><i className="fa fa-plus"></i> Add A Post</button>
+            <button onClick={() => this.postModalOpen()} className="dropbtn"><i className="fa fa-plus"></i> Add A Post</button>
           </div>
         </div>
 
@@ -163,7 +162,7 @@ class Main extends Component {
           {sortedPosts.map((post) => (
             <Item key={post.id} title={post.title} category={post.category}
                   author={post.author} commentCount={post.commentCount}
-                  voteScore={post.voteScore} id={post.id}/>
+                  voteScore={post.voteScore} content={post.body} id={post.id}/>
           ))}
         </div>
 
@@ -179,32 +178,32 @@ class Main extends Component {
               Compose A Readable Post!
             </h3>
             <div className="post-content-container">
-              <input className="post-input-short" type="text" value={this.state.currentTitle}
+              <input className="post-input-short" type="text" value={this.props.currentTitle}
                      onChange={this.handleTitleChange} name="title" placeholder="Title"/>
-              <input className="post-input-short" type="text" value={this.state.currentAuthor}
+              <input className="post-input-short" type="text" value={this.props.currentAuthor}
                      onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
               <label className="category-radio-list">
                 Category:
                 <div className="radio-element">
                   <input type="radio" name="category" value="react"
-                         checked={this.state.currentCategory === 'react'}
+                         checked={this.props.currentCategory === 'react'}
                          onChange={this.handleCategoryChange}/>
                   <label>React</label>
                 </div>
                 <div className="radio-element">
                   <input type="radio" name="category" value="redux"
-                         checked={this.state.currentCategory === 'redux'}
+                         checked={this.props.currentCategory === 'redux'}
                          onChange={this.handleCategoryChange}/>
                   <label>Redux</label>
                 </div>
                 <div className="radio-element">
                   <input type="radio" name="category" value="udacity"
-                         checked={this.state.currentCategory === 'udacity'}
+                         checked={this.props.currentCategory === 'udacity'}
                          onChange={this.handleCategoryChange}/>
                   <label>Udacity</label>
                 </div>
               </label>
-              <textarea className="content-input" rows="12" cols="50" value={this.state.currentContent}
+              <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
                         onChange={this.handleContentChange} placeholder="Content"/>
               <div className="modal-buttons-set">
                 <button className="modal-button" onClick={this.submitPost}>Submit</button>
@@ -222,7 +221,14 @@ class Main extends Component {
 function mapStateToProps (fullState) {
   return {
     posts: fullState.posts,
-    sortPosts: fullState.sortPosts
+    sortPosts: fullState.sortPosts,
+    postModalOpen: fullState.postModalOpen,
+    postEdit: fullState.postEdit,
+    currentTitle: fullState.currentTitle,
+    currentAuthor: fullState.currentAuthor,
+    currentContent: fullState.currentContent,
+    currentCategory: fullState.currentCategory,
+    currentId: fullState.currentId
   }
 }
 
