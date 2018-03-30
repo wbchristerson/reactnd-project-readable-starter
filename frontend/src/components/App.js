@@ -90,7 +90,7 @@ class App extends Component {
           <Main />
         )}/>
 
-        <Route path="/post" render={() => (
+        <Route exact path="/post" render={() => (
           <Page />
         )}/>
 
