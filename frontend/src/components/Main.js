@@ -53,13 +53,6 @@ class Main extends Component {
       commentCount: 0
     }))
     this.props.dispatch(sendData(obj))
-    console.log("Test A")
-
-    // let newObj = {
-    //   ...obj,
-    //   commentCount: 0
-    // }
-
     this.postModalClose()
   }
 
@@ -140,7 +133,9 @@ class Main extends Component {
 
         <div className="wrapper all-posts">
           {this.props.posts.map((post) => (
-            <Item key={post.id} title={post.title}/>
+            <Item key={post.id} title={post.title} category={post.category}
+                  author={post.author} commentCount={post.commentCount}
+                  voteScore={post.voteScore}/>
           ))}
         </div>
 

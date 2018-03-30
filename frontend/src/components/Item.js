@@ -31,15 +31,15 @@ class Item extends Component {
       <div className="post-body">
         <div className="vote-display">
           <button className="like-element blue-button"><i className="fa fa-angle-up"></i></button>
-          <p className="like-element"></p>
+          <p className="like-element">{this.props.voteScore}</p>
           <button className="like-element red-button"><i className="fa fa-angle-down"></i></button>
         </div>
         <Link className="post" to="/post">
           <div className="post-title">{this.props.title}</div>
-          <div className="post-category">Category: </div>
+          <div className="post-category">Category: {this.props.category}</div>
           <div className="post-info-horizontal">
-            <div>Author: </div>
-            <div>Comments: </div>
+            <div>Author: {this.props.author}</div>
+            <div>Comments: {this.props.commentCount}</div>
           </div>
         </Link>
         <div className="edit-details">
