@@ -14,7 +14,8 @@ import {
   SET_CONTENT,
   SET_CATEGORY,
   SET_ID,
-  EDIT_POST
+  EDIT_POST,
+  SEND_EDIT
 } from '../actions'
 
 const initialDataState = {
@@ -133,6 +134,8 @@ function updatePost (state = initialDataState, action) {
           }
         })
       }
+    case SEND_EDIT:
+      return state
     default:
       return state
   }

@@ -1,19 +1,20 @@
 export const ADD_POST = 'ADD_POST'
-export const VOTE_POST = 'VOTE_POST'
-export const SET_VOTE = 'SET_VOTE'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const GET_DATA = 'GET_DATA'
-export const SEND_POST = 'SEND_POST'
-export const SET_SORT = 'SET_SORT'
 export const SEND_DELETE = 'SEND_DELETE'
-export const SET_MODAL = "SET_MODAL"
-export const SET_EDIT = "POST_EDIT"
-export const SET_TITLE = "SET_TITLE"
+export const SEND_EDIT = 'SEND_EDIT'
+export const SEND_POST = 'SEND_POST'
 export const SET_AUTHOR = "SET_AUTHOR"
-export const SET_CONTENT = "SET_CONTENT"
 export const SET_CATEGORY = "SET_CATEGORY"
+export const SET_CONTENT = "SET_CONTENT"
+export const SET_EDIT = "POST_EDIT"
 export const SET_ID = "SET_ID"
+export const SET_MODAL = "SET_MODAL"
+export const SET_SORT = 'SET_SORT'
+export const SET_TITLE = "SET_TITLE"
+export const SET_VOTE = 'SET_VOTE'
+export const VOTE_POST = 'VOTE_POST'
 
 export function addPost (post) {
   return {
@@ -131,6 +132,7 @@ export const fetchData = () => dispatch => (
   })
 );
 
+
 export function setPost({ post }) {
   return {
     type: SEND_POST,
@@ -173,6 +175,27 @@ export const sendVote = (id, decision) => dispatch => (
   })
   .then(data => data.json())
   .then(() => dispatch(setVote(id, decision)))
+)
+
+export function sendEdit() {
+  return {
+    type: SEND_EDIT,
+  }
+}
+
+export const fetchEdit = (id, newTitle, content) => dispatch => (
+  fetch(`http://localhost:3001/posts/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: '314',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title: newTitle, body: content })
+  })
+  .then(data => data.json())
+  .then(data => {
+    dispatch(sendEdit())
+  })
 )
 
 /** sort visible posts by the order given; 'order' should be an element in

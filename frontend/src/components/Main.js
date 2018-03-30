@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
-import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor, setContent, setCategory, setId, editPost } from '../actions'
+import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor,
+         setContent, setCategory, setId, editPost, fetchEdit } from '../actions'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
 const uuidv1 = require('uuid/v1')
@@ -72,6 +73,7 @@ class Main extends Component {
       this.props.dispatch(sendData(obj))
     } else {
       this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent))
+      this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent))
     }
     this.postModalClose()
   }
