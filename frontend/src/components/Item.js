@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { votePost } from '../actions'
+import { votePost, sendVote } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {
   vote = (id, decision) => {
     this.props.dispatch(votePost(id, decision))
+    this.props.dispatch(sendVote(id, decision))
   }
 
   render() {

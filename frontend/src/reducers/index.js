@@ -5,7 +5,8 @@ import {
   DELETE_POST,
   EDIT_POST,
   GET_DATA,
-  SEND_POST
+  SEND_POST,
+  SET_VOTE
 } from '../actions'
 
 const initialDataState = {
@@ -45,6 +46,8 @@ function updatePost (state = initialDataState, action) {
         ...state,
         posts: data
       }
+    case SET_VOTE:
+      return state
     case ADD_COMMENT:
       return {}
     default:

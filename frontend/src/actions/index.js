@@ -1,6 +1,7 @@
 export const ADD_POST = 'ADD_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const VOTE_POST = 'VOTE_POST'
+export const SET_VOTE = 'SET_VOTE'
 export const DELETE_POST = 'DELETE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const GET_DATA = 'GET_DATA'
@@ -32,13 +33,6 @@ export function votePost (postId, decision) {
     decision,
   }
 }
-
-// export function voteDown ({ comment }) {
-//   return {
-//     type: VOTE_DOWN,
-//     comment,
-//   }
-// }
 
 export function deletePost ({ comment }) {
   return {
@@ -95,3 +89,24 @@ export const sendData = (post) => dispatch => (
     dispatch(setPost({ data }))
   })
 );
+
+export function setVote(id, decision) {
+  return {
+    type: SET_VOTE,
+    id: id,
+    decision: decision,
+  }
+}
+
+export const sendVote = (id, decision) => dispatch => (
+  fetch(`http://localhost:3001/posts/${id}`, {
+    method: 'POST',
+    headers: {
+      Authorization: '314',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option: decision })
+  })
+  .then(data => data.json())
+  .then(() => dispatch(setVote(id, decision)))
+)
