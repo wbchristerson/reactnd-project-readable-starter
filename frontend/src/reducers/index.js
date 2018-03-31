@@ -177,6 +177,7 @@ function updatePost (state = initialDataState, action) {
             let newPost = post
             newPost.body = action.newContent
             newPost.title = action.newTitle
+            newPost.timestamp = action.newTimestamp
             return newPost
           } else {
             return post

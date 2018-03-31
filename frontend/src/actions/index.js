@@ -39,12 +39,13 @@ export function addComment (comment) {
   }
 }
 
-export function editPost (postId, newTitle, newContent) {
+export function editPost (postId, newTitle, newContent, newTimestamp) {
   return {
     type: EDIT_POST,
     postId,
     newTitle,
     newContent,
+    newTimestamp,
   }
 }
 
@@ -278,14 +279,14 @@ export function sendEdit() {
   }
 }
 
-export const fetchEdit = (id, newTitle, content) => dispatch => (
+export const fetchEdit = (id, newTitle, content, date) => dispatch => (
   fetch(`http://localhost:3001/posts/${id}`, {
     method: 'PUT',
     headers: {
       Authorization: '314',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ title: newTitle, body: content })
+    body: JSON.stringify({ title: newTitle, body: content, timestamp: date })
   })
   .then(data => data.json())
   .then(data => {

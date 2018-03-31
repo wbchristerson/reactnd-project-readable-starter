@@ -70,8 +70,8 @@ class Main extends Component {
       }))
       this.props.dispatch(sendData(obj))
     } else {
-      this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent))
-      this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent))
+      this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+      this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
     }
     this.postModalClose()
   }
