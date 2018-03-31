@@ -223,6 +223,7 @@ a {
 .page-post {
   width: 100%;
   text-align: center;
+  margin: 10px;
 }
 
 .post-title {
@@ -302,7 +303,7 @@ a {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
-  height: 25%;
+  height: 30px;
 }
 
 .blue-button {

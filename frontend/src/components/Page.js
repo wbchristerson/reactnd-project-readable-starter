@@ -40,9 +40,9 @@ class Page extends Component {
           <p className="style-info">{timestamp}</p>
           <p className="style-info">Comments: {commentCount}</p>
         </div>
-        <Post body={body} voteScore={voteScore}/>
+        <Post body={body} voteScore={voteScore} id={this.props.match.params.id}/>
         <p className="comments-title">Comments:</p>
-        
+
         <Comment />
         <Comment />
         <Comment />

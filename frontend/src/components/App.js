@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   render() {
-    let homeClass = "page-link" + (this.props.category === '' ? ' select-border' : '')
     return (
       <div>
         <header className="site-header">
