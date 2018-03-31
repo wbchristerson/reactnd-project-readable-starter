@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { votePost, sendVote, deletePost, sendDelete, setModal, setEdit,
+import { votePost, sendPostVote, deletePost, sendDelete, setModal, setEdit,
          setTitle, setAuthor, setContent, setCategory, setId, setPath } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {
   vote = (id, decision) => {
     this.props.dispatch(votePost(id, decision))
-    this.props.dispatch(sendVote(id, decision))
+    this.props.dispatch(sendPostVote(id, decision))
   }
 
   delete = (id) => {

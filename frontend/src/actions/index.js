@@ -13,7 +13,7 @@ export const SET_ID = 'SET_ID'
 export const SET_MODAL = 'SET_MODAL'
 export const SET_SORT = 'SET_SORT'
 export const SET_TITLE = 'SET_TITLE'
-export const SET_VOTE = 'SET_VOTE'
+export const SET_POST_VOTE = 'SET_POST_VOTE'
 export const SET_PATH = 'SET_PATH'
 export const VOTE_POST = 'VOTE_POST'
 export const PAGE_CATEGORY = 'PAGE_CATEGORY'
@@ -23,6 +23,7 @@ export const SET_EDIT_COMMENT = 'SET_EDIT_COMMENT'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const SEND_COMMENT = 'SEND_COMMENT'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const SET_COMMENT_VOTE = 'SET_COMMENT_VOTE'
 
 export function addPost (post) {
   return {
@@ -229,15 +230,15 @@ export const sendComment = (comment) => dispatch => (
   })
 )
 
-export function setVote(id, decision) {
+export function setPostVote(id, decision) {
   return {
-    type: SET_VOTE,
+    type: SET_POST_VOTE,
     id,
     decision,
   }
 }
 
-export const sendVote = (id, decision) => dispatch => (
+export const sendPostVote = (id, decision) => dispatch => (
   fetch(`http://localhost:3001/posts/${id}`, {
     method: 'POST',
     headers: {
@@ -247,7 +248,28 @@ export const sendVote = (id, decision) => dispatch => (
     body: JSON.stringify({ option: decision })
   })
   .then(data => data.json())
-  .then(() => dispatch(setVote(id, decision)))
+  .then(() => dispatch(setPostVote(id, decision)))
+)
+
+export function setCommentVote(id, decision) {
+  return {
+    type: SET_COMMENT_VOTE,
+    id,
+    decision,
+  }
+}
+
+export const sendCommentVote = (id, decision) => dispatch => (
+  fetch(`http://localhost:3001/comments/${id}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': '314',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ option: decision })
+  })
+  .then(data => data.json())
+  .then(() => dispatch(setCommentVote(id, decision)))
 )
 
 export function sendEdit() {

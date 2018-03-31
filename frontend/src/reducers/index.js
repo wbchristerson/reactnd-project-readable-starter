@@ -4,7 +4,7 @@ import {
   DELETE_POST,
   GET_DATA,
   SEND_POST,
-  SET_VOTE,
+  SET_POST_VOTE,
   SET_SORT,
   SEND_DELETE,
   SET_MODAL,
@@ -23,7 +23,8 @@ import {
   SET_EDIT_COMMENT,
   ADD_COMMENT,
   SEND_COMMENT,
-  VOTE_COMMENT
+  VOTE_COMMENT,
+  SET_COMMENT_VOTE
 } from '../actions'
 
 const initialDataState = {
@@ -99,7 +100,9 @@ function updatePost (state = initialDataState, action) {
         ...state,
         comments: commentData
       }
-    case SET_VOTE:
+    case SET_POST_VOTE:
+      return state
+    case SET_COMMENT_VOTE:
       return state
     case SET_SORT:
       return {

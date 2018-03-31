@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { voteComment } from '../actions'
+import { voteComment, sendCommentVote } from '../actions'
 import { connect } from 'react-redux'
 
 class Comment extends Component {
   vote = (id, decision) => {
     this.props.dispatch(voteComment(id, decision))
-    // this.props.dispatch(sendVote(id, decision))
+    this.props.dispatch(sendCommentVote(id, decision))
   }
 
   render() {
