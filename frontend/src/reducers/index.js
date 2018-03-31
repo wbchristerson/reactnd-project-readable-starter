@@ -21,7 +21,8 @@ import {
   GET_COMMENTS,
   SET_COMMENT_MODAL,
   SET_EDIT_COMMENT,
-  ADD_COMMENT
+  ADD_COMMENT,
+  SEND_COMMENT
 } from '../actions'
 
 const initialDataState = {
@@ -60,6 +61,8 @@ function updatePost (state = initialDataState, action) {
         posts: state.posts.concat(action.data)
       }
     case SEND_POST:
+      return state
+    case SEND_COMMENT:
       return state
     case VOTE_POST:
       let decision = 1

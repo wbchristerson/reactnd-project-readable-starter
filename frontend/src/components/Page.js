@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Post from './Post'
 import Comment from './Comment'
 import { connect } from 'react-redux'
-import { fetchComments, setCommentModal, setAuthor, setEditComment, setId, setContent, addComment } from '../actions'
+import { fetchComments, setCommentModal, setAuthor, setEditComment, setId, setContent, addComment, sendComment } from '../actions'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1')
 
@@ -36,12 +36,12 @@ class Page extends Component {
         deleted: false,
         id: uuidv1(),
         parentDeleted: false,
-        parentId: "1",
+        parentId: this.props.match.params.id,
         timestamp: Date.now(),
         voteScore: 1
       };
       this.props.dispatch(addComment(obj))
-      // this.props.dispatch(sendData(obj))
+      this.props.dispatch(sendComment(obj))
     } else {
       // this.props.dispatch(editComment(this.props.currentId, this.props.currentTitle, this.props.currentContent))
       // this.props.dispatch(fetchCommentEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent))

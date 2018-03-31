@@ -21,6 +21,7 @@ export const GET_COMMENTS = 'GET_COMMENTS'
 export const SET_COMMENT_MODAL = 'SET_COMMENT_MODAL'
 export const SET_EDIT_COMMENT = 'SET_EDIT_COMMENT'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const SEND_COMMENT = 'SEND_COMMENT'
 
 export function addPost (post) {
   return {
@@ -196,6 +197,28 @@ export const sendData = (post) => dispatch => (
     dispatch(setPost({ data }))
   })
 );
+
+export function setComment(comment) {
+  return {
+    type: SEND_COMMENT,
+    comment,
+  }
+}
+
+export const sendComment = (comment) => dispatch => (
+  fetch('http://localhost:3001/comments', {
+    method: 'POST',
+    headers: {
+      Authorization: '314',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(comment)
+  })
+  .then(data => data.json())
+  .then(data => {
+    dispatch(setComment(comment))
+  })
+)
 
 export function setVote(id, decision) {
   return {
