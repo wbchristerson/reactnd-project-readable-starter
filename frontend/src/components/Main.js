@@ -2,16 +2,12 @@ import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
 import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor,
-         setContent, setCategory, setId, editPost, fetchEdit } from '../actions'
+         setContent, setCategory, setId, editPost, fetchEdit, pageCategory } from '../actions'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
 const uuidv1 = require('uuid/v1')
 
 class Main extends Component {
-  // state = {
-  //
-  // }
-
   componentWillMount() {
     Modal.setAppElement('body');
   }
@@ -36,6 +32,8 @@ class Main extends Component {
         }
       }
     })
+    // this.props.dispatch(pageCategory(this.props.category))
+    this.props.dispatch(pageCategory(this.props.pathCategory))
   }
 
   postModalOpen = () => {
@@ -128,7 +126,10 @@ class Main extends Component {
 
   render() {
     const postModalOpen = this.props.postModalOpen
-    let sortedPosts = this.props.posts.filter(post => !post.deleted).sort(sortBy(this.props.sortPosts))
+    let sortedPosts = this.props.posts.filter((post) => !post.deleted).sort(sortBy(this.props.sortPosts))
+    if (this.props.category !== '') {
+      sortedPosts = sortedPosts.filter(post => (post.category === this.props.category))
+    }
     let order = this.getOrder()
     return (
       <div>
@@ -222,7 +223,6 @@ class Main extends Component {
 
 function mapStateToProps (fullState) {
   return {
-    posts: fullState.posts,
     sortPosts: fullState.sortPosts,
     postModalOpen: fullState.postModalOpen,
     postEdit: fullState.postEdit,
@@ -230,7 +230,8 @@ function mapStateToProps (fullState) {
     currentAuthor: fullState.currentAuthor,
     currentContent: fullState.currentContent,
     currentCategory: fullState.currentCategory,
-    currentId: fullState.currentId
+    currentId: fullState.currentId,
+    category: fullState.category
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { votePost, sendVote, deletePost, sendDelete, setModal, setEdit, setTitle, setAuthor, setContent, setCategory, setId } from '../actions'
+import { votePost, sendVote, deletePost, sendDelete, setModal, setEdit,
+         setTitle, setAuthor, setContent, setCategory, setId, setPath } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {
@@ -25,6 +26,7 @@ class Item extends Component {
   }
 
   render() {
+    let link = `/post/${this.props.id}`
     return (
       <div className="post-body">
         <div className="vote-display">
@@ -36,7 +38,7 @@ class Item extends Component {
             <i className="fa fa-angle-down"></i>
           </button>
         </div>
-        <Link className="post" to="/post">
+        <Link onClick={() => this.props.dispatch(setPath('/post'))} className="post" to={link}>
           <div className="post-title">{this.props.title}</div>
           <div className="post-category">Category: {this.props.category}</div>
           <div className="post-info-horizontal">
@@ -53,9 +55,9 @@ class Item extends Component {
   }
 }
 
-
 function mapStateToProps (fullState) {
   return {
+    path: fullState.path
   }
 }
 

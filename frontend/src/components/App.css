@@ -220,6 +220,11 @@ a {
   background: linear-gradient(red, yellow);
 }
 
+.page-post {
+  width: 100%;
+  text-align: center;
+}
+
 .post-title {
   font: 24px "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;

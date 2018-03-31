@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import './App.css'
 import Main from './Main'
 import Page from './Page'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { fetchData } from '../actions'
+import { fetchData, pageCategory } from '../actions'
 
 /*
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this
@@ -16,15 +15,13 @@ import { fetchData } from '../actions'
  */
 
 class App extends Component {
-  // state = {
-  //   postList: []
-  // }
 
   componentDidMount() {
     this.props.dispatch(fetchData());
   }
 
   render() {
+    let homeClass = "page-link" + (this.props.category === '' ? ' select-border' : '')
     return (
       <div>
         <header className="site-header">
@@ -32,34 +29,36 @@ class App extends Component {
             <p className="site-title">Readables</p>
             <nav className="site-nav">
               <div className="trigger">
-                <Link className="page-link select-border" to="/">Home</Link>
-                <Link className="page-link" to="/react">React</Link>
-                <Link className="page-link" to="/redux">Redux</Link>
-                <Link className="page-link" to="/udacity">Udacity</Link>
+                <Link onClick={() => this.props.dispatch(pageCategory(''))}
+                      className={"page-link" + (this.props.category === '' ? ' select-border' : '')} to="/">Home</Link>
+                <Link onClick={() => this.props.dispatch(pageCategory('react'))}
+                      className={"page-link" + (this.props.category === 'react' ? ' select-border' : '')} to="/react">React</Link>
+                <Link onClick={() => this.props.dispatch(pageCategory('redux'))}
+                      className={"page-link" + (this.props.category === 'redux' ? ' select-border' : '')} to="/redux">Redux</Link>
+                <Link onClick={() => this.props.dispatch(pageCategory('udacity'))}
+                      className={"page-link" + (this.props.category === 'udacity' ? ' select-border' : '')} to="/udacity">Udacity</Link>
               </div>
             </nav>
           </div>
         </header>
 
         <Route exact path="/" render={() => (
-          <Main />
+          <Main posts={this.props.posts} pathCategory=''/>
         )}/>
 
         <Route exact path="/react" render={() => (
-          <Main />
+          <Main posts={this.props.posts.filter((post) => post.category === 'react')} pathCategory='react' />
         )}/>
 
         <Route exact path="/redux" render={() => (
-          <Main />
+          <Main posts={this.props.posts.filter((post) => post.category === 'redux')} pathCategory='redux'/>
         )}/>
 
         <Route exact path="/udacity" render={() => (
-          <Main />
+          <Main posts={this.props.posts.filter((post) => post.category === 'udacity')} pathCategory='udacity'/>
         )}/>
 
-        <Route exact path="/post" render={() => (
-          <Page />
-        )}/>
+        <Route exact path={"/post/:id"} component={Page}/>
 
       </div>
     );
@@ -68,10 +67,10 @@ class App extends Component {
 }
 
 function mapStateToProps (fullState) {
-  console.log("fullState: ", fullState)
   return {
     posts: fullState.posts,
-    comments: fullState.comments
+    comments: fullState.comments,
+    category: fullState.category
   }
 }
 

@@ -9,9 +9,7 @@ class Comment extends Component {
           <p className="like-element"></p>
           <button className="like-element red-button"><i className="fa fa-angle-down"></i></button>
         </div>
-        <div className="post">
-          <div className="post-title"></div>
-          <div className="post-category">Category:</div>
+        <div className="page-post">
           <div className="post-info-horizontal">
             <div>Author: </div>
             <div>Comments: </div>

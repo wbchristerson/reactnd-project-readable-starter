@@ -14,7 +14,10 @@ export const SET_MODAL = "SET_MODAL"
 export const SET_SORT = 'SET_SORT'
 export const SET_TITLE = "SET_TITLE"
 export const SET_VOTE = 'SET_VOTE'
+export const SET_PATH = 'SET_PATH'
 export const VOTE_POST = 'VOTE_POST'
+export const PAGE_CATEGORY = 'PAGE_CATEGORY'
+export const GET_COMMENTS = 'GET_COMMENTS'
 
 export function addPost (post) {
   return {
@@ -132,6 +135,20 @@ export const fetchData = () => dispatch => (
   })
 );
 
+export function getComments(data) {
+  return {
+    type: GET_COMMENTS,
+    data,
+  }
+}
+
+export const fetchComments = (id) => dispatch => (
+  fetch(`http://localhost:3001/posts/${id}/comments`, {
+    headers: { Authorization: '314' }
+  })
+  .then(data => data.json())
+  .then(data => dispatch(getComments(data)))
+);
 
 export function setPost({ post }) {
   return {
@@ -205,5 +222,19 @@ export function setSort(order) {
   return {
     type: SET_SORT,
     order,
+  }
+}
+
+export function pageCategory(category) {
+  return {
+    type: PAGE_CATEGORY,
+    category,
+  }
+}
+
+export function setPath(path) {
+  return {
+    type: SET_PATH,
+    path,
   }
 }

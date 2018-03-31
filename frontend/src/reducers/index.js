@@ -15,7 +15,10 @@ import {
   SET_CATEGORY,
   SET_ID,
   EDIT_POST,
-  SEND_EDIT
+  SEND_EDIT,
+  PAGE_CATEGORY,
+  SET_PATH,
+  GET_COMMENTS
 } from '../actions'
 
 const initialDataState = {
@@ -28,7 +31,9 @@ const initialDataState = {
   currentTitle: '',
   currentAuthor: '',
   currentContent: '',
-  currentCategory: 'react'
+  currentCategory: 'react',
+  category: '',
+  path: '/'
 }
 
 function updatePost (state = initialDataState, action) {
@@ -136,6 +141,21 @@ function updatePost (state = initialDataState, action) {
       }
     case SEND_EDIT:
       return state
+    case PAGE_CATEGORY:
+      return {
+        ...state,
+        category: action.category
+      }
+    case SET_PATH:
+      return {
+        ...state,
+        path: action.path
+      }
+    case GET_COMMENTS:
+      return {
+        ...state,
+        comments: action.data
+      }
     default:
       return state
   }

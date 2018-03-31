@@ -19,6 +19,11 @@ const store = createStore(
   )
 )
 
+// <BrowserRouter>
+//   <Provider store={store}><App /></Provider>
+// </BrowserRouter>,
+
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter><App /></BrowserRouter>
