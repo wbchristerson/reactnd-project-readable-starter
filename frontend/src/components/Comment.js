@@ -14,11 +14,15 @@ class Comment extends Component {
     return (
       <div className="post-body comment-width">
         <div className="vote-display">
-          <button onClick={() => this.vote(this.props.id, 'upVote')}
-                  className="like-element blue-button"><i className="fa fa-angle-up"></i></button>
-          <p className="like-element">{comment.voteScore}</p>
-          <button onClick={() => this.vote(this.props.id, 'downVote')}
-                  className="like-element red-button"><i className="fa fa-angle-down"></i></button>
+          <div>
+            <button onClick={() => this.vote(this.props.id, 'upVote')} className="like-element blue-button">
+              <i className="fa fa-angle-up"></i>
+            </button>
+            <p className="like-element">{comment.voteScore}</p>
+            <button onClick={() => this.vote(this.props.id, 'downVote')} className="like-element red-button">
+              <i className="fa fa-angle-down"></i>
+            </button>
+          </div>
         </div>
         <div className="page-post">
           <div className="post-info-horizontal">

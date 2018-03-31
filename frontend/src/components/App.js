@@ -57,7 +57,7 @@ class App extends Component {
           <Main posts={this.props.posts.filter((post) => post.category === 'udacity')} pathCategory='udacity'/>
         )}/>
 
-        <Route exact path={"/post/:id"} component={Page}/>
+        <Route exact path={"/:category/:id"} component={Page}/>
 
       </div>
     );
