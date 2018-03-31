@@ -120,7 +120,7 @@ class Page extends Component {
           <p className="comments-title">Comments:</p>
           <div>
             {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
-              <Comment key={comment.id} comment={comment}/>
+              <Comment key={comment.id} id={comment.id}/>
             ))}
           </div>
           <button onClick={() => this.commentModalOpen()} className="comment-button">

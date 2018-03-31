@@ -22,6 +22,7 @@ export const SET_COMMENT_MODAL = 'SET_COMMENT_MODAL'
 export const SET_EDIT_COMMENT = 'SET_EDIT_COMMENT'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const SEND_COMMENT = 'SEND_COMMENT'
+export const VOTE_COMMENT = 'VOTE_COMMENT'
 
 export function addPost (post) {
   return {
@@ -50,6 +51,14 @@ export function votePost (postId, decision) {
   return {
     type: VOTE_POST,
     postId,
+    decision,
+  }
+}
+
+export function voteComment (commentId, decision) {
+  return {
+    type: VOTE_COMMENT,
+    commentId,
     decision,
   }
 }

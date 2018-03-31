@@ -22,7 +22,8 @@ import {
   SET_COMMENT_MODAL,
   SET_EDIT_COMMENT,
   ADD_COMMENT,
-  SEND_COMMENT
+  SEND_COMMENT,
+  VOTE_COMMENT
 } from '../actions'
 
 const initialDataState = {
@@ -65,13 +66,13 @@ function updatePost (state = initialDataState, action) {
     case SEND_COMMENT:
       return state
     case VOTE_POST:
-      let decision = 1
+      let postDecision = 1
       if (action.decision === 'downVote') {
-        decision = -1
+        postDecision = -1
       }
-      let data = state.posts.map((post) => {
+      let postData = state.posts.map((post) => {
         if (post.id === action.postId) {
-          post.voteScore += decision
+          post.voteScore += postDecision
           return post
         } else {
           return post
@@ -79,7 +80,24 @@ function updatePost (state = initialDataState, action) {
       })
       return {
         ...state,
-        posts: data
+        posts: postData
+      }
+    case VOTE_COMMENT:
+      let commentDecision = 1
+      if (action.decision === 'downVote') {
+        commentDecision = -1
+      }
+      let commentData = state.comments.map((comment) => {
+        if (comment.id === action.commentId) {
+          comment.voteScore += commentDecision
+          return comment
+        } else {
+          return comment
+        }
+      })
+      return {
+        ...state,
+        comments: commentData
       }
     case SET_VOTE:
       return state
