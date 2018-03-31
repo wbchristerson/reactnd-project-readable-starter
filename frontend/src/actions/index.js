@@ -5,24 +5,34 @@ export const GET_DATA = 'GET_DATA'
 export const SEND_DELETE = 'SEND_DELETE'
 export const SEND_EDIT = 'SEND_EDIT'
 export const SEND_POST = 'SEND_POST'
-export const SET_AUTHOR = "SET_AUTHOR"
-export const SET_CATEGORY = "SET_CATEGORY"
-export const SET_CONTENT = "SET_CONTENT"
-export const SET_EDIT = "POST_EDIT"
-export const SET_ID = "SET_ID"
-export const SET_MODAL = "SET_MODAL"
+export const SET_AUTHOR = 'SET_AUTHOR'
+export const SET_CATEGORY = 'SET_CATEGORY'
+export const SET_CONTENT = 'SET_CONTENT'
+export const SET_EDIT = 'POST_EDIT'
+export const SET_ID = 'SET_ID'
+export const SET_MODAL = 'SET_MODAL'
 export const SET_SORT = 'SET_SORT'
-export const SET_TITLE = "SET_TITLE"
+export const SET_TITLE = 'SET_TITLE'
 export const SET_VOTE = 'SET_VOTE'
 export const SET_PATH = 'SET_PATH'
 export const VOTE_POST = 'VOTE_POST'
 export const PAGE_CATEGORY = 'PAGE_CATEGORY'
 export const GET_COMMENTS = 'GET_COMMENTS'
+export const SET_COMMENT_MODAL = 'SET_COMMENT_MODAL'
+export const SET_EDIT_COMMENT = 'SET_EDIT_COMMENT'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 export function addPost (post) {
   return {
     type: ADD_POST,
     post,
+  }
+}
+
+export function addComment (comment) {
+  return {
+    type: ADD_COMMENT,
+    comment,
   }
 }
 
@@ -50,9 +60,23 @@ export function setModal (status) {
   }
 }
 
+export function setCommentModal (status) {
+  return {
+    type: SET_COMMENT_MODAL,
+    status,
+  }
+}
+
 export function setEdit (status) {
   return {
     type: SET_EDIT,
+    status,
+  }
+}
+
+export function setEditComment (status) {
+  return {
+    type: SET_EDIT_COMMENT,
     status,
   }
 }

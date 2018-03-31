@@ -18,7 +18,10 @@ import {
   SEND_EDIT,
   PAGE_CATEGORY,
   SET_PATH,
-  GET_COMMENTS
+  GET_COMMENTS,
+  SET_COMMENT_MODAL,
+  SET_EDIT_COMMENT,
+  ADD_COMMENT
 } from '../actions'
 
 const initialDataState = {
@@ -26,6 +29,8 @@ const initialDataState = {
   comments: [],
   sortPosts: 'timestamp',
   postModalOpen: false,
+  commentModalOpen: false,
+  commentEdit: false,
   postEdit: false,
   currentId: -1,
   currentTitle: '',
@@ -42,6 +47,11 @@ function updatePost (state = initialDataState, action) {
       return {
         ...state,
         posts: state.posts.concat([action.post])
+      }
+    case ADD_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.concat([action.comment])
       }
     case GET_DATA:
       console.log("Azkaban Data: ", action.data)
@@ -95,10 +105,20 @@ function updatePost (state = initialDataState, action) {
         ...state,
         postModalOpen: action.status,
       }
+    case SET_COMMENT_MODAL:
+      return {
+        ...state,
+        commentModalOpen: action.status,
+      }
     case SET_EDIT:
       return {
         ...state,
         postEdit: action.status,
+      }
+    case SET_EDIT_COMMENT:
+      return {
+        ...state,
+        commentEdit: action.status,
       }
     case SET_TITLE:
       return {
