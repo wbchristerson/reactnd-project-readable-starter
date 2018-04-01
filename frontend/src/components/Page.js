@@ -92,34 +92,23 @@ class Page extends Component {
     this.postModalClose()
   }
 
-  // for form elements that require onChange functions
+  // for form elements that require onChange functions but do not need any
+  // resulting events to occur
   fillerFunction = () => {
   }
 
-  // <label className="category-radio-list">
-  // Category:
-  // <div className="radio-element">
-  // <input type="radio" name="category" value="react"
-  // checked={this.props.currentCategory === 'react'}
-  // onChange={this.handleCategoryChange}/>
-  // <label>React</label>
-  // </div>
-  // <div className="radio-element">
-  // <input type="radio" name="category" value="redux"
-  // checked={this.props.currentCategory === 'redux'}
-  // onChange={this.handleCategoryChange}/>
-  // <label>Redux</label>
-  // </div>
-  // <div className="radio-element">
-  // <input type="radio" name="category" value="udacity"
-  // checked={this.props.currentCategory === 'udacity'}
-  // onChange={this.handleCategoryChange}/>
-  // <label>Udacity</label>
-  // </div>
-  // </label>
-
-  // <input className="post-input-short" type="text" value={this.props.currentTitle}
-  //        onChange={this.handleTitleChange} name="title" placeholder="Title"/>
+  // given a date object, convert it to a human-readable time formatted as
+  // a string "MM/DD/YYYY HH:MM:SS"
+  toHumanTime = (date) => {
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                  'August', 'September', 'October', 'November', 'December']
+    return months[date.getMonth()] +
+          ' ' + ('0' + date.getDate()).slice(-2) +
+          ', ' + date.getFullYear() +
+          ',   ' + ('0' + date.getHours()).slice(-2) +
+          ':' + ('0' + date.getMinutes()).slice(-2) +
+          ':' + ('0' + date.getSeconds()).slice(-2)
+  }
 
   render() {
     let postModalOpen = this.props.postModalOpen
@@ -133,8 +122,10 @@ class Page extends Component {
     let author = post.hasOwnProperty('author') ? post.author : ''
     let voteScore = post.hasOwnProperty('voteScore') ? post.voteScore : ''
     let timestamp = post.hasOwnProperty('timestamp') ? post.timestamp : ''
+    let humanTime = (timestamp === '') ? '' : this.toHumanTime(new Date(timestamp)) // convert to human-readable date
     let commentCount = post.hasOwnProperty('commentCount') ? post.commentCount : ''
     let body = post.hasOwnProperty('body') ? post.body : ''
+
     if ((matchEntryArr.length === 0) || (post.hasOwnProperty('deleted') && post.deleted)) {
       return (
         <div className="wrapper error-page">
@@ -158,7 +149,7 @@ class Page extends Component {
             <p className="style-info">Vote Score: {voteScore}</p>
           </div>
           <div className="post-info">
-            <p className="style-info">{timestamp}</p>
+            <p className="style-info">{humanTime}</p>
             <p className="style-info">Comments: {commentCount}</p>
           </div>
           <Post body={body} voteScore={voteScore} id={this.props.match.params.id}
@@ -166,7 +157,8 @@ class Page extends Component {
           <p className="comments-title">Comments:</p>
           <div>
             {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
-              <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}/>
+              <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}
+                       humanTime={this.toHumanTime(new Date(comment.timestamp))}/>
             ))}
           </div>
           <button onClick={() => this.commentModalOpen()} className="comment-button">

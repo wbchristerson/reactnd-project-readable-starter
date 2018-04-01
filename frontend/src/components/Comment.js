@@ -44,7 +44,7 @@ class Comment extends Component {
         <div className="page-post">
           <div className="post-info-horizontal">
             <div>Author: {comment.author}</div>
-            <div>Latest Update: {comment.timestamp}</div>
+            <div>Latest Update: {this.props.humanTime}</div>
           </div>
           <div className="middle-bar"></div>
           <div className="comment-body">{comment.body}</div>
