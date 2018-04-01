@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { votePost, sendPostVote, setTitle, setAuthor, setContent, setCategory,
-         setId, setModal, setEdit } from '../actions'
+         setId, setModal, setEdit, deletePost, sendDelete } from '../actions'
 import { connect } from 'react-redux'
 
 class Post extends Component {
@@ -17,6 +17,11 @@ class Post extends Component {
     this.props.dispatch(setContent(this.props.content))
     this.props.dispatch(setCategory(this.props.category))
     this.props.dispatch(setId(this.props.id))
+  }
+
+  delete = () => {
+    this.props.dispatch(deletePost(this.props.id))
+    this.props.dispatch(sendDelete(this.props.id))
   }
 
   render() {
@@ -36,16 +41,16 @@ class Post extends Component {
         </div>
         <div className="edit-details">
           <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
-          <form className="edit-action red-button" action="/">
-            <input type="submit" value="Go to Home page" />
-          </form>
-          <button className="edit-action red-button"><a className="button-link" href="/">Delete</a></button>
+          <button onClick={() => this.delete()} className="edit-action red-button">Delete</button>
         </div>
       </div>
     );
   }
-
 }
+
+// <form className="edit-action red-button" action="/">
+// <input type="submit" value="Go to Home page" />
+// </form>
 
 
 // posts: fullState.posts,
