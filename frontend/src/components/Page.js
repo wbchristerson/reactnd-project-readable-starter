@@ -4,7 +4,8 @@ import Comment from './Comment'
 import { connect } from 'react-redux'
 import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
          setContent, addComment, sendComment, editComment, fetchCommentEdit,
-         alterCommentCount} from '../actions'
+         alterCommentCount, editPost, fetchEdit, setModal, setCategory, setEdit,
+         setTitle} from '../actions'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1')
 
@@ -25,6 +26,21 @@ class Page extends Component {
   commentModalClose = () => {
     this.props.dispatch(setCommentModal(false))
     this.props.dispatch(setEditComment(false)) // set false the flag for whether a post is being edited (rather than creating a new post)
+    this.props.dispatch(setAuthor(''))
+    this.props.dispatch(setContent(''))
+    this.props.dispatch(setId(-1))
+  }
+
+  postModalOpen = () => {
+    console.log("Phoenix: ", this.props.postEdit)
+    this.props.dispatch(setModal(true))
+    this.props.dispatch(setCategory(this.props.match.params.category))
+  }
+
+  postModalClose = () => {
+    this.props.dispatch(setModal(false))
+    this.props.dispatch(setEdit(false)) // set false the flag for whether a post is being edited (rather than creating a new post)
+    this.props.dispatch(setTitle(''))
     this.props.dispatch(setAuthor(''))
     this.props.dispatch(setContent(''))
     this.props.dispatch(setId(-1))
@@ -62,6 +78,24 @@ class Page extends Component {
     this.props.dispatch(setContent(event.target.value))
   }
 
+  handlePostTitleChange = (event) => {
+    this.props.dispatch(setTitle(event.target.value))
+  }
+
+  handlePostContentChange = (event) => {
+    this.props.dispatch(setContent(event.target.value))
+  }
+
+  submitPost = () => {
+    this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+    this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+    this.postModalClose()
+  }
+
+  // for form elements that require onChange functions
+  fillerFunction = () => {
+  }
+
   // <label className="category-radio-list">
   // Category:
   // <div className="radio-element">
@@ -88,6 +122,7 @@ class Page extends Component {
   //        onChange={this.handleTitleChange} name="title" placeholder="Title"/>
 
   render() {
+    let postModalOpen = this.props.postModalOpen
     let commentModalOpen = this.props.commentModalOpen
     console.log("Horcrux: ", this.props)
     let matchEntryArr = this.props.posts.filter((post) => post.id === this.props.match.params.id)
@@ -100,6 +135,13 @@ class Page extends Component {
     let timestamp = post.hasOwnProperty('timestamp') ? post.timestamp : ''
     let commentCount = post.hasOwnProperty('commentCount') ? post.commentCount : ''
     let body = post.hasOwnProperty('body') ? post.body : ''
+    if ((matchEntryArr.length === 0) || (post.hasOwnProperty('deleted') && post.deleted)) {
+      return (
+        <div className="wrapper error-page">
+          Error: The page that you requested could not be found on the server.
+        </div>
+      )
+    }
     // var moment = require('moment');
     // moment().format();
     // let date = require('unix-date')
@@ -119,7 +161,8 @@ class Page extends Component {
             <p className="style-info">{timestamp}</p>
             <p className="style-info">Comments: {commentCount}</p>
           </div>
-          <Post body={body} voteScore={voteScore} id={this.props.match.params.id}/>
+          <Post body={body} voteScore={voteScore} id={this.props.match.params.id}
+                title={title} author={author} content={body} category={this.props.match.params.category}/>
           <p className="comments-title">Comments:</p>
           <div>
             {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
@@ -154,6 +197,53 @@ class Page extends Component {
             </div>
           </div>
         </Modal>
+
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={postModalOpen}
+          onRequestClose={this.postModalClose}
+          contentLabel='Modal'
+        >
+          <div className='post-creation-container'>
+            <h3 className='subheader'>
+              Compose A Readable Post!
+            </h3>
+            <div className="post-content-container">
+              <input className="post-input-short" type="text" value={this.props.currentTitle}
+                     onChange={this.handlePostTitleChange} name="title" placeholder="Title"/>
+              <input className="post-input-short" type="text" value={this.props.currentAuthor}
+                     onChange={this.fillerFunction} name="author" placeholder="Author"/>
+              <label className="category-radio-list">
+                Category:
+                <div className="radio-element">
+                  <input type="radio" name="category" value="react"
+                         onChange={this.fillerFunction}
+                         checked={this.props.match.params.category === 'react'}/>
+                  <label>React</label>
+                </div>
+                <div className="radio-element">
+                  <input type="radio" name="category" value="redux"
+                         onChange={this.fillerFunction}
+                         checked={this.props.match.params.category === 'redux'}/>
+                  <label>Redux</label>
+                </div>
+                <div className="radio-element">
+                  <input type="radio" name="category" value="udacity"
+                         onChange={this.fillerFunction}
+                         checked={this.props.match.params.category === 'udacity'}/>
+                  <label>Udacity</label>
+                </div>
+              </label>
+              <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
+                        onChange={this.handlePostContentChange} placeholder="Content"/>
+              <div className="modal-buttons-set">
+                <button className="modal-button" onClick={this.submitPost}>Submit</button>
+                <button className="modal-button" onClick={this.postModalClose}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        </Modal>
       </div>
     );
   }
@@ -164,8 +254,10 @@ function mapStateToProps (fullState) {
   return {
     posts: fullState.posts,
     comments: fullState.comments,
+    postModalOpen: fullState.postModalOpen,
     commentModalOpen: fullState.commentModalOpen,
     commentEdit: fullState.commentEdit,
+    currentTitle: fullState.currentTitle,
     currentAuthor: fullState.currentAuthor,
     currentContent: fullState.currentContent,
     currentId: fullState.currentId,

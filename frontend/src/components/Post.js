@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
-import { votePost, sendPostVote } from '../actions'
+import { votePost, sendPostVote, setTitle, setAuthor, setContent, setCategory,
+         setId, setModal, setEdit } from '../actions'
 import { connect } from 'react-redux'
 
 class Post extends Component {
   vote = (id, decision) => {
     this.props.dispatch(votePost(id, decision))
     this.props.dispatch(sendPostVote(id, decision))
+  }
+
+  edit = () => {
+    this.props.dispatch(setModal(true))
+    this.props.dispatch(setEdit(true))
+    this.props.dispatch(setTitle(this.props.title))
+    this.props.dispatch(setAuthor(this.props.author))
+    this.props.dispatch(setContent(this.props.content))
+    this.props.dispatch(setCategory(this.props.category))
+    this.props.dispatch(setId(this.props.id))
   }
 
   render() {
@@ -24,8 +35,11 @@ class Post extends Component {
           {this.props.body}
         </div>
         <div className="edit-details">
-          <button className="edit-action blue-button">Edit</button>
-          <button className="edit-action red-button">Delete</button>
+          <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
+          <form className="edit-action red-button" action="/">
+            <input type="submit" value="Go to Home page" />
+          </form>
+          <button className="edit-action red-button"><a className="button-link" href="/">Delete</a></button>
         </div>
       </div>
     );
