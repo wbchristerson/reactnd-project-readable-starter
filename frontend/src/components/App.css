@@ -464,9 +464,19 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.middle-bar {
+  margin-left: 0;
+  margin-right: 0;
+  border-bottom: 1px solid #b1c8d6;
+}
+
+.comment-body {
+  margin-top: 5px;
 }
 
 .sort-option {

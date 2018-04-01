@@ -46,7 +46,8 @@ class Comment extends Component {
             <div>Author: {comment.author}</div>
             <div>{comment.timestamp}</div>
           </div>
-          {comment.body}
+          <div className="middle-bar"></div>
+          <div className="comment-body">{comment.body}</div>
         </div>
         <div className="edit-details">
           <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
