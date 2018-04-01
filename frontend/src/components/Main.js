@@ -32,7 +32,6 @@ class Main extends Component {
         }
       }
     })
-    // this.props.dispatch(pageCategory(this.props.category))
     this.props.dispatch(pageCategory(this.props.pathCategory))
   }
 

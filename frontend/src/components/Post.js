@@ -49,17 +49,9 @@ class Post extends Component {
   }
 }
 
-// <form className="edit-action red-button" action="/">
-// <input type="submit" value="Go to Home page" />
-// </form>
-
-
-// posts: fullState.posts,
-// comments: fullState.comments
 function mapStateToProps (fullState) {
   return {
   }
 }
 
 export default connect(mapStateToProps)(Post)
-// export default Post

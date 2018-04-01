@@ -25,7 +25,8 @@ class Page extends Component {
 
   commentModalClose = () => {
     this.props.dispatch(setCommentModal(false))
-    this.props.dispatch(setEditComment(false)) // set false the flag for whether a post is being edited (rather than creating a new post)
+    // set false the flag for whether a comment is being edited (rather than creating a new post)
+    this.props.dispatch(setEditComment(false))
     this.props.dispatch(setAuthor(''))
     this.props.dispatch(setContent(''))
     this.props.dispatch(setId(-1))
@@ -115,11 +116,8 @@ class Page extends Component {
   render() {
     let postModalOpen = this.props.postModalOpen
     let commentModalOpen = this.props.commentModalOpen
-    console.log("Horcrux: ", this.props)
     let matchEntryArr = this.props.posts.filter((post) => post.id === this.props.match.params.id)
-    console.log("Turnip: ", matchEntryArr)
     let post = matchEntryArr.length > 0 ? matchEntryArr[0] : {}
-    console.log("Carrot: ", post)
     let title = post.hasOwnProperty('title') ? post.title : ''
     let author = post.hasOwnProperty('author') ? post.author : ''
     let voteScore = post.hasOwnProperty('voteScore') ? post.voteScore : ''
@@ -135,13 +133,7 @@ class Page extends Component {
         </div>
       )
     }
-    // var moment = require('moment');
-    // moment().format();
-    // let date = require('unix-date')
-    // var t = new Date( 1370001284000 );
-    // var formatted = t.format("dd.mm.yyyy hh:MM:ss");
-    // let timestamp = post.hasOwnProperty('timestamp') ? t : ''
-    // console.log("Timestamp: ", timestamp)
+
     return (
       <div>
         <div className="wrapper">
@@ -260,5 +252,3 @@ function mapStateToProps (fullState) {
 }
 
 export default connect(mapStateToProps)(Page)
-
-// export default Page

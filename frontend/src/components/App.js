@@ -74,4 +74,3 @@ function mapStateToProps (fullState) {
 }
 
 export default connect(mapStateToProps)(App)
-// export default App

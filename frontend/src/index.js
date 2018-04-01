@@ -10,7 +10,6 @@ import reducer from './reducers'
 import { Provider } from 'react-redux'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 const store = createStore(
   reducer,
@@ -18,11 +17,6 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 )
-
-// <BrowserRouter>
-//   <Provider store={store}><App /></Provider>
-// </BrowserRouter>,
-
 
 ReactDOM.render(
   <Provider store={store}>

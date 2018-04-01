@@ -192,8 +192,6 @@ export const sendDeleteComment = (id) => dispatch => (
   .then(() => dispatch(getDeleteComment(id)))
 )
 
-// export const sendDeleteComment
-
 export function getData({ data }) {
   return {
     type: GET_DATA,

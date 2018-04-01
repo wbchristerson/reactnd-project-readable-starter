@@ -64,4 +64,3 @@ function mapStateToProps (fullState) {
 }
 
 export default connect(mapStateToProps)(Item)
-// export default Item

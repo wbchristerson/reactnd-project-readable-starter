@@ -65,4 +65,3 @@ function mapStateToProps (fullState) {
 }
 
 export default connect(mapStateToProps)(Comment)
-// export default Comment
