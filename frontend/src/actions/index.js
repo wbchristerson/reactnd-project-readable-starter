@@ -27,6 +27,7 @@ export const SET_COMMENT_VOTE = 'SET_COMMENT_VOTE'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const SEND_COMMENT_EDIT = 'SEND_COMMENT_EDIT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const SEND_DELETE_COMMENT = 'SEND_DELETE_COMMENT'
 
 export function addPost (post) {
   return {
@@ -157,7 +158,7 @@ export function deleteComment (postId) {
 export function getDelete (postId) {
   return {
     type: SEND_DELETE,
-    postId
+    postId,
   }
 }
 
@@ -171,6 +172,26 @@ export const sendDelete = (id) => dispatch => (
   .then(data => data.json())
   .then(() => dispatch(getDelete(id)))
 )
+
+export function getDeleteComment (postId) {
+  return {
+    type: SEND_DELETE_COMMENT,
+    postId,
+  }
+}
+
+export const sendDeleteComment = (id) => dispatch => (
+  fetch(`http://localhost:3001/comments/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: '314'
+    }
+  })
+  .then(data => data.json())
+  .then(() => dispatch(getDeleteComment(id)))
+)
+
+// export const sendDeleteComment
 
 export function getData({ data }) {
   return {

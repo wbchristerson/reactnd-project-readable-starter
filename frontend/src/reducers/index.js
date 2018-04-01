@@ -27,7 +27,8 @@ import {
   SET_COMMENT_VOTE,
   EDIT_COMMENT,
   SEND_COMMENT_EDIT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  SEND_DELETE_COMMENT
 } from '../actions'
 
 const initialDataState = {
@@ -139,6 +140,8 @@ function updatePost (state = initialDataState, action) {
         })
       }
     case SEND_DELETE:
+      return state
+    case SEND_DELETE_COMMENT:
       return state
     case SET_MODAL:
       return {
