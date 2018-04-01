@@ -99,6 +99,8 @@ class Page extends Component {
 
   // given a date object, convert it to a human-readable time formatted as
   // a string "MM/DD/YYYY HH:MM:SS"
+  // this code is based on the answers given to the stack overflow question here:
+  // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
   toHumanTime = (date) => {
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'September', 'October', 'November', 'December']
