@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import Post from './Post'
 import Comment from './Comment'
 import { connect } from 'react-redux'
-import { fetchComments, setCommentModal, setAuthor, setEditComment, setId, setContent, addComment, sendComment } from '../actions'
+import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
+         setContent, addComment, sendComment, editComment, fetchCommentEdit } from '../actions'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1')
 
@@ -43,8 +44,8 @@ class Page extends Component {
       this.props.dispatch(addComment(obj))
       this.props.dispatch(sendComment(obj))
     } else {
-      // this.props.dispatch(editComment(this.props.currentId, this.props.currentTitle, this.props.currentContent))
-      // this.props.dispatch(fetchCommentEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent))
+      this.props.dispatch(editComment(this.props.currentId, this.props.currentContent, Date.now()))
+      this.props.dispatch(fetchCommentEdit(this.props.currentId, this.props.currentContent, Date.now()))
     }
     this.commentModalClose()
   }

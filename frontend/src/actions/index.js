@@ -24,6 +24,8 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const SEND_COMMENT = 'SEND_COMMENT'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const SET_COMMENT_VOTE = 'SET_COMMENT_VOTE'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const SEND_COMMENT_EDIT = 'SEND_COMMENT_EDIT'
 
 export function addPost (post) {
   return {
@@ -44,6 +46,15 @@ export function editPost (postId, newTitle, newContent, newTimestamp) {
     type: EDIT_POST,
     postId,
     newTitle,
+    newContent,
+    newTimestamp,
+  }
+}
+
+export function editComment(postId, newContent, newTimestamp) {
+  return {
+    type: EDIT_COMMENT,
+    postId,
     newContent,
     newTimestamp,
   }
@@ -279,18 +290,39 @@ export function sendEdit() {
   }
 }
 
-export const fetchEdit = (id, newTitle, content, date) => dispatch => (
+export const fetchEdit = (id, newTitle, newContent, newDate) => dispatch => (
   fetch(`http://localhost:3001/posts/${id}`, {
     method: 'PUT',
     headers: {
       Authorization: '314',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ title: newTitle, body: content, timestamp: date })
+    body: JSON.stringify({ title: newTitle, body: newContent, timestamp: newDate })
   })
   .then(data => data.json())
   .then(data => {
     dispatch(sendEdit())
+  })
+)
+
+export function sendCommentEdit() {
+  return {
+    type: SEND_COMMENT_EDIT,
+  }
+}
+
+export const fetchCommentEdit = (id, newContent, newDate) => dispatch => (
+  fetch(`http://localhost:3001/comments/${id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: '314',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ body: newContent, timestamp: newDate })
+  })
+  .then(data => data.json())
+  .then(data => {
+    dispatch(sendCommentEdit())
   })
 )
 

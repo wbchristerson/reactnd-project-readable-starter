@@ -24,7 +24,9 @@ import {
   ADD_COMMENT,
   SEND_COMMENT,
   VOTE_COMMENT,
-  SET_COMMENT_VOTE
+  SET_COMMENT_VOTE,
+  EDIT_COMMENT,
+  SEND_COMMENT_EDIT
 } from '../actions'
 
 const initialDataState = {
@@ -184,7 +186,23 @@ function updatePost (state = initialDataState, action) {
           }
         })
       }
+    case EDIT_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.postId) {
+            let newComment = comment
+            newComment.body = action.newContent
+            newComment.timestamp = action.newTimestamp
+            return newComment
+          } else {
+            return comment
+          }
+        })
+      }
     case SEND_EDIT:
+      return state
+    case SEND_COMMENT_EDIT:
       return state
     case PAGE_CATEGORY:
       return {

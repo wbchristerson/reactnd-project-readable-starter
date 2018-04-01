@@ -1,11 +1,21 @@
 import React, { Component } from 'react'
-import { voteComment, sendCommentVote } from '../actions'
+import { voteComment, sendCommentVote, setCommentModal, setEditComment, setAuthor, setContent, setId } from '../actions'
 import { connect } from 'react-redux'
 
 class Comment extends Component {
   vote = (id, decision) => {
     this.props.dispatch(voteComment(id, decision))
     this.props.dispatch(sendCommentVote(id, decision))
+  }
+
+  edit = () => {
+    let commentArr = this.props.comments.filter((comment) => comment.id === this.props.id)
+    let comment = commentArr[0]
+    this.props.dispatch(setCommentModal(true))
+    this.props.dispatch(setEditComment(true))
+    this.props.dispatch(setAuthor(comment.author))
+    this.props.dispatch(setContent(comment.body))
+    this.props.dispatch(setId(this.props.id))
   }
 
   render() {
@@ -32,7 +42,7 @@ class Comment extends Component {
           {comment.body}
         </div>
         <div className="edit-details">
-          <button className="edit-action blue-button">Edit</button>
+          <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
           <button className="edit-action red-button">Delete</button>
         </div>
       </div>
