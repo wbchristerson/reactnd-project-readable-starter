@@ -1,4 +1,4 @@
-# Readable API Server
+# Readable
 
 This project is a forum (content/comment) application in which users may post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. The backend server for storing information was provided by Udacity. I made the rest of the application using `create-react-app` along with React and Redux.
 
