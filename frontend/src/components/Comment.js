@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { voteComment, sendCommentVote, setCommentModal, setEditComment, setAuthor,
-         setContent, setId, deleteComment, sendDeleteComment } from '../actions'
+         setContent, setId, deleteComment, sendDeleteComment, alterCommentCount } from '../actions'
 import { connect } from 'react-redux'
 
 class Comment extends Component {
@@ -22,6 +22,7 @@ class Comment extends Component {
   delete = (id) => {
     this.props.dispatch(deleteComment(id))
     this.props.dispatch(sendDeleteComment(id))
+    this.props.dispatch(alterCommentCount(this.props.parentId, -1))
   }
 
   render() {

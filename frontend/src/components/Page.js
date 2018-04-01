@@ -3,7 +3,8 @@ import Post from './Post'
 import Comment from './Comment'
 import { connect } from 'react-redux'
 import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
-         setContent, addComment, sendComment, editComment, fetchCommentEdit } from '../actions'
+         setContent, addComment, sendComment, editComment, fetchCommentEdit,
+         alterCommentCount} from '../actions'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1')
 
@@ -43,6 +44,7 @@ class Page extends Component {
       };
       this.props.dispatch(addComment(obj))
       this.props.dispatch(sendComment(obj))
+      this.props.dispatch(alterCommentCount(this.props.match.params.id, 1))
     } else {
       this.props.dispatch(editComment(this.props.currentId, this.props.currentContent, Date.now()))
       this.props.dispatch(fetchCommentEdit(this.props.currentId, this.props.currentContent, Date.now()))
@@ -121,7 +123,7 @@ class Page extends Component {
           <p className="comments-title">Comments:</p>
           <div>
             {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
-              <Comment key={comment.id} id={comment.id}/>
+              <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}/>
             ))}
           </div>
           <button onClick={() => this.commentModalOpen()} className="comment-button">
@@ -167,6 +169,7 @@ function mapStateToProps (fullState) {
     currentAuthor: fullState.currentAuthor,
     currentContent: fullState.currentContent,
     currentId: fullState.currentId,
+    commentCount: fullState.commentCount
   }
 }
 

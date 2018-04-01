@@ -28,6 +28,7 @@ export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const SEND_COMMENT_EDIT = 'SEND_COMMENT_EDIT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const SEND_DELETE_COMMENT = 'SEND_DELETE_COMMENT'
+export const ALTER_COMMENT_COUNT = 'ALTER_COMMENT_COUNT'
 
 export function addPost (post) {
   return {
@@ -376,5 +377,13 @@ export function setPath(path) {
   return {
     type: SET_PATH,
     path,
+  }
+}
+
+export function alterCommentCount(postId, alteration) {
+  return {
+    type: ALTER_COMMENT_COUNT,
+    postId,
+    alteration,
   }
 }

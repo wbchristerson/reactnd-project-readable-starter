@@ -28,7 +28,8 @@ import {
   EDIT_COMMENT,
   SEND_COMMENT_EDIT,
   DELETE_COMMENT,
-  SEND_DELETE_COMMENT
+  SEND_DELETE_COMMENT,
+  ALTER_COMMENT_COUNT
 } from '../actions'
 
 const initialDataState = {
@@ -235,6 +236,19 @@ function updatePost (state = initialDataState, action) {
       return {
         ...state,
         comments: action.data
+      }
+    case ALTER_COMMENT_COUNT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post.id === action.postId) {
+            let nextPost = post
+            nextPost.commentCount += action.alteration
+            return nextPost
+          } else {
+            return post
+          }
+        })
       }
     default:
       return state
