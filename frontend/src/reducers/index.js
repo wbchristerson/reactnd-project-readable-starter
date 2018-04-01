@@ -26,7 +26,8 @@ import {
   VOTE_COMMENT,
   SET_COMMENT_VOTE,
   EDIT_COMMENT,
-  SEND_COMMENT_EDIT
+  SEND_COMMENT_EDIT,
+  DELETE_COMMENT
 } from '../actions'
 
 const initialDataState = {
@@ -121,6 +122,19 @@ function updatePost (state = initialDataState, action) {
             let newPost = post
             newPost.deleted = true
             return newPost
+          }
+        })
+      }
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id !== action.postId) {
+            return comment
+          } else {
+            let newComment = comment
+            newComment.deleted = true
+            return newComment
           }
         })
       }

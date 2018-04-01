@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { voteComment, sendCommentVote, setCommentModal, setEditComment, setAuthor, setContent, setId } from '../actions'
+import { voteComment, sendCommentVote, setCommentModal, setEditComment, setAuthor,
+         setContent, setId, deleteComment } from '../actions'
 import { connect } from 'react-redux'
 
 class Comment extends Component {
@@ -16,6 +17,11 @@ class Comment extends Component {
     this.props.dispatch(setAuthor(comment.author))
     this.props.dispatch(setContent(comment.body))
     this.props.dispatch(setId(this.props.id))
+  }
+
+  delete = (id) => {
+    this.props.dispatch(deleteComment(id))
+    // this.props.dispatch(sendDeleteComment(id))
   }
 
   render() {
@@ -43,14 +49,12 @@ class Comment extends Component {
         </div>
         <div className="edit-details">
           <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
-          <button className="edit-action red-button">Delete</button>
+          <button onClick={() => this.delete(this.props.id)} className="edit-action red-button">Delete</button>
         </div>
       </div>
     );
   }
-
 }
-
 
 function mapStateToProps (fullState) {
   return {

@@ -26,6 +26,7 @@ export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const SET_COMMENT_VOTE = 'SET_COMMENT_VOTE'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const SEND_COMMENT_EDIT = 'SEND_COMMENT_EDIT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export function addPost (post) {
   return {
@@ -142,6 +143,13 @@ export function setCategory (category) {
 export function deletePost (postId) {
   return {
     type: DELETE_POST,
+    postId,
+  }
+}
+
+export function deleteComment (postId) {
+  return {
+    type: DELETE_COMMENT,
     postId,
   }
 }
