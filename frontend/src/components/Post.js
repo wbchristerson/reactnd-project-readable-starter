@@ -20,6 +20,7 @@ class Post extends Component {
   }
 
   delete = () => {
+    window.location='/'
     this.props.dispatch(deletePost(this.props.id))
     this.props.dispatch(sendDelete(this.props.id))
   }
