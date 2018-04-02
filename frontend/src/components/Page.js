@@ -103,12 +103,21 @@ class Page extends Component {
   toHumanTime = (date) => {
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
                   'August', 'September', 'October', 'November', 'December']
+    let hours = ('0' + date.getHours()).slice(-2)
+    let halfDay = 'AM'
+    let intHours = parseInt(hours)
+    if (intHours > 12) {
+      intHours -= 12
+      halfDay = 'PM'
+      hours = '' + intHours
+    }
     return months[date.getMonth()] +
           ' ' + ('0' + date.getDate()).slice(-2) +
           ', ' + date.getFullYear() +
-          ',   ' + ('0' + date.getHours()).slice(-2) +
+          ',   ' + hours +
           ':' + ('0' + date.getMinutes()).slice(-2) +
-          ':' + ('0' + date.getSeconds()).slice(-2)
+          ':' + ('0' + date.getSeconds()).slice(-2) +
+          ' ' + halfDay
   }
 
   render() {
