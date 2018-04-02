@@ -434,3 +434,21 @@ button {
   font: 20px Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 400;
 }
+
+.error-to-home {
+  text-align: center;
+  color: blue;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  font: 40px Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+.error-statement {
+  text-align: center;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 100px;
+}

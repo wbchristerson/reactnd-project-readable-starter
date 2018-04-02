@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Post from './Post'
 import Comment from './Comment'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
          setContent, addComment, sendComment, editComment, fetchCommentEdit,
          alterCommentCount, editPost, fetchEdit, setModal, setCategory, setEdit,
@@ -136,7 +137,8 @@ class Page extends Component {
     if ((matchEntryArr.length === 0) || (post.hasOwnProperty('deleted') && post.deleted)) {
       return (
         <div className="wrapper error-page">
-          Error: The page that you requested could not be found on the server.
+          <div className="error-statement">Error: The page that you requested could not be found on the server.</div>
+          <Link className="error-to-home" to="/">Return To The Home Page</Link>
         </div>
       )
     }
