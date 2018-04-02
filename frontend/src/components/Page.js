@@ -19,7 +19,6 @@ class Page extends Component {
   }
 
   commentModalOpen = () => {
-    console.log("Unicorn: ", this.props.commentEdit)
     this.props.dispatch(setCommentModal(true))
   }
 
@@ -33,7 +32,6 @@ class Page extends Component {
   }
 
   postModalOpen = () => {
-    console.log("Phoenix: ", this.props.postEdit)
     this.props.dispatch(setModal(true))
     this.props.dispatch(setCategory(this.props.match.params.category))
   }
@@ -236,7 +234,6 @@ class Page extends Component {
 }
 
 function mapStateToProps (fullState) {
-  console.log("Hallows: ", fullState)
   return {
     posts: fullState.posts,
     comments: fullState.comments,

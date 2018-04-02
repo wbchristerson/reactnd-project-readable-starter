@@ -36,7 +36,6 @@ class Main extends Component {
   }
 
   postModalOpen = () => {
-    console.log("Phoenix: ", this.props.postEdit)
     this.props.dispatch(setModal(true))
     this.props.dispatch(setCategory('react'))
   }

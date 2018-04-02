@@ -1,52 +1,22 @@
-export const ADD_POST = 'ADD_POST'
-export const DELETE_POST = 'DELETE_POST'
-export const EDIT_POST = 'EDIT_POST'
-export const GET_DATA = 'GET_DATA'
-export const SEND_DELETE = 'SEND_DELETE'
-export const SEND_EDIT = 'SEND_EDIT'
-export const SEND_POST = 'SEND_POST'
-export const SET_AUTHOR = 'SET_AUTHOR'
-export const SET_CATEGORY = 'SET_CATEGORY'
-export const SET_CONTENT = 'SET_CONTENT'
-export const SET_EDIT = 'POST_EDIT'
-export const SET_ID = 'SET_ID'
-export const SET_MODAL = 'SET_MODAL'
-export const SET_SORT = 'SET_SORT'
-export const SET_TITLE = 'SET_TITLE'
-export const SET_POST_VOTE = 'SET_POST_VOTE'
-export const SET_PATH = 'SET_PATH'
-export const VOTE_POST = 'VOTE_POST'
-export const PAGE_CATEGORY = 'PAGE_CATEGORY'
-export const GET_COMMENTS = 'GET_COMMENTS'
-export const SET_COMMENT_MODAL = 'SET_COMMENT_MODAL'
-export const SET_EDIT_COMMENT = 'SET_EDIT_COMMENT'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const SEND_COMMENT = 'SEND_COMMENT'
-export const VOTE_COMMENT = 'VOTE_COMMENT'
-export const SET_COMMENT_VOTE = 'SET_COMMENT_VOTE'
-export const EDIT_COMMENT = 'EDIT_COMMENT'
-export const SEND_COMMENT_EDIT = 'SEND_COMMENT_EDIT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const SEND_DELETE_COMMENT = 'SEND_DELETE_COMMENT'
-export const ALTER_COMMENT_COUNT = 'ALTER_COMMENT_COUNT'
+import * as actionTypes from './types'
 
 export function addPost (post) {
   return {
-    type: ADD_POST,
+    type: actionTypes.ADD_POST,
     post,
   }
 }
 
 export function addComment (comment) {
   return {
-    type: ADD_COMMENT,
+    type: actionTypes.ADD_COMMENT,
     comment,
   }
 }
 
 export function editPost (postId, newTitle, newContent, newTimestamp) {
   return {
-    type: EDIT_POST,
+    type: actionTypes.EDIT_POST,
     postId,
     newTitle,
     newContent,
@@ -56,7 +26,7 @@ export function editPost (postId, newTitle, newContent, newTimestamp) {
 
 export function editComment(postId, newContent, newTimestamp) {
   return {
-    type: EDIT_COMMENT,
+    type: actionTypes.EDIT_COMMENT,
     postId,
     newContent,
     newTimestamp,
@@ -65,7 +35,7 @@ export function editComment(postId, newContent, newTimestamp) {
 
 export function votePost (postId, decision) {
   return {
-    type: VOTE_POST,
+    type: actionTypes.VOTE_POST,
     postId,
     decision,
   }
@@ -73,7 +43,7 @@ export function votePost (postId, decision) {
 
 export function voteComment (commentId, decision) {
   return {
-    type: VOTE_COMMENT,
+    type: actionTypes.VOTE_COMMENT,
     commentId,
     decision,
   }
@@ -81,84 +51,84 @@ export function voteComment (commentId, decision) {
 
 export function setModal (status) {
   return {
-    type: SET_MODAL,
+    type: actionTypes.SET_MODAL,
     status,
   }
 }
 
 export function setCommentModal (status) {
   return {
-    type: SET_COMMENT_MODAL,
+    type: actionTypes.SET_COMMENT_MODAL,
     status,
   }
 }
 
 export function setEdit (status) {
   return {
-    type: SET_EDIT,
+    type: actionTypes.SET_EDIT,
     status,
   }
 }
 
 export function setEditComment (status) {
   return {
-    type: SET_EDIT_COMMENT,
+    type: actionTypes.SET_EDIT_COMMENT,
     status,
   }
 }
 
 export function setId (id) {
   return {
-    type: SET_ID,
+    type: actionTypes.SET_ID,
     id,
   }
 }
 
 export function setTitle (title) {
   return {
-    type: SET_TITLE,
+    type: actionTypes.SET_TITLE,
     title,
   }
 }
 
 export function setAuthor (author) {
   return {
-    type: SET_AUTHOR,
+    type: actionTypes.SET_AUTHOR,
     author,
   }
 }
 
 export function setContent (content) {
   return {
-    type: SET_CONTENT,
+    type: actionTypes.SET_CONTENT,
     content,
   }
 }
 
 export function setCategory (category) {
   return {
-    type: SET_CATEGORY,
+    type: actionTypes.SET_CATEGORY,
     category,
   }
 }
 
 export function deletePost (postId) {
   return {
-    type: DELETE_POST,
+    type: actionTypes.DELETE_POST,
     postId,
   }
 }
 
 export function deleteComment (postId) {
   return {
-    type: DELETE_COMMENT,
+    type: actionTypes.DELETE_COMMENT,
     postId,
   }
 }
 
 export function getDelete (postId) {
   return {
-    type: SEND_DELETE,
+    type: actionTypes.SEND_DELETE,
     postId,
   }
 }
@@ -176,7 +146,7 @@ export const sendDelete = (id) => dispatch => (
 
 export function getDeleteComment (postId) {
   return {
-    type: SEND_DELETE_COMMENT,
+    type: actionTypes.SEND_DELETE_COMMENT,
     postId,
   }
 }
@@ -194,7 +164,7 @@ export const sendDeleteComment = (id) => dispatch => (
 
 export function getData({ data }) {
   return {
-    type: GET_DATA,
+    type: actionTypes.GET_DATA,
     data,
   }
 }
@@ -205,14 +175,13 @@ export const fetchData = () => dispatch => (
   })
   .then(data => data.json())
   .then(data => {
-    console.log("Piggy: ", data)
     dispatch(getData({ data }))
   })
 );
 
 export function getComments(data) {
   return {
-    type: GET_COMMENTS,
+    type: actionTypes.GET_COMMENTS,
     data,
   }
 }
@@ -227,7 +196,7 @@ export const fetchComments = (id) => dispatch => (
 
 export function setPost({ post }) {
   return {
-    type: SEND_POST,
+    type: actionTypes.SEND_POST,
     post,
   }
 }
@@ -243,14 +212,13 @@ export const sendData = (post) => dispatch => (
   })
   .then(data => data.json())
   .then(data => {
-    console.log("Goblet Data: ", data)
     dispatch(setPost({ data }))
   })
 );
 
 export function setComment(comment) {
   return {
-    type: SEND_COMMENT,
+    type: actionTypes.SEND_COMMENT,
     comment,
   }
 }
@@ -272,7 +240,7 @@ export const sendComment = (comment) => dispatch => (
 
 export function setPostVote(id, decision) {
   return {
-    type: SET_POST_VOTE,
+    type: actionTypes.SET_POST_VOTE,
     id,
     decision,
   }
@@ -293,7 +261,7 @@ export const sendPostVote = (id, decision) => dispatch => (
 
 export function setCommentVote(id, decision) {
   return {
-    type: SET_COMMENT_VOTE,
+    type: actionTypes.SET_COMMENT_VOTE,
     id,
     decision,
   }
@@ -314,7 +282,7 @@ export const sendCommentVote = (id, decision) => dispatch => (
 
 export function sendEdit() {
   return {
-    type: SEND_EDIT,
+    type: actionTypes.SEND_EDIT,
   }
 }
 
@@ -335,7 +303,7 @@ export const fetchEdit = (id, newTitle, newContent, newDate) => dispatch => (
 
 export function sendCommentEdit() {
   return {
-    type: SEND_COMMENT_EDIT,
+    type: actionTypes.SEND_COMMENT_EDIT,
   }
 }
 
@@ -359,28 +327,28 @@ export const fetchCommentEdit = (id, newContent, newDate) => dispatch => (
  */
 export function setSort(order) {
   return {
-    type: SET_SORT,
+    type: actionTypes.SET_SORT,
     order,
   }
 }
 
 export function pageCategory(category) {
   return {
-    type: PAGE_CATEGORY,
+    type: actionTypes.PAGE_CATEGORY,
     category,
   }
 }
 
 export function setPath(path) {
   return {
-    type: SET_PATH,
+    type: actionTypes.SET_PATH,
     path,
   }
 }
 
 export function alterCommentCount(postId, alteration) {
   return {
-    type: ALTER_COMMENT_COUNT,
+    type: actionTypes.ALTER_COMMENT_COUNT,
     postId,
     alteration,
   }

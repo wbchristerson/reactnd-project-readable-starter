@@ -1,10 +1,4 @@
-import {
-  ADD_POST, VOTE_POST, DELETE_POST, GET_DATA, SEND_POST, SET_POST_VOTE, SET_SORT,
-  SEND_DELETE, SET_MODAL, SET_EDIT, SET_TITLE, SET_AUTHOR, SET_CONTENT, SET_CATEGORY,
-  SET_ID, EDIT_POST, SEND_EDIT, PAGE_CATEGORY, SET_PATH, GET_COMMENTS, SET_COMMENT_MODAL,
-  SET_EDIT_COMMENT, ADD_COMMENT, SEND_COMMENT, VOTE_COMMENT, SET_COMMENT_VOTE, EDIT_COMMENT,
-  SEND_COMMENT_EDIT, DELETE_COMMENT, SEND_DELETE_COMMENT, ALTER_COMMENT_COUNT
-} from '../actions'
+import * as actionTypes from '../actions/types'
 
 const initialDataState = {
   posts: [],
@@ -25,27 +19,26 @@ const initialDataState = {
 
 function updatePost (state = initialDataState, action) {
   switch (action.type) {
-    case ADD_POST:
+    case actionTypes.ADD_POST:
       return {
         ...state,
         posts: state.posts.concat([action.post])
       }
-    case ADD_COMMENT:
+    case actionTypes.ADD_COMMENT:
       return {
         ...state,
         comments: state.comments.concat([action.comment])
       }
-    case GET_DATA:
-      console.log("Azkaban Data: ", action.data)
+    case actionTypes.GET_DATA:
       return {
         ...state,
         posts: state.posts.concat(action.data)
       }
-    case SEND_POST:
+    case actionTypes.SEND_POST:
       return state
-    case SEND_COMMENT:
+    case actionTypes.SEND_COMMENT:
       return state
-    case VOTE_POST:
+    case actionTypes.VOTE_POST:
       let postDecision = 1
       if (action.decision === 'downVote') {
         postDecision = -1
@@ -62,7 +55,7 @@ function updatePost (state = initialDataState, action) {
         ...state,
         posts: postData
       }
-    case VOTE_COMMENT:
+    case actionTypes.VOTE_COMMENT:
       let commentDecision = 1
       if (action.decision === 'downVote') {
         commentDecision = -1
@@ -79,16 +72,16 @@ function updatePost (state = initialDataState, action) {
         ...state,
         comments: commentData
       }
-    case SET_POST_VOTE:
+    case actionTypes.SET_POST_VOTE:
       return state
-    case SET_COMMENT_VOTE:
+    case actionTypes.SET_COMMENT_VOTE:
       return state
-    case SET_SORT:
+    case actionTypes.SET_SORT:
       return {
         ...state,
         sortPosts: action.order,
       }
-    case DELETE_POST:
+    case actionTypes.DELETE_POST:
       return {
         ...state,
         posts: state.posts.map((post) => {
@@ -101,7 +94,7 @@ function updatePost (state = initialDataState, action) {
           }
         })
       }
-    case DELETE_COMMENT:
+    case actionTypes.DELETE_COMMENT:
       return {
         ...state,
         comments: state.comments.map((comment) => {
@@ -114,56 +107,56 @@ function updatePost (state = initialDataState, action) {
           }
         })
       }
-    case SEND_DELETE:
+    case actionTypes.SEND_DELETE:
       return state
-    case SEND_DELETE_COMMENT:
+    case actionTypes.SEND_DELETE_COMMENT:
       return state
-    case SET_MODAL:
+    case actionTypes.SET_MODAL:
       return {
         ...state,
         postModalOpen: action.status,
       }
-    case SET_COMMENT_MODAL:
+    case actionTypes.SET_COMMENT_MODAL:
       return {
         ...state,
         commentModalOpen: action.status,
       }
-    case SET_EDIT:
+    case actionTypes.SET_EDIT:
       return {
         ...state,
         postEdit: action.status,
       }
-    case SET_EDIT_COMMENT:
+    case actionTypes.SET_EDIT_COMMENT:
       return {
         ...state,
         commentEdit: action.status,
       }
-    case SET_TITLE:
+    case actionTypes.SET_TITLE:
       return {
         ...state,
         currentTitle: action.title,
       }
-    case SET_AUTHOR:
+    case actionTypes.SET_AUTHOR:
       return {
         ...state,
         currentAuthor: action.author,
       }
-    case SET_CONTENT:
+    case actionTypes.SET_CONTENT:
       return {
         ...state,
         currentContent: action.content,
       }
-    case SET_CATEGORY:
+    case actionTypes.SET_CATEGORY:
       return {
         ...state,
         currentCategory: action.category,
       }
-    case SET_ID:
+    case actionTypes.SET_ID:
       return {
         ...state,
         currentId: action.id
       }
-    case EDIT_POST:
+    case actionTypes.EDIT_POST:
       return {
         ...state,
         posts: state.posts.map((post) => {
@@ -178,7 +171,7 @@ function updatePost (state = initialDataState, action) {
           }
         })
       }
-    case EDIT_COMMENT:
+    case actionTypes.EDIT_COMMENT:
       return {
         ...state,
         comments: state.comments.map((comment) => {
@@ -192,26 +185,26 @@ function updatePost (state = initialDataState, action) {
           }
         })
       }
-    case SEND_EDIT:
+    case actionTypes.SEND_EDIT:
       return state
-    case SEND_COMMENT_EDIT:
+    case actionTypes.SEND_COMMENT_EDIT:
       return state
-    case PAGE_CATEGORY:
+    case actionTypes.PAGE_CATEGORY:
       return {
         ...state,
         category: action.category
       }
-    case SET_PATH:
+    case actionTypes.SET_PATH:
       return {
         ...state,
         path: action.path
       }
-    case GET_COMMENTS:
+    case actionTypes.GET_COMMENTS:
       return {
         ...state,
         comments: action.data
       }
-    case ALTER_COMMENT_COUNT:
+    case actionTypes.ALTER_COMMENT_COUNT:
       return {
         ...state,
         posts: state.posts.map((post) => {

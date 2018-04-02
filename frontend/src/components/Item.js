@@ -57,9 +57,9 @@ class Item extends Component {
   }
 }
 
-function mapStateToProps (fullState) {
+function mapStateToProps ({path, ...rest}) {
   return {
-    path: fullState.path
+    path,
   }
 }
 

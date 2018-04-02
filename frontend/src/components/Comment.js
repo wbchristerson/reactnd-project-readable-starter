@@ -58,9 +58,9 @@ class Comment extends Component {
   }
 }
 
-function mapStateToProps (fullState) {
+function mapStateToProps ({comments, ...rest}) {
   return {
-    comments: fullState.comments
+    comments,
   }
 }
 

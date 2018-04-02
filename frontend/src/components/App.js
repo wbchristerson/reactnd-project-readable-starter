@@ -65,12 +65,14 @@ class App extends Component {
 
 }
 
-function mapStateToProps (fullState) {
+function mapStateToProps ({posts, comments, category, ...rest}) {
   return {
-    posts: fullState.posts,
-    comments: fullState.comments,
-    category: fullState.category
+    posts,
+    comments,
+    category,
   }
 }
 
+/* use withRouter to pass path updates to pages so that navigation can be done
+   without having to refresh */
 export default withRouter(connect(mapStateToProps)(App))
