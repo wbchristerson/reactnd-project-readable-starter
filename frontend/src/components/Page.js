@@ -105,7 +105,7 @@ class Page extends Component {
                   'August', 'September', 'October', 'November', 'December']
     let hours = ('0' + date.getHours()).slice(-2)
     let halfDay = 'AM'
-    let intHours = parseInt(hours)
+    let intHours = parseInt(hours, 10)
     if (intHours > 12) {
       intHours -= 12
       halfDay = 'PM'
