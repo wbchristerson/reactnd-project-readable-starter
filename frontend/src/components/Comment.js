@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { voteComment, sendCommentVote, setCommentModal, setEditComment, setAuthor,
-         setContent, setId, deleteComment, sendDeleteComment, alterCommentCount } from '../actions'
+  setContent, setId, deleteComment, sendDeleteComment, alterCommentCount } from '../actions'
 import { connect } from 'react-redux'
 
 class Comment extends Component {

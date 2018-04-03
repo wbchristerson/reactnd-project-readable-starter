@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
 import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor,
-         setContent, setCategory, setId, editPost, fetchEdit, pageCategory } from '../actions'
+  setContent, setCategory, setId, editPost, fetchEdit, pageCategory } from '../actions'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
 const uuidv1 = require('uuid/v1')
@@ -162,8 +162,8 @@ class Main extends Component {
         <div className="wrapper all-posts">
           {sortedPosts.map((post) => (
             <Item key={post.id} title={post.title} category={post.category}
-                  author={post.author} commentCount={post.commentCount}
-                  voteScore={post.voteScore} content={post.body} id={post.id}/>
+              author={post.author} commentCount={post.commentCount}
+              voteScore={post.voteScore} content={post.body} id={post.id}/>
           ))}
         </div>
 
@@ -180,32 +180,32 @@ class Main extends Component {
             </h3>
             <div className="post-content-container">
               <input className="post-input-short" type="text" value={this.props.currentTitle}
-                     onChange={this.handleTitleChange} name="title" placeholder="Title"/>
+                onChange={this.handleTitleChange} name="title" placeholder="Title"/>
               <input className="post-input-short" type="text" value={this.props.currentAuthor}
-                     onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
+                onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
               <label className="category-radio-list">
                 Category:
                 <div className="radio-element">
                   <input type="radio" name="category" value="react"
-                         checked={this.props.currentCategory === 'react'}
-                         onChange={this.handleCategoryChange}/>
+                    checked={this.props.currentCategory === 'react'}
+                    onChange={this.handleCategoryChange}/>
                   <label>React</label>
                 </div>
                 <div className="radio-element">
                   <input type="radio" name="category" value="redux"
-                         checked={this.props.currentCategory === 'redux'}
-                         onChange={this.handleCategoryChange}/>
+                    checked={this.props.currentCategory === 'redux'}
+                    onChange={this.handleCategoryChange}/>
                   <label>Redux</label>
                 </div>
                 <div className="radio-element">
                   <input type="radio" name="category" value="udacity"
-                         checked={this.props.currentCategory === 'udacity'}
-                         onChange={this.handleCategoryChange}/>
+                    checked={this.props.currentCategory === 'udacity'}
+                    onChange={this.handleCategoryChange}/>
                   <label>Udacity</label>
                 </div>
               </label>
               <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
-                        onChange={this.handleContentChange} placeholder="Content"/>
+                onChange={this.handleContentChange} placeholder="Content"/>
               <div className="modal-buttons-set">
                 <button className="modal-button" onClick={this.submitPost}>Submit</button>
                 <button className="modal-button" onClick={this.postModalClose}>Cancel</button>

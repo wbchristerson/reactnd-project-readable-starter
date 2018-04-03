@@ -4,9 +4,9 @@ import Comment from './Comment'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
-         setContent, addComment, sendComment, editComment, fetchCommentEdit,
-         alterCommentCount, editPost, fetchEdit, setModal, setCategory, setEdit,
-         setTitle} from '../actions'
+  setContent, addComment, sendComment, editComment, fetchCommentEdit,
+  alterCommentCount, editPost, fetchEdit, setModal, setCategory, setEdit,
+  setTitle} from '../actions'
 import Modal from 'react-modal'
 const uuidv1 = require('uuid/v1')
 
@@ -103,7 +103,7 @@ class Page extends Component {
   // https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
   toHumanTime = (date) => {
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                  'August', 'September', 'October', 'November', 'December']
+      'August', 'September', 'October', 'November', 'December']
     let hours = ('0' + date.getHours()).slice(-2)
     let halfDay = 'AM'
     let intHours = parseInt(hours, 10)
@@ -113,12 +113,12 @@ class Page extends Component {
       hours = '' + intHours
     }
     return months[date.getMonth()] +
-          ' ' + ('0' + date.getDate()).slice(-2) +
-          ', ' + date.getFullYear() +
-          ',   ' + hours +
-          ':' + ('0' + date.getMinutes()).slice(-2) +
-          ':' + ('0' + date.getSeconds()).slice(-2) +
-          ' ' + halfDay
+      ' ' + ('0' + date.getDate()).slice(-2) +
+      ', ' + date.getFullYear() +
+      ',   ' + hours +
+      ':' + ('0' + date.getMinutes()).slice(-2) +
+      ':' + ('0' + date.getSeconds()).slice(-2) +
+      ' ' + halfDay
   }
 
   render() {
@@ -156,12 +156,12 @@ class Page extends Component {
             <p className="style-info">Comments: {commentCount}</p>
           </div>
           <Post body={body} voteScore={voteScore} id={this.props.match.params.id}
-                title={title} author={author} content={body} category={this.props.match.params.category}/>
+            title={title} author={author} content={body} category={this.props.match.params.category}/>
           <p className="comments-title">Comments:</p>
           <div>
             {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
               <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}
-                       humanTime={this.toHumanTime(new Date(comment.timestamp))}/>
+                humanTime={this.toHumanTime(new Date(comment.timestamp))}/>
             ))}
           </div>
           <button onClick={() => this.commentModalOpen()} className="comment-button">
@@ -182,9 +182,9 @@ class Page extends Component {
             </h3>
             <div className="post-content-container">
               <input className="post-input-short" type="text" value={this.props.currentAuthor}
-                     onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
+                onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
               <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
-                        onChange={this.handleContentChange} placeholder="Content"/>
+                onChange={this.handleContentChange} placeholder="Content"/>
               <div className="modal-buttons-set">
                 <button className="modal-button" onClick={this.submitComment}>Submit</button>
                 <button className="modal-button" onClick={this.commentModalClose}>Cancel</button>
@@ -206,32 +206,32 @@ class Page extends Component {
             </h3>
             <div className="post-content-container">
               <input className="post-input-short" type="text" value={this.props.currentTitle}
-                     onChange={this.handlePostTitleChange} name="title" placeholder="Title"/>
+                onChange={this.handlePostTitleChange} name="title" placeholder="Title"/>
               <input className="post-input-short" type="text" value={this.props.currentAuthor}
-                     onChange={this.fillerFunction} name="author" placeholder="Author"/>
+                onChange={this.fillerFunction} name="author" placeholder="Author"/>
               <label className="category-radio-list">
                 Category:
                 <div className="radio-element">
                   <input type="radio" name="category" value="react"
-                         onChange={this.fillerFunction}
-                         checked={this.props.match.params.category === 'react'}/>
+                    onChange={this.fillerFunction}
+                    checked={this.props.match.params.category === 'react'}/>
                   <label>React</label>
                 </div>
                 <div className="radio-element">
                   <input type="radio" name="category" value="redux"
-                         onChange={this.fillerFunction}
-                         checked={this.props.match.params.category === 'redux'}/>
+                    onChange={this.fillerFunction}
+                    checked={this.props.match.params.category === 'redux'}/>
                   <label>Redux</label>
                 </div>
                 <div className="radio-element">
                   <input type="radio" name="category" value="udacity"
-                         onChange={this.fillerFunction}
-                         checked={this.props.match.params.category === 'udacity'}/>
+                    onChange={this.fillerFunction}
+                    checked={this.props.match.params.category === 'udacity'}/>
                   <label>Udacity</label>
                 </div>
               </label>
               <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
-                        onChange={this.handlePostContentChange} placeholder="Content"/>
+                onChange={this.handlePostContentChange} placeholder="Content"/>
               <div className="modal-buttons-set">
                 <button className="modal-button" onClick={this.submitPost}>Submit</button>
                 <button className="modal-button" onClick={this.postModalClose}>Cancel</button>

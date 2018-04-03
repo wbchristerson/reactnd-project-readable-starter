@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { votePost, sendPostVote, deletePost, sendDelete, setModal, setEdit,
-         setTitle, setAuthor, setContent, setCategory, setId, setPath } from '../actions'
+  setTitle, setAuthor, setContent, setCategory, setId, setPath } from '../actions'
 import { connect } from 'react-redux'
 
 class Item extends Component {

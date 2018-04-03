@@ -29,13 +29,13 @@ class App extends Component {
             <nav className="site-nav">
               <div className="trigger">
                 <Link onClick={() => this.props.dispatch(pageCategory(''))}
-                      className={"page-link" + (this.props.category === '' ? ' select-border' : '')} to="/">Home</Link>
+                  className={"page-link" + (this.props.category === '' ? ' select-border' : '')} to="/">Home</Link>
                 <Link onClick={() => this.props.dispatch(pageCategory('react'))}
-                      className={"page-link" + (this.props.category === 'react' ? ' select-border' : '')} to="/react">React</Link>
+                  className={"page-link" + (this.props.category === 'react' ? ' select-border' : '')} to="/react">React</Link>
                 <Link onClick={() => this.props.dispatch(pageCategory('redux'))}
-                      className={"page-link" + (this.props.category === 'redux' ? ' select-border' : '')} to="/redux">Redux</Link>
+                  className={"page-link" + (this.props.category === 'redux' ? ' select-border' : '')} to="/redux">Redux</Link>
                 <Link onClick={() => this.props.dispatch(pageCategory('udacity'))}
-                      className={"page-link" + (this.props.category === 'udacity' ? ' select-border' : '')} to="/udacity">Udacity</Link>
+                  className={"page-link" + (this.props.category === 'udacity' ? ' select-border' : '')} to="/udacity">Udacity</Link>
               </div>
             </nav>
           </div>

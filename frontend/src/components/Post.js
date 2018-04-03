@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { votePost, sendPostVote, setTitle, setAuthor, setContent, setCategory,
-         setId, setModal, setEdit, deletePost, sendDelete } from '../actions'
+  setId, setModal, setEdit, deletePost, sendDelete } from '../actions'
 import { connect } from 'react-redux'
 
 class Post extends Component {
