@@ -59,25 +59,29 @@ class Page extends Component {
   }
 
   submitComment = () => {
-    if (!this.props.commentEdit) {
-      let obj = {
-        author: this.props.currentAuthor,
-        body: this.props.currentContent,
-        deleted: false,
-        id: this.identGenerator(),
-        parentDeleted: false,
-        parentId: this.props.match.params.id,
-        timestamp: Date.now(),
-        voteScore: 1
-      };
-      this.props.dispatch(addComment(obj))
-      this.props.dispatch(sendComment(obj))
-      this.props.dispatch(alterCommentCount(this.props.match.params.id, 1))
+    if (!this.props.currentContent) {
+      alert("Please include content.")
     } else {
-      this.props.dispatch(editComment(this.props.currentId, this.props.currentContent, Date.now()))
-      this.props.dispatch(fetchCommentEdit(this.props.currentId, this.props.currentContent, Date.now()))
+      if (!this.props.commentEdit) {
+        let obj = {
+          author: this.props.currentAuthor,
+          body: this.props.currentContent,
+          deleted: false,
+          id: this.identGenerator(),
+          parentDeleted: false,
+          parentId: this.props.match.params.id,
+          timestamp: Date.now(),
+          voteScore: 1
+        };
+        this.props.dispatch(addComment(obj))
+        this.props.dispatch(sendComment(obj))
+        this.props.dispatch(alterCommentCount(this.props.match.params.id, 1))
+      } else {
+        this.props.dispatch(editComment(this.props.currentId, this.props.currentContent, Date.now()))
+        this.props.dispatch(fetchCommentEdit(this.props.currentId, this.props.currentContent, Date.now()))
+      }
+      this.commentModalClose()
     }
-    this.commentModalClose()
   }
 
   handleAuthorChange = (event) => {
@@ -99,9 +103,15 @@ class Page extends Component {
   }
 
   submitPost = () => {
-    this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
-    this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
-    this.postModalClose()
+    if (!this.props.currentTitle) {
+      alert("Please include a title.")
+    } else if (!this.props.currentContent) {
+      alert("Please include content.")
+    } else {
+      this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+      this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+      this.postModalClose()
+    }
   }
 
   // for form elements that require onChange functions but do not need any
