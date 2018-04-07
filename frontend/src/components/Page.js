@@ -8,7 +8,6 @@ import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
   alterCommentCount, editPost, fetchEdit, setModal, setCategory, setEdit,
   setTitle} from '../actions'
 import Modal from 'react-modal'
-const uuidv1 = require('uuid/v1')
 
 class Page extends Component {
   componentWillMount() {
@@ -46,13 +45,26 @@ class Page extends Component {
     this.props.dispatch(setId(-1))
   }
 
+  /*  The function below was taken from this stack overflow answer regarding generating pseudo-unique identification  codes:
+   *  https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript?page=1&tab=active#tab-top
+   *  It is likewise used in Main.js to generate pseudo-unique identification for posts.
+   */
+  identGenerator = () => {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
+
   submitComment = () => {
     if (!this.props.commentEdit) {
       let obj = {
         author: this.props.currentAuthor,
         body: this.props.currentContent,
         deleted: false,
-        id: uuidv1(),
+        id: this.identGenerator(),
         parentDeleted: false,
         parentId: this.props.match.params.id,
         timestamp: Date.now(),

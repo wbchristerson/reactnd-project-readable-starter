@@ -5,7 +5,6 @@ import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor,
   setContent, setCategory, setId, editPost, fetchEdit, pageCategory } from '../actions'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
-const uuidv1 = require('uuid/v1')
 
 class Main extends Component {
   componentWillMount() {
@@ -50,28 +49,49 @@ class Main extends Component {
     this.props.dispatch(setId(-1))
   }
 
-  submitPost = () => {
-    if (!this.props.postEdit) {
-      let obj = {
-        author: this.props.currentAuthor,
-        body: this.props.currentContent,
-        category: this.props.currentCategory,
-        deleted: false,
-        id: uuidv1(),
-        timestamp: Date.now(),
-        title: this.props.currentTitle,
-        voteScore: 1
-      };
-      this.props.dispatch(addPost({
-        ...obj,
-        commentCount: 0
-      }))
-      this.props.dispatch(sendData(obj))
-    } else {
-      this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
-      this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+  /*  The function below was taken from this stack overflow answer regarding generating pseudo-unique identification  codes:
+   *  https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript?page=1&tab=active#tab-top
+   *  It is likewise used in Page.js to generate pseudo-unique identification for comments.
+   */
+  identGenerator = () => {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
     }
-    this.postModalClose()
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
+
+  submitPost = () => {
+    if (!this.props.currentTitle) {
+      alert("Please include a title.")
+    } else if (!this.props.currentAuthor) {
+      alert("Please include an author.")
+    } else if (!this.props.currentContent) {
+      alert("Please include content.")
+    } else {
+      if (!this.props.postEdit) {
+        let obj = {
+          author: this.props.currentAuthor,
+          body: this.props.currentContent,
+          category: this.props.currentCategory,
+          deleted: false,
+          id: this.identGenerator(),
+          timestamp: Date.now(),
+          title: this.props.currentTitle,
+          voteScore: 1
+        };
+        this.props.dispatch(addPost({
+          ...obj,
+          commentCount: 0
+        }))
+        this.props.dispatch(sendData(obj))
+      } else {
+        this.props.dispatch(editPost(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+        this.props.dispatch(fetchEdit(this.props.currentId, this.props.currentTitle, this.props.currentContent, Date.now()))
+      }
+      this.postModalClose()
+    }
   }
 
   handleTitleChange = (event) => {
