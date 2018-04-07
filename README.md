@@ -24,7 +24,7 @@ Alternatively, follow the instructions below to download to a hard drive:
     - `cd frontend`
     - `npm start`
 
-The page will appear.
+The page will open in the browser.
 
 ## API Server
 
