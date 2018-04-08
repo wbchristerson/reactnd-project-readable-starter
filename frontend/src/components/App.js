@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Route, Link, withRouter, Switch } from 'react-router-dom'
 import './App.css'
 import Main from './Main'
 import Page from './Page'
+import NotFound from './NotFound'
 import { connect } from 'react-redux'
 import { fetchData } from '../actions/postActions'
 import { pageCategory } from '../actions/categoryActions'
@@ -42,23 +43,27 @@ class App extends Component {
           </div>
         </header>
 
-        <Route exact path="/" render={() => (
-          <Main posts={this.props.posts} pathCategory=''/>
-        )}/>
+        <Switch>
+          <Route exact path="/" render={() => (
+            <Main posts={this.props.posts} pathCategory=''/>
+          )}/>
 
-        <Route exact path="/react" render={() => (
-          <Main posts={this.props.posts.filter((post) => post.category === 'react')} pathCategory='react' />
-        )}/>
+          <Route exact path="/react" render={() => (
+            <Main posts={this.props.posts.filter((post) => post.category === 'react')} pathCategory='react' />
+          )}/>
 
-        <Route exact path="/redux" render={() => (
-          <Main posts={this.props.posts.filter((post) => post.category === 'redux')} pathCategory='redux'/>
-        )}/>
+          <Route exact path="/redux" render={() => (
+            <Main posts={this.props.posts.filter((post) => post.category === 'redux')} pathCategory='redux'/>
+          )}/>
 
-        <Route exact path="/udacity" render={() => (
-          <Main posts={this.props.posts.filter((post) => post.category === 'udacity')} pathCategory='udacity'/>
-        )}/>
+          <Route exact path="/udacity" render={() => (
+            <Main posts={this.props.posts.filter((post) => post.category === 'udacity')} pathCategory='udacity'/>
+          )}/>
 
-        <Route exact path={"/:category/:id"} component={Page}/>
+          <Route exact path={"/:category/:id"} component={Page}/>
+
+          <Route path="*" component={NotFound} />
+        </Switch>
 
       </div>
     );

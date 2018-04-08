@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import Post from './Post'
 import Comment from './Comment'
+import NotFound from './NotFound'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { fetchComments, setCommentModal, setEditComment, addComment,
   sendComment, editComment, fetchCommentEdit } from '../actions/commentActions'
 import { setAuthor, setId, setContent, setCategory, setEdit, setTitle } from '../actions/categoryActions'
 import { alterCommentCount, editPost, fetchEdit, setModal } from '../actions/postActions'
-
 import Modal from 'react-modal'
+
 
 class Page extends Component {
   componentWillMount() {
@@ -159,10 +159,7 @@ class Page extends Component {
 
     if ((matchEntryArr.length === 0) || (post.hasOwnProperty('deleted') && post.deleted)) {
       return (
-        <div className="wrapper error-page">
-          <div className="error-statement">Error: The page that you requested could not be found on the server.</div>
-          <Link className="error-to-home" to="/">Return To The Home Page</Link>
-        </div>
+        <NotFound />
       )
     }
 

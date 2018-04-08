@@ -430,17 +430,13 @@ button {
 }
 
 .error-page {
-  margin-top: 40px;
+  margin-top: 20px;
   font: 20px Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 400;
 }
 
 .error-to-home {
-  text-align: center;
   color: blue;
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
   font: 40px Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 400;
 }
@@ -450,5 +446,6 @@ button {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
-  margin-bottom: 100px;
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
