@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Item from './Item'
 import Modal from 'react-modal'
-import { addPost, sendData, setSort, setModal, setEdit, setTitle, setAuthor,
-  setContent, setCategory, setId, editPost, fetchEdit, pageCategory } from '../actions'
+import { addPost, sendData, setSort, setModal, editPost, fetchEdit } from '../actions/postActions'
+import { setEdit, setTitle, setAuthor, setContent, setCategory, setId, pageCategory } from '../actions/categoryActions'
 import { connect } from 'react-redux'
 import sortBy from 'sort-by'
 

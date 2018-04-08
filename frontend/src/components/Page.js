@@ -3,10 +3,11 @@ import Post from './Post'
 import Comment from './Comment'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchComments, setCommentModal, setAuthor, setEditComment, setId,
-  setContent, addComment, sendComment, editComment, fetchCommentEdit,
-  alterCommentCount, editPost, fetchEdit, setModal, setCategory, setEdit,
-  setTitle} from '../actions'
+import { fetchComments, setCommentModal, setEditComment, addComment,
+  sendComment, editComment, fetchCommentEdit } from '../actions/commentActions'
+import { setAuthor, setId, setContent, setCategory, setEdit, setTitle } from '../actions/categoryActions'
+import { alterCommentCount, editPost, fetchEdit, setModal } from '../actions/postActions'
+
 import Modal from 'react-modal'
 
 class Page extends Component {

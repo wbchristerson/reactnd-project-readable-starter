@@ -4,7 +4,8 @@ import './App.css'
 import Main from './Main'
 import Page from './Page'
 import { connect } from 'react-redux'
-import { fetchData, pageCategory } from '../actions'
+import { fetchData } from '../actions/postActions'
+import { pageCategory } from '../actions/categoryActions'
 
 /*
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this

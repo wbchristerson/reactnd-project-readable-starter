@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { voteComment, sendCommentVote, setCommentModal, setEditComment, setAuthor,
-  setContent, setId, deleteComment, sendDeleteComment, alterCommentCount } from '../actions'
+import { voteComment, sendCommentVote, setCommentModal, setEditComment, deleteComment, sendDeleteComment } from '../actions/commentActions'
+import { setAuthor, setContent, setId } from '../actions/categoryActions'
+import { alterCommentCount } from '../actions/postActions'
 import { connect } from 'react-redux'
 
 const Comment = ({ dispatch, id, comments, parentId, humanTime }) => {

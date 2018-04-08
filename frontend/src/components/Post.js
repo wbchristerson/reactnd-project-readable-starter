@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { votePost, sendPostVote, setTitle, setAuthor, setContent, setCategory,
-  setId, setModal, setEdit, deletePost, sendDelete } from '../actions'
+import { votePost, sendPostVote, setModal, deletePost, sendDelete } from '../actions/postActions'
+import { setTitle, setAuthor, setContent, setCategory, setId, setEdit } from '../actions/categoryActions'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Route } from 'react-router-dom'
