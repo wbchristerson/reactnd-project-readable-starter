@@ -38,7 +38,7 @@ function updatePost (state = initialDataState, action) {
       return state
     case actionTypes.SEND_COMMENT:
       return state
-    case actionTypes.VOTE_POST:
+    case actionTypes.VOTE_POST: {
       let postDecision = 1
       if (action.decision === 'downVote') {
         postDecision = -1
@@ -55,7 +55,8 @@ function updatePost (state = initialDataState, action) {
         ...state,
         posts: postData
       }
-    case actionTypes.VOTE_COMMENT:
+    }
+    case actionTypes.VOTE_COMMENT: {
       let commentDecision = 1
       if (action.decision === 'downVote') {
         commentDecision = -1
@@ -72,6 +73,7 @@ function updatePost (state = initialDataState, action) {
         ...state,
         comments: commentData
       }
+    }
     case actionTypes.SET_POST_VOTE:
       return state
     case actionTypes.SET_COMMENT_VOTE:
