@@ -62,7 +62,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 function mapStateToProps ({posts, comments, category, ...rest}) {

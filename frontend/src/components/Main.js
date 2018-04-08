@@ -249,7 +249,7 @@ function mapStateToProps (fullState) {
     currentContent: fullState.currentContent,
     currentCategory: fullState.currentCategory,
     currentId: fullState.currentId,
-    category: fullState.category
+    category: fullState.category,
   }
 }
 

@@ -3,7 +3,7 @@ import { votePost, sendPostVote, setTitle, setAuthor, setContent, setCategory,
   setId, setModal, setEdit, deletePost, sendDelete } from '../actions'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { withRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 const Post = ({ dispatch, title, author, content, category, id, voteScore, body }) => {
   const vote = (id, decision) => {
@@ -21,26 +21,6 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
     dispatch(setId(id))
   }
 
-  const remove = () => {
-    window.location='/'
-    dispatch(deletePost(id))
-    dispatch(sendDelete(id))
-  }
-
-  // const Button = withRouter(({ history }) => (
-  //   <button
-  //     type='button'
-  //     onClick={() => { history.push('/new-location') }}
-  //   >
-  //     Click Me!
-  //   </button>
-  // ))
-
-  // const remove = () => (
-  //   <Route path="/"/>
-  //   history.push('/')
-  // )
-
   return (
     <div className="post-body">
       <div className="vote-display">
@@ -57,12 +37,22 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
       </div>
       <div className="edit-details">
         <button onClick={() => edit()} className="edit-action blue-button">Edit</button>
-        <button onClick={() => remove()} className="edit-action red-button">Delete</button>
+        <Route render={({ history}) => (
+          <button
+            type='button'
+            onClick={() => {
+              dispatch(deletePost(id))
+              dispatch(sendDelete(id))
+              history.push('/')
+            }}
+            className="edit-action red-button"
+          >
+            Delete
+          </button>
+        )} />
       </div>
     </div>
-
   )
-  // <button onClick={withRouter(({history})) => {history.push('/new-location')}} className="edit-action red-button">Delete</button>
 }
 
 
