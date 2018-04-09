@@ -4,6 +4,9 @@ import { votePost, sendPostVote, deletePost, sendDelete, setModal, setPath } fro
 import { setEdit, setTitle, setAuthor, setContent, setCategory, setId } from '../actions/categoryActions'
 import { connect } from 'react-redux'
 
+// import RaisedButton from 'material-ui/RaisedButton'
+// <RaisedButton label="Hello" onClick={() => this.vote(this.props.id, 'upVote')}  />
+
 class Item extends Component {
   vote = (id, decision) => {
     this.props.dispatch(votePost(id, decision))
