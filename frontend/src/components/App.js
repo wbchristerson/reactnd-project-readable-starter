@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { fetchData } from '../actions/postActions'
 import { pageCategory } from '../actions/categoryActions'
 
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 /*
  * Note: The basic layout for the navigation bar was borrowed from another project that I have done. See this
@@ -24,8 +24,6 @@ class App extends Component {
     this.props.dispatch(fetchData());
   }
 
-  // <MuiThemeProvider>
-  // </MuiThemeProvider>
   render() {
     return (
       <div>
@@ -49,7 +47,9 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" render={() => (
-            <Main posts={this.props.posts} pathCategory=''/>
+            <MuiThemeProvider>
+              <Main posts={this.props.posts} pathCategory=''/>
+            </MuiThemeProvider>
           )}/>
 
           <Route exact path="/react" render={() => (

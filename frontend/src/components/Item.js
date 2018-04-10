@@ -4,8 +4,13 @@ import { votePost, sendPostVote, deletePost, sendDelete, setModal, setPath } fro
 import { setEdit, setTitle, setAuthor, setContent, setCategory, setId } from '../actions/categoryActions'
 import { connect } from 'react-redux'
 
-// import RaisedButton from 'material-ui/RaisedButton'
-// <RaisedButton label="Hello" onClick={() => this.vote(this.props.id, 'upVote')}  />
+import RaisedButton from 'material-ui/RaisedButton'
+// import Card from 'material-ui/card/card.js'
+// import Card from 'material-ui/lib/card/card';
+import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card'
+// import CardHeader from 'material-ui/card/cardheader.js'
+// import CardText from 'material-ui/card/cardtext.js';
+
 
 class Item extends Component {
   vote = (id, decision) => {
@@ -13,7 +18,7 @@ class Item extends Component {
     this.props.dispatch(sendPostVote(id, decision))
   }
 
-  delete = (id) => {
+  destroy = (id) => {
     this.props.dispatch(deletePost(id))
     this.props.dispatch(sendDelete(id))
   }
@@ -31,34 +36,51 @@ class Item extends Component {
   render() {
     let link = `/${this.props.category}/${this.props.id}`
     return (
-      <div className="post-body">
-        <div className="vote-display">
-          <div>
-            <button onClick={() => this.vote(this.props.id, 'upVote')} className="like-element blue-button">
-              <i className="fa fa-angle-up"></i>
-            </button>
-            <p className="like-element">{this.props.voteScore}</p>
-            <button onClick={() => this.vote(this.props.id, 'downVote')} className="like-element red-button">
-              <i className="fa fa-angle-down"></i>
-            </button>
-          </div>
-        </div>
-        <Link onClick={() => this.props.dispatch(setPath('/post'))} className="post" to={link}>
-          <div className="post-title">{this.props.title}</div>
-          <div className="post-category">Category: {this.props.category}</div>
-          <div className="post-info-horizontal">
-            <div>Author: {this.props.author}</div>
-            <div>Comments: {this.props.commentCount}</div>
-          </div>
-        </Link>
-        <div className="edit-details">
-          <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
-          <button onClick={() => this.delete(this.props.id)} className="edit-action red-button">Delete</button>
-        </div>
-      </div>
+      <Card>
+        <CardHeader
+          title={this.props.title}
+          subtitle="Subtitle"
+          actAsExpander={true}
+          showExpandableButton={true}
+        />
+        <CardActions>
+          <RaisedButton label="Edit" onClick={() => this.edit()} />
+          <RaisedButton label="Delete" onClick={() => this.destroy(this.props.id)} />
+        </CardActions>
+        <CardText expandable={true}>
+          {this.props.content}
+        </CardText>
+      </Card>
     );
+    // <RaisedButton label="Hello" color="#FF345F" onClick={() => this.vote(this.props.id, 'upVote')}  />
   }
 }
+
+// <div className="post-body">
+//   <div className="vote-display">
+//     <div>
+//       <button onClick={() => this.vote(this.props.id, 'upVote')} className="like-element blue-button">
+//         <i className="fa fa-angle-up"></i>
+//       </button>
+//       <p className="like-element">{this.props.voteScore}</p>
+//       <button onClick={() => this.vote(this.props.id, 'downVote')} className="like-element red-button">
+//         <i className="fa fa-angle-down"></i>
+//       </button>
+//     </div>
+//   </div>
+//   <Link onClick={() => this.props.dispatch(setPath('/post'))} className="post" to={link}>
+//     <div className="post-title">{this.props.title}</div>
+//     <div className="post-category">Category: {this.props.category}</div>
+//     <div className="post-info-horizontal">
+//       <div>Author: {this.props.author}</div>
+//       <div>Comments: {this.props.commentCount}</div>
+//     </div>
+//   </Link>
+//   <div className="edit-details">
+//     <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
+//     <button onClick={() => this.destroy(this.props.id)} className="edit-action red-button">Delete</button>
+//   </div>
+// </div>
 
 function mapStateToProps ({path, ...rest}) {
   return {
