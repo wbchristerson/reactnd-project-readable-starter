@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 // import Card from 'material-ui/card/card.js'
 // import Card from 'material-ui/lib/card/card';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card'
+import { Card, CardHeader, CardText, CardActions, CardTitle } from 'material-ui/Card'
 // import CardHeader from 'material-ui/card/cardheader.js'
 // import CardText from 'material-ui/card/cardtext.js';
 
@@ -35,24 +35,47 @@ class Item extends Component {
 
   render() {
     let link = `/${this.props.category}/${this.props.id}`
+    let authorInfo = "Author: " + this.props.author
+    let commentInfo = "Comments: " + this.props.commentCount.toString()
+    let categoryInfo = "Category: " + this.props.category
     return (
-      <Card>
-        <CardHeader
-          title={this.props.title}
-          subtitle="Subtitle"
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
+      <Card
+        style={{
+          // backgroundColor: '#59f442',
+          background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
+          boxShadow: `1px 3px 1px #9E9E9E`,
+          borderBottom: `1px #000002`,
+          marginBottom: 5
+        }}>
+        <Link onClick={() => this.props.dispatch(setPath('/post'))} to={link}>
+          <CardHeader
+            title={authorInfo}
+            subtitle={commentInfo}
+            style={{
+              marginBottom: 0,
+              paddingBottom: 0,
+            }}
+            // actAsExpander={true}
+            // showExpandableButton={true}
+          />
+          <CardTitle
+            title={this.props.title}
+            subtitle={categoryInfo}
+            style={{
+              marginTop: 0,
+              paddingTop: 0,
+            }}
+          />
+        </Link>
         <CardActions>
           <RaisedButton label="Edit" onClick={() => this.edit()} />
           <RaisedButton label="Delete" onClick={() => this.destroy(this.props.id)} />
         </CardActions>
-        <CardText expandable={true}>
-          {this.props.content}
-        </CardText>
       </Card>
+      // <CardText expandable={true}>
+      //   {this.props.content}
+      // </CardText>
     );
-    // <RaisedButton label="Hello" color="#FF345F" onClick={() => this.vote(this.props.id, 'upVote')}  />
   }
 }
 
