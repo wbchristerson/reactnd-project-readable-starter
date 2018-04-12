@@ -449,3 +449,12 @@ button {
   margin-top: 10px;
   margin-bottom: 40px;
 }
+
+.main-post-info {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .left-info {
+  flex-grow: 3;
+} */

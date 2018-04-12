@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 // import Card from 'material-ui/card/card.js'
 // import Card from 'material-ui/lib/card/card';
 import { Card, CardHeader, CardText, CardActions, CardTitle } from 'material-ui/Card'
-import { Avatar } from 'material-ui/Avatar'
+import {List, ListItem} from 'material-ui/List'
 // import CardHeader from 'material-ui/card/cardheader.js'
 // import CardText from 'material-ui/card/cardtext.js';
 
@@ -46,30 +46,43 @@ class Item extends Component {
           // background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
           background: 'linear-gradient(red, yellow)',
           boxShadow: `1px 3px 1px #9E9E9E`,
-          borderBottom: `1px #000002`,
+          // borderLeft: `1px #000002`,
           marginBottom: 5
         }}>
-        <Link onClick={() => this.props.dispatch(setPath('/post'))} to={link}>
-          <CardHeader
-            title={authorInfo}
-            subtitle={commentInfo}
-            avatar=""
-            style={{
-              marginBottom: 0,
-              paddingBottom: 0,
-            }}
-            // actAsExpander={true}
-            // showExpandableButton={true}
-          />
-          <CardTitle
-            title={this.props.title}
-            subtitle={categoryInfo}
-            style={{
-              marginTop: 0,
-              paddingTop: 0,
-            }}
-          />
-        </Link>
+        <div className="main-post-info">
+          <Link onClick={() => this.props.dispatch(setPath('/post'))} className="left-infto" to={link}>
+            <CardHeader
+              title={authorInfo}
+              subtitle={commentInfo}
+              avatar=""
+              style={{
+                marginBottom: 0,
+                paddingBottom: 0,
+              }}
+              // actAsExpander={true}
+              // showExpandableButton={true}
+            />
+            <CardTitle
+              title={this.props.title}
+              subtitle={categoryInfo}
+              style={{
+                marginTop: 0,
+                paddingTop: 0,
+              }}
+            />
+          </Link>
+          <List>
+            <ListItem>
+              <RaisedButton label="Vote Up" onClick={() => this.vote(this.props.id, 'upVote')} />
+            </ListItem>
+            <ListItem>
+              {this.props.voteScore}
+            </ListItem>
+            <ListItem>
+              <RaisedButton label="Vote Down" onClick={() => this.vote(this.props.id, 'downVote')} />
+            </ListItem>
+          </List>
+        </div>
         <CardActions>
           <RaisedButton label="Edit" onClick={() => this.edit()} />
           <RaisedButton label="Delete" onClick={() => this.destroy(this.props.id)} />
