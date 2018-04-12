@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 // import Card from 'material-ui/card/card.js'
 // import Card from 'material-ui/lib/card/card';
 import { Card, CardHeader, CardText, CardActions, CardTitle } from 'material-ui/Card'
+import { Avatar } from 'material-ui/Avatar'
 // import CardHeader from 'material-ui/card/cardheader.js'
 // import CardText from 'material-ui/card/cardtext.js';
 
@@ -42,7 +43,8 @@ class Item extends Component {
       <Card
         style={{
           // backgroundColor: '#59f442',
-          background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
+          // background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
+          background: 'linear-gradient(red, yellow)',
           boxShadow: `1px 3px 1px #9E9E9E`,
           borderBottom: `1px #000002`,
           marginBottom: 5
@@ -51,6 +53,7 @@ class Item extends Component {
           <CardHeader
             title={authorInfo}
             subtitle={commentInfo}
+            avatar=""
             style={{
               marginBottom: 0,
               paddingBottom: 0,
