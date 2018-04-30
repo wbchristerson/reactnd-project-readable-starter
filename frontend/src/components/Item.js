@@ -11,6 +11,7 @@ import { Card, CardHeader, CardText, CardActions, CardTitle } from 'material-ui/
 import {List, ListItem} from 'material-ui/List'
 // import CardHeader from 'material-ui/card/cardheader.js'
 // import CardText from 'material-ui/card/cardtext.js';
+import Desert from '../images/desert.jpg'
 
 
 class Item extends Component {
@@ -42,11 +43,8 @@ class Item extends Component {
     return (
       <Card
         style={{
-          // backgroundColor: '#59f442',
-          // background: 'linear-gradient(to right bottom, #430089, #82ffa1)',
           background: 'linear-gradient(red, yellow)',
           boxShadow: `1px 3px 1px #9E9E9E`,
-          // borderLeft: `1px #000002`,
           marginBottom: 5
         }}>
         <div className="main-post-info">
@@ -54,13 +52,11 @@ class Item extends Component {
             <CardHeader
               title={authorInfo}
               subtitle={commentInfo}
-              avatar=""
+              avatar={Desert}
               style={{
                 marginBottom: 0,
                 paddingBottom: 0,
               }}
-              // actAsExpander={true}
-              // showExpandableButton={true}
             />
             <CardTitle
               title={this.props.title}
@@ -88,38 +84,9 @@ class Item extends Component {
           <RaisedButton label="Delete" onClick={() => this.destroy(this.props.id)} />
         </CardActions>
       </Card>
-      // <CardText expandable={true}>
-      //   {this.props.content}
-      // </CardText>
     );
   }
 }
-
-// <div className="post-body">
-//   <div className="vote-display">
-//     <div>
-//       <button onClick={() => this.vote(this.props.id, 'upVote')} className="like-element blue-button">
-//         <i className="fa fa-angle-up"></i>
-//       </button>
-//       <p className="like-element">{this.props.voteScore}</p>
-//       <button onClick={() => this.vote(this.props.id, 'downVote')} className="like-element red-button">
-//         <i className="fa fa-angle-down"></i>
-//       </button>
-//     </div>
-//   </div>
-//   <Link onClick={() => this.props.dispatch(setPath('/post'))} className="post" to={link}>
-//     <div className="post-title">{this.props.title}</div>
-//     <div className="post-category">Category: {this.props.category}</div>
-//     <div className="post-info-horizontal">
-//       <div>Author: {this.props.author}</div>
-//       <div>Comments: {this.props.commentCount}</div>
-//     </div>
-//   </Link>
-//   <div className="edit-details">
-//     <button onClick={() => this.edit()} className="edit-action blue-button">Edit</button>
-//     <button onClick={() => this.destroy(this.props.id)} className="edit-action red-button">Delete</button>
-//   </div>
-// </div>
 
 function mapStateToProps ({path, ...rest}) {
   return {
