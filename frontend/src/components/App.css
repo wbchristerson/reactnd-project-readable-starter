@@ -477,6 +477,11 @@ button {
   font-size: 20px;
 }
 
+path:hover {
+  color: #6dd1ed;
+  /* color: green; */
+}
+
 .action-button {
   padding: 8px;
   /* fill: #ff0000; */

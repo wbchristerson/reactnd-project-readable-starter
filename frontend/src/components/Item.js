@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 // import Card from 'material-ui/card/card.js'
 // import Card from 'material-ui/lib/card/card';
-import { Card, CardHeader, CardText, CardActions, CardTitle } from 'material-ui/Card'
-import {List, ListItem} from 'material-ui/List'
+import { Card, CardHeader, CardTitle } from 'material-ui/Card'
+import { List, ListItem } from 'material-ui/List'
 // import CardHeader from 'material-ui/card/cardheader.js'
 // import CardText from 'material-ui/card/cardtext.js';
 import Desert from '../images/desert.jpg' // image credit: Jordon Steranka, Unsplash
