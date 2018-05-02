@@ -14,6 +14,8 @@ import {List, ListItem} from 'material-ui/List'
 import Desert from '../images/desert.jpg' // image credit: Jordon Steranka, Unsplash
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up'
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down'
+import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
+import Delete from 'material-ui/svg-icons/action/delete'
 // import ThumbUp from 'material-ui/svg-icons/action/thumb-up'
 // import ThumbDown from 'material-ui/svg-icons/action/thumb-down'
 
@@ -82,26 +84,24 @@ class Item extends Component {
               />
               <div className="sub-information">
                 <div className="like-section" onClick={(event) => {event.preventDefault()}}>
-                  <KeyboardArrowUp className="arrow" onClick={() => this.vote(this.props.id, 'upVote')}/>
+                  <KeyboardArrowUp onClick={() => this.vote(this.props.id, 'upVote')}/>
                   <div className="score-text">{this.props.voteScore}</div>
-                  <KeyboardArrowDown className="arrow" onClick={() => this.vote(this.props.id, 'downVote')}/>
+                  <KeyboardArrowDown onClick={() => this.vote(this.props.id, 'downVote')}/>
                 </div>
                 <CardTitle
                   title={this.props.title}
                   subtitle={categoryInfo}
                   style={{
                     marginTop: 0,
-                    paddingTop: 0,
                   }}
                 />
               </div>
             </div>
-            <div className="action-buttons">Hi</div>
+            <div>
+              <ModeEdit className="action-button" onClick={(event) => this.editButtonWrapper(event)} />
+              <Delete className="action-button" onClick={(event) => this.destroyButtonWrapper(event, this.props.id)} />
+            </div>
           </div>
-          <CardActions>
-            <RaisedButton label="Edit" onClick={(event) => this.editButtonWrapper(event)} />
-            <RaisedButton label="Delete" onClick={(event) => this.destroyButtonWrapper(event, this.props.id)} />
-          </CardActions>
         </Card>
       </Link>
     );

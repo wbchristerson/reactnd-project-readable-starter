@@ -477,6 +477,11 @@ button {
   font-size: 20px;
 }
 
-.arrow {
-  font-size: 60px;
+.action-button {
+  padding: 8px;
+  /* fill: #ff0000; */
+}
+
+.action-button:hover {
+  fill: '#38d031';
 }
