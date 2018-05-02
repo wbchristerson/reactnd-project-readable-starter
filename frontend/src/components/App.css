@@ -450,11 +450,30 @@ button {
   margin-bottom: 40px;
 }
 
-.main-post-info {
+.all-post-info {
   display: flex;
   flex-direction: row;
 }
 
-/* .left-info {
-  flex-grow: 3;
-} */
+.main-post-info {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.like-section {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.sub-information {
+  display: flex;
+  flex-direction: row;
+}
+
+.score-text {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 40px;
+}
