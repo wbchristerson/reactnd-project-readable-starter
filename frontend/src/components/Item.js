@@ -82,9 +82,9 @@ class Item extends Component {
               />
               <div className="sub-information">
                 <div className="like-section" onClick={(event) => {event.preventDefault()}}>
-                  <KeyboardArrowUp onClick={() => this.vote(this.props.id, 'upVote')}/>
+                  <KeyboardArrowUp className="arrow" onClick={() => this.vote(this.props.id, 'upVote')}/>
                   <div className="score-text">{this.props.voteScore}</div>
-                  <KeyboardArrowDown onClick={() => this.vote(this.props.id, 'downVote')}/>
+                  <KeyboardArrowDown className="arrow" onClick={() => this.vote(this.props.id, 'downVote')}/>
                 </div>
                 <CardTitle
                   title={this.props.title}
