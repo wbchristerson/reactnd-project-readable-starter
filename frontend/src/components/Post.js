@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { votePost, sendPostVote, setModal, deletePost, sendDelete } from '../actions/postActions'
 import { setTitle, setAuthor, setContent, setCategory, setId, setEdit } from '../actions/categoryActions'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import { Route } from 'react-router-dom'
 
 import { Card, CardHeader, CardTitle } from 'material-ui/Card'

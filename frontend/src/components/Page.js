@@ -174,7 +174,8 @@ class Page extends Component {
             <div>
               {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
                 <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}
-                  humanTime={this.toHumanTime(new Date(comment.timestamp))}/>
+                  time={this.toHumanTime(new Date(comment.timestamp))} author={comment.author}
+                  voteScore={comment.voteScore} body={comment.body}/>
               ))}
             </div>
             <button onClick={() => this.commentModalOpen()} className="comment-button">
