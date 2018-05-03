@@ -3,21 +3,14 @@ import { Link } from 'react-router-dom'
 import { votePost, sendPostVote, deletePost, sendDelete, setModal, setPath } from '../actions/postActions'
 import { setEdit, setTitle, setAuthor, setContent, setCategory, setId } from '../actions/categoryActions'
 import { connect } from 'react-redux'
-
 import RaisedButton from 'material-ui/RaisedButton'
-// import Card from 'material-ui/card/card.js'
-// import Card from 'material-ui/lib/card/card';
 import { Card, CardHeader, CardTitle } from 'material-ui/Card'
 import { List, ListItem } from 'material-ui/List'
-// import CardHeader from 'material-ui/card/cardheader.js'
-// import CardText from 'material-ui/card/cardtext.js';
 import Desert from '../images/desert.jpg' // image credit: Jordon Steranka, Unsplash
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up'
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down'
 import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import Delete from 'material-ui/svg-icons/action/delete'
-// import ThumbUp from 'material-ui/svg-icons/action/thumb-up'
-// import ThumbDown from 'material-ui/svg-icons/action/thumb-down'
 
 
 class Item extends Component {

@@ -10,6 +10,7 @@ import Desert from '../images/desert.jpg' // image credit: Jordon Steranka, Unsp
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up'
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down'
 import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
+import Delete from 'material-ui/svg-icons/action/delete'
 
 const Post = ({ dispatch, title, author, content, category, id, voteScore, body }) => {
   const vote = (id, decision) => {
@@ -61,48 +62,53 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
                 }}
               />
             </div>
+            <div>{body}</div>
           </div>
           <div>
             <ModeEdit className="action-button" onClick={() => edit()} />
+            <Route render={({ history}) => (
+              <Delete
+                onClick={() => {
+                  dispatch(deletePost(id))
+                  dispatch(sendDelete(id))
+                  history.push('/')
+                }}
+                className="action-button"
+              />
+            )} />
           </div>
         </div>
       </Card>
-
-
-
-
-
-
-      <div className="vote-display">
-        <button onClick={() => vote(id, 'upVote')} className="like-element blue-button">
-          <i className="fa fa-angle-up"></i>
-        </button>
-        <p className="like-element">{voteScore}</p>
-        <button onClick={() => vote(id, 'downVote')} className="like-element red-button">
-          <i className="fa fa-angle-down"></i>
-        </button>
-      </div>
-      <div className="page-post">
-        {body}
-      </div>
-      <div className="edit-details">
-        <button onClick={() => edit()} className="edit-action blue-button">Edit</button>
-        <Route render={({ history}) => (
-          <button
-            type='button'
-            onClick={() => {
-              dispatch(deletePost(id))
-              dispatch(sendDelete(id))
-              history.push('/')
-            }}
-            className="edit-action red-button"
-          >
-            Delete
-          </button>
-        )} />
-      </div>
     </div>
   )
+  // <div className="vote-display">
+  //   <button onClick={() => vote(id, 'upVote')} className="like-element blue-button">
+  //     <i className="fa fa-angle-up"></i>
+  //   </button>
+  //   <p className="like-element">{voteScore}</p>
+  //   <button onClick={() => vote(id, 'downVote')} className="like-element red-button">
+  //     <i className="fa fa-angle-down"></i>
+  //   </button>
+  // </div>
+  // <div className="page-post">
+  //   {body}
+  // </div>
+  // <div className="edit-details">
+  //   <button onClick={() => edit()} className="edit-action blue-button">Edit</button>
+  //   <Route render={({ history}) => (
+  //     <button
+  //       type='button'
+  //       onClick={() => {
+  //         dispatch(deletePost(id))
+  //         dispatch(sendDelete(id))
+  //         history.push('/')
+  //       }}
+  //       className="edit-action red-button"
+  //     >
+  //       Delete
+  //     </button>
+  //   )} />
+  // </div>
 }
 
 
