@@ -28,11 +28,13 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
     dispatch(setId(id))
   }
 
+  // background: 'linear-gradient(red, yellow)',
+  // background: 'linear-gradient(#9bf442, yellow)',
   return (
     <div className="post-body">
       <Card
         style={{
-          background: 'linear-gradient(red, yellow)',
+          background: 'linear-gradient(#9bf442, #42f4d7)',
           boxShadow: `1px 3px 1px #9E9E9E`,
           marginBottom: 5,
         }}>
@@ -51,7 +53,7 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
               <div className="like-section original-post">
                 <KeyboardArrowUp onClick={() => vote(id, 'upVote')}/>
                 <div className="score-text">{voteScore}</div>
-                <KeyboardArrowDown onClick={() => this.vote(id, 'downVote')}/>
+                <KeyboardArrowDown onClick={() => vote(id, 'downVote')}/>
               </div>
               <CardTitle
                 title={title}

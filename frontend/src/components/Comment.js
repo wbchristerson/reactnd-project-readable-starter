@@ -36,7 +36,7 @@ const Comment = ({ dispatch, id, comments, parentId, time, author, voteScore, bo
   };
 
   return (
-    <div className="post-body comment-width">
+    <div>
       <Card
         style={{
           background: 'linear-gradient(red, yellow)',
@@ -56,9 +56,9 @@ const Comment = ({ dispatch, id, comments, parentId, time, author, voteScore, bo
             />
             <div className="sub-information">
               <div className="like-section original-post">
-                <KeyboardArrowUp onClick={() => vote(id, 'upVote')}/>
+                <KeyboardArrowUp className="vote-arrow" onClick={() => vote(id, 'upVote')}/>
                 <div className="score-text">{voteScore}</div>
-                <KeyboardArrowDown onClick={() => this.vote(id, 'downVote')}/>
+                <KeyboardArrowDown className="vote-arrow" onClick={() => vote(id, 'downVote')}/>
               </div>
               <div className="comment-content">{body}</div>
             </div>

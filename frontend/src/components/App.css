@@ -225,12 +225,6 @@ a {
   margin-top: 20px;
 }
 
-.comment-width {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 .edit-details {
   background: #42f48f;
   width: 15%;
@@ -495,4 +489,9 @@ path:hover {
 .comment-content {
   padding-top: 16px;
   margin-left: 8px;
+  margin-bottom: 32px;
+}
+
+.vote-arrow {
+  cursor: pointer;
 }
