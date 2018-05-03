@@ -49,7 +49,7 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
               }}
             />
             <div className="sub-information">
-              <div className="like-section">
+              <div className="like-section original-post">
                 <KeyboardArrowUp onClick={() => vote(id, 'upVote')}/>
                 <div className="score-text">{voteScore}</div>
                 <KeyboardArrowDown onClick={() => this.vote(id, 'downVote')}/>
@@ -66,6 +66,7 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
                 style={{
                   marginTop: 0,
                   paddingBottom: 8,
+                  paddingLeft: 8,
                 }}
               />
             </div>

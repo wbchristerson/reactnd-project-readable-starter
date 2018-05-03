@@ -87,6 +87,7 @@ class Item extends Component {
                   subtitleColor='black'
                   style={{
                     marginTop: 0,
+                    padding: 16,
                   }}
                 />
               </div>
