@@ -84,6 +84,7 @@ class Item extends Component {
                 <CardTitle
                   title={this.props.title}
                   subtitle={categoryInfo}
+                  subtitleColor='black'
                   style={{
                     marginTop: 0,
                   }}

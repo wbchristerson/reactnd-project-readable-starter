@@ -167,17 +167,9 @@ class Page extends Component {
       <MuiThemeProvider>
         <div>
           <div className="wrapper">
-            <p className="post-title">{title}</p>
-            <div className="vote-score">
-              <p className="style-info">Author: {author}</p>
-              <p className="style-info">Vote Score: {voteScore}</p>
-            </div>
-            <div className="post-info">
-              <p className="style-info">{humanTime}</p>
-              <p className="style-info">Comments: {commentCount}</p>
-            </div>
             <Post body={body} voteScore={voteScore} id={this.props.match.params.id}
-              title={title} author={author} content={body} category={this.props.match.params.category}/>
+              title={title} author={author} content={body} category={this.props.match.params.category}
+              time={humanTime} commentCount={commentCount} />
             <p className="comments-title">Comments:</p>
             <div>
               {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (

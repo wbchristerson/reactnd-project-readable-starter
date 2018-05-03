@@ -11,8 +11,9 @@ import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up'
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down'
 import ModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import Delete from 'material-ui/svg-icons/action/delete'
+import Divider from 'material-ui/Divider'
 
-const Post = ({ dispatch, title, author, content, category, id, voteScore, body }) => {
+const Post = ({ dispatch, title, author, content, category, id, voteScore, body, time, commentCount }) => {
   const vote = (id, decision) => {
     dispatch(votePost(id, decision))
     dispatch(sendPostVote(id, decision))
@@ -28,7 +29,6 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
     dispatch(setId(id))
   }
 
-  // <Delete className="action-button" onClick={() => this.destroyButtonWrapper(event, this.props.id)} />
   return (
     <div className="post-body">
       <Card
@@ -40,8 +40,8 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
         <div className="all-post-info">
           <div className="main-post-info">
             <CardHeader
-              title={author}
-              subtitle={0}
+              title={"Author: " + author}
+              subtitle={"Comments: " + commentCount}
               avatar={Desert}
               style={{
                 marginBottom: 0,
@@ -56,13 +56,21 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
               </div>
               <CardTitle
                 title={title}
-                subtitle={category}
+                subtitle={
+                  <div>
+                    <div>Category: {category}</div>
+                    <div>Last Modified: {time}</div>
+                  </div>
+                }
+                subtitleColor="black"
                 style={{
                   marginTop: 0,
+                  paddingBottom: 8,
                 }}
               />
             </div>
-            <div>{body}</div>
+            <Divider inset={true} style={{backgroundColor: 'black'}}/>
+            <div className="comment-style">{body}</div>
           </div>
           <div>
             <ModeEdit className="action-button" onClick={() => edit()} />
@@ -81,36 +89,7 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body 
       </Card>
     </div>
   )
-  // <div className="vote-display">
-  //   <button onClick={() => vote(id, 'upVote')} className="like-element blue-button">
-  //     <i className="fa fa-angle-up"></i>
-  //   </button>
-  //   <p className="like-element">{voteScore}</p>
-  //   <button onClick={() => vote(id, 'downVote')} className="like-element red-button">
-  //     <i className="fa fa-angle-down"></i>
-  //   </button>
-  // </div>
-  // <div className="page-post">
-  //   {body}
-  // </div>
-  // <div className="edit-details">
-  //   <button onClick={() => edit()} className="edit-action blue-button">Edit</button>
-  //   <Route render={({ history}) => (
-  //     <button
-  //       type='button'
-  //       onClick={() => {
-  //         dispatch(deletePost(id))
-  //         dispatch(sendDelete(id))
-  //         history.push('/')
-  //       }}
-  //       className="edit-action red-button"
-  //     >
-  //       Delete
-  //     </button>
-  //   )} />
-  // </div>
 }
-
 
 function mapStateToProps (fullState) {
   return {
