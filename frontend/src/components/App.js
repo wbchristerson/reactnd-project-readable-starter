@@ -7,7 +7,6 @@ import NotFound from './NotFound'
 import { connect } from 'react-redux'
 import { fetchData } from '../actions/postActions'
 import { pageCategory } from '../actions/categoryActions'
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 /*
@@ -53,15 +52,21 @@ class App extends Component {
           )}/>
 
           <Route exact path="/react" render={() => (
-            <Main posts={this.props.posts.filter((post) => post.category === 'react')} pathCategory='react' />
+            <MuiThemeProvider>
+              <Main posts={this.props.posts.filter((post) => post.category === 'react')} pathCategory='react' />
+            </MuiThemeProvider>
           )}/>
 
           <Route exact path="/redux" render={() => (
-            <Main posts={this.props.posts.filter((post) => post.category === 'redux')} pathCategory='redux'/>
+            <MuiThemeProvider>
+              <Main posts={this.props.posts.filter((post) => post.category === 'redux')} pathCategory='redux'/>
+            </MuiThemeProvider>
           )}/>
 
           <Route exact path="/udacity" render={() => (
-            <Main posts={this.props.posts.filter((post) => post.category === 'udacity')} pathCategory='udacity'/>
+            <MuiThemeProvider>
+              <Main posts={this.props.posts.filter((post) => post.category === 'udacity')} pathCategory='udacity'/>
+            </MuiThemeProvider>
           )}/>
 
           <Route exact path={"/:category/:id"} component={Page}/>

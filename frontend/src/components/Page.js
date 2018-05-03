@@ -8,7 +8,7 @@ import { fetchComments, setCommentModal, setEditComment, addComment,
 import { setAuthor, setId, setContent, setCategory, setEdit, setTitle } from '../actions/categoryActions'
 import { alterCommentCount, editPost, fetchEdit, setModal } from '../actions/postActions'
 import Modal from 'react-modal'
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 class Page extends Component {
   componentWillMount() {
@@ -164,102 +164,104 @@ class Page extends Component {
     }
 
     return (
-      <div>
-        <div className="wrapper">
-          <p className="post-title">{title}</p>
-          <div className="vote-score">
-            <p className="style-info">Author: {author}</p>
-            <p className="style-info">Vote Score: {voteScore}</p>
+      <MuiThemeProvider>
+        <div>
+          <div className="wrapper">
+            <p className="post-title">{title}</p>
+            <div className="vote-score">
+              <p className="style-info">Author: {author}</p>
+              <p className="style-info">Vote Score: {voteScore}</p>
+            </div>
+            <div className="post-info">
+              <p className="style-info">{humanTime}</p>
+              <p className="style-info">Comments: {commentCount}</p>
+            </div>
+            <Post body={body} voteScore={voteScore} id={this.props.match.params.id}
+              title={title} author={author} content={body} category={this.props.match.params.category}/>
+            <p className="comments-title">Comments:</p>
+            <div>
+              {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
+                <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}
+                  humanTime={this.toHumanTime(new Date(comment.timestamp))}/>
+              ))}
+            </div>
+            <button onClick={() => this.commentModalOpen()} className="comment-button">
+              Add A Comment
+            </button>
           </div>
-          <div className="post-info">
-            <p className="style-info">{humanTime}</p>
-            <p className="style-info">Comments: {commentCount}</p>
-          </div>
-          <Post body={body} voteScore={voteScore} id={this.props.match.params.id}
-            title={title} author={author} content={body} category={this.props.match.params.category}/>
-          <p className="comments-title">Comments:</p>
-          <div>
-            {this.props.comments.filter((comment) => !comment.deleted).map((comment) => (
-              <Comment key={comment.id} id={comment.id} parentId={this.props.match.params.id}
-                humanTime={this.toHumanTime(new Date(comment.timestamp))}/>
-            ))}
-          </div>
-          <button onClick={() => this.commentModalOpen()} className="comment-button">
-            Add A Comment
-          </button>
+
+          <Modal
+            className='modal'
+            overlayClassName='overlay'
+            isOpen={commentModalOpen}
+            onRequestClose={this.commentModalClose}
+            contentLabel='Modal'
+          >
+            <div className='post-creation-container'>
+              <h3 className='subheader'>
+                Compose A Readable Comment!
+              </h3>
+              <div className="post-content-container">
+                <input className="post-input-short" type="text" value={this.props.currentAuthor}
+                  onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
+                <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
+                  onChange={this.handleContentChange} placeholder="Content"/>
+                <div className="modal-buttons-set">
+                  <button className="modal-button" onClick={this.submitComment}>Submit</button>
+                  <button className="modal-button" onClick={this.commentModalClose}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          </Modal>
+
+          <Modal
+            className='modal'
+            overlayClassName='overlay'
+            isOpen={postModalOpen}
+            onRequestClose={this.postModalClose}
+            contentLabel='Modal'
+          >
+            <div className='post-creation-container'>
+              <h3 className='subheader'>
+                Compose A Readable Post!
+              </h3>
+              <div className="post-content-container">
+                <input className="post-input-short" type="text" value={this.props.currentTitle}
+                  onChange={this.handlePostTitleChange} name="title" placeholder="Title"/>
+                <input className="post-input-short" type="text" value={this.props.currentAuthor}
+                  onChange={this.fillerFunction} name="author" placeholder="Author"/>
+                <label className="category-radio-list">
+                  Category:
+                  <div className="radio-element">
+                    <input type="radio" name="category" value="react"
+                      onChange={this.fillerFunction}
+                      checked={this.props.match.params.category === 'react'}/>
+                    <label>React</label>
+                  </div>
+                  <div className="radio-element">
+                    <input type="radio" name="category" value="redux"
+                      onChange={this.fillerFunction}
+                      checked={this.props.match.params.category === 'redux'}/>
+                    <label>Redux</label>
+                  </div>
+                  <div className="radio-element">
+                    <input type="radio" name="category" value="udacity"
+                      onChange={this.fillerFunction}
+                      checked={this.props.match.params.category === 'udacity'}/>
+                    <label>Udacity</label>
+                  </div>
+                </label>
+                <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
+                  onChange={this.handlePostContentChange} placeholder="Content"/>
+                <div className="modal-buttons-set">
+                  <button className="modal-button" onClick={this.submitPost}>Submit</button>
+                  <button className="modal-button" onClick={this.postModalClose}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          </Modal>
         </div>
-
-        <Modal
-          className='modal'
-          overlayClassName='overlay'
-          isOpen={commentModalOpen}
-          onRequestClose={this.commentModalClose}
-          contentLabel='Modal'
-        >
-          <div className='post-creation-container'>
-            <h3 className='subheader'>
-              Compose A Readable Comment!
-            </h3>
-            <div className="post-content-container">
-              <input className="post-input-short" type="text" value={this.props.currentAuthor}
-                onChange={this.handleAuthorChange} name="author" placeholder="Author"/>
-              <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
-                onChange={this.handleContentChange} placeholder="Content"/>
-              <div className="modal-buttons-set">
-                <button className="modal-button" onClick={this.submitComment}>Submit</button>
-                <button className="modal-button" onClick={this.commentModalClose}>Cancel</button>
-              </div>
-            </div>
-          </div>
-        </Modal>
-
-        <Modal
-          className='modal'
-          overlayClassName='overlay'
-          isOpen={postModalOpen}
-          onRequestClose={this.postModalClose}
-          contentLabel='Modal'
-        >
-          <div className='post-creation-container'>
-            <h3 className='subheader'>
-              Compose A Readable Post!
-            </h3>
-            <div className="post-content-container">
-              <input className="post-input-short" type="text" value={this.props.currentTitle}
-                onChange={this.handlePostTitleChange} name="title" placeholder="Title"/>
-              <input className="post-input-short" type="text" value={this.props.currentAuthor}
-                onChange={this.fillerFunction} name="author" placeholder="Author"/>
-              <label className="category-radio-list">
-                Category:
-                <div className="radio-element">
-                  <input type="radio" name="category" value="react"
-                    onChange={this.fillerFunction}
-                    checked={this.props.match.params.category === 'react'}/>
-                  <label>React</label>
-                </div>
-                <div className="radio-element">
-                  <input type="radio" name="category" value="redux"
-                    onChange={this.fillerFunction}
-                    checked={this.props.match.params.category === 'redux'}/>
-                  <label>Redux</label>
-                </div>
-                <div className="radio-element">
-                  <input type="radio" name="category" value="udacity"
-                    onChange={this.fillerFunction}
-                    checked={this.props.match.params.category === 'udacity'}/>
-                  <label>Udacity</label>
-                </div>
-              </label>
-              <textarea className="content-input" rows="12" cols="50" value={this.props.currentContent}
-                onChange={this.handlePostContentChange} placeholder="Content"/>
-              <div className="modal-buttons-set">
-                <button className="modal-button" onClick={this.submitPost}>Submit</button>
-                <button className="modal-button" onClick={this.postModalClose}>Cancel</button>
-              </div>
-            </div>
-          </div>
-        </Modal>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
