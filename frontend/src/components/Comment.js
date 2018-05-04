@@ -1,5 +1,6 @@
 import React from 'react'
-import { voteComment, sendCommentVote, setCommentModal, setEditComment, deleteComment, sendDeleteComment } from '../actions/commentActions'
+import { voteComment, sendCommentVote, setCommentModal, setEditComment,
+  deleteComment, sendDeleteComment } from '../actions/commentActions'
 import { setAuthor, setContent, setId } from '../actions/categoryActions'
 import { alterCommentCount } from '../actions/postActions'
 import { connect } from 'react-redux'
@@ -77,39 +78,8 @@ const Comment = ({ dispatch, id, comments, parentId, time, author, voteScore, bo
           </div>
         </div>
       </Card>
-
-
-
-
-
-
-
-
     </div>
   );
-  // <div className="vote-display">
-  //   <div>
-  //     <button onClick={() => vote(id, 'upVote')} className="like-element blue-button">
-  //       <i className="fa fa-angle-up"></i>
-  //     </button>
-  //     <p className="like-element">{comment.voteScore}</p>
-  //     <button onClick={() => vote(id, 'downVote')} className="like-element red-button">
-  //       <i className="fa fa-angle-down"></i>
-  //     </button>
-  //   </div>
-  // </div>
-  // <div className="page-post">
-  //   <div className="post-info-horizontal">
-  //     <div>Author: {comment.author}</div>
-  //     <div>Latest Update: {humanTime}</div>
-  //   </div>
-  //   <div className="middle-bar"></div>
-  //   <div className="comment-body">{comment.body}</div>
-  // </div>
-  // <div className="edit-details">
-  //   <button onClick={() => edit()} className="edit-action blue-button">Edit</button>
-  //   <button onClick={() => remove(id)} className="edit-action red-button">Delete</button>
-  // </div>
 }
 
 
