@@ -28,8 +28,6 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
     dispatch(setId(id))
   }
 
-  // background: 'linear-gradient(red, yellow)',
-  // background: 'linear-gradient(#9bf442, yellow)',
   return (
     <div className="post-body">
       <Card
