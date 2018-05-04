@@ -34,7 +34,7 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
     <div className="post-body">
       <Card
         style={{
-          background: 'linear-gradient(#9bf442, #42f4d7)',
+          background: 'linear-gradient(red, yellow)',
           boxShadow: `1px 3px 1px #9E9E9E`,
           marginBottom: 5,
         }}>

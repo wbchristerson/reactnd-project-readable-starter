@@ -39,7 +39,7 @@ const Comment = ({ dispatch, id, comments, parentId, time, author, voteScore, bo
     <div>
       <Card
         style={{
-          background: 'linear-gradient(red, yellow)',
+          background: 'linear-gradient(#9bf442, #42f4d7)',
           boxShadow: `1px 3px 1px #9E9E9E`,
           marginBottom: 5,
         }}>
