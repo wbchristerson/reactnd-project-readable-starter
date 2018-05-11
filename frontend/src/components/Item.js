@@ -72,6 +72,8 @@ class Item extends Component {
                   marginBottom: 0,
                   paddingBottom: 0,
                 }}
+                titleColor={'#e0da84'}
+                subtitleColor={'#e0da84'}
               />
               <div className="sub-information">
                 <div className="like-section" onClick={(event) => {event.preventDefault()}}>

@@ -42,6 +42,8 @@ const Post = ({ dispatch, title, author, content, category, id, voteScore, body,
               title={"Author: " + author}
               subtitle={"Comments: " + commentCount}
               avatar={Desert}
+              titleColor={'#e0da84'}
+              subtitleColor={'#e0da84'}
               style={{
                 marginBottom: 0,
                 paddingBottom: 0,
