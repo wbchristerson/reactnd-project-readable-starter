@@ -69,8 +69,7 @@ const Comment = ({ dispatch, id, comments, parentId, time, author, voteScore, bo
             <Route render={({ history}) => (
               <Delete
                 onClick={() => {
-                  dispatch(remove(id))
-                  history.push('/')
+                  remove(id)
                 }}
                 className="action-button"
               />
